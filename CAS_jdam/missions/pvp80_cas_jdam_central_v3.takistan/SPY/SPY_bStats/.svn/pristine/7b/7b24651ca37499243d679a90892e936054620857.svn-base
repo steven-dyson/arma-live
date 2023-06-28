@@ -1,0 +1,38 @@
+/***************************************************************************
+Flag Touch Client
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+private ["_name", "_uid", "_pos", "_type", "_score", "_playerSV", "_currentScore", "_addScore"];
+
+_name = (_this select 0);
+_uid = (_this select 1);
+_pos = (_this select 2);
+_type = (_this select 3);
+_score = (_this select 4);
+
+_playerSV = (format ["SPY_bStats_%1", _uid]);
+
+// CURRENT SCORES
+_currentScore = (SPY_container getVariable _playerSV);
+
+// ADD SCORE
+_addScore = ((_currentScore select 1) + _score);
+
+// SET NEW SCORE
+_currentScore set [1, _addScore];
+
+// BROADCAST
+SPY_container setVariable [_playerSV, _currentScore, true];
+
+// FORMAT/ SEND A2U INFO
+// mission score
+//[(format ["bstats_ctf_flagtouch (%1, %2, %3, %4)", (str _uid), time, (str _type), _score, (str (str _pos))])] call uplink_exec;
+
+// PLAYER MESSAGE
+if ((SPY_bStats_msgsEnabled)) then {
+
+	_null = [[5, (format ["%1 %2 the flag (%3 points)", _name, _type, _score]), 0, ["SPY bStats", "Event Log"], false], "SPY_bMessage", true, false, false] call BIS_fnc_MP;
+
+};

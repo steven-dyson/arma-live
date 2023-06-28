@@ -1,0 +1,294 @@
+/***************************************************************************
+Review Kill
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+
+
+/***************************************************************************
+INIT
+****************************************************************************/
+private ["_v", "_k", "_vUID", "_vName", "_vSide", "_vScoreVar", "_vInfo", "_dUnits", "_inVehicle", "_vIsDriver", "_vehicle", "_assists", "_dUnitInfo", "_dUnit", "_dUnitUID", "_dUnitName", "_dUnitSide", "_dUnitScoreVar", "_roadKill", "_vehicleCrew", "_kUID", "_kName", "_kSide", "_kScoreVar", "_ammo", "_kWeapon", "_dWeapon"];
+
+_v = (_this select 0);
+_k = (_this select 1);
+
+// HandleDamage EH fired
+if ((SPY_bStats_victimReady == 1)) then {
+
+	// HandleDamage EH finished
+	waitUntil {SPY_bStats_victimReady == 2};
+
+};
+
+_vUID = (_v getVariable "SPY_id_player" select 0);
+_vName = (_v getVariable "SPY_id_player" select 1);
+_vSide = (_v getVariable "SPY_id_player" select 2);
+
+_vScoreVar = (format ["SPY_bStats_%1", _vUID]);
+
+_vInfo = (_v getVariable "SPY_PLAYER_INFO");
+_dUnits = (_vInfo select 0);
+_inVehicle = (_vInfo select 2);
+_vIsDriver = (_vInfo select 3);
+_vehicle = (_vInfo select 4);
+
+_assists = [];
+/***************************************************************************
+END
+****************************************************************************/
+
+
+
+/***************************************************************************
+DEFINE DAMAGING UNITS
+***************************************************************************/
+{
+
+	_x set [3, ((_x select 0) getVariable "SPY_id_player" select 0)]; // UID
+	_x set [4, ((_x select 0) getVariable "SPY_id_player" select 1)]; // NAME
+	_x set [5, ((_x select 0) getVariable "SPY_id_player" select 2)]; // SIDE
+	_x set [6, (format ["SPY_bStats_%1", ((_x select 0) getVariable "SPY_id_player" select 0)])]; // PLAYER SCORE VARIABLE NAME
+
+} forEach _dUnits;
+
+// DEFINE MAIN DAMAGING UNIT
+_dUnitInfo = (_dUnits select ((count _dUnits) - 1));
+
+_dUnit = (_dUnitInfo select 0);
+_dUnitUID = (_dUnitInfo select 3);
+_dUnitName = (_dUnitInfo select 4);
+_dUnitSide = (_dUnitInfo select 5);
+_dUnitScoreVar = (_dUnitInfo select 6);
+/***************************************************************************
+DEFINE DAMAGING UNITS
+***************************************************************************/
+
+
+
+/***************************************************************************
+DEFINE CORRECT KILLER/ VEHICLE CREW
+****************************************************************************/
+if ((isNull _vehicle)) then {_vehicleCrew = [];} else {_vehicleCrew = (_vehicle getVariable "SPY_VEHICLE_INFO" select 1);};
+
+_roadKill = ([_v] call SPY_detectRK);
+if ((_roadKill select 0)) then {_k = (_roadKill select 1);};
+if (!(_k isKindOf "Man") || ((_inVehicle) && (_k in _vehicleCrew))) then {_k = ([_inVehicle, _k, _vehicle] call SPY_getUnit);};
+
+_kUID = [[_k getVariable "SPY_id_player" select 0], 0, "", [""]] call BIS_fnc_param;
+_kName = [[_k getVariable "SPY_id_player" select 1], 0, "", [""]] call BIS_fnc_param;
+_kSide = [[_k getVariable "SPY_id_player" select 2], 0, _vSide, [WEST]] call BIS_fnc_param;
+_kScoreVar = (format ["SPY_bStats_%1", _kUID]);
+
+// DEBUG
+_null = [1, (format ["PK %1, %2", _k, _v]), "CLIENT", false] spawn SPY_bMessage;
+/***************************************************************************
+END
+****************************************************************************/
+
+
+
+/***************************************************************************
+RESET VARIABLES
+****************************************************************************/
+// _null = [_vUID] spawn SPY_resetInfoPlayer;
+
+// SPY_bStats_radioIndex radioChannelAdd [player];
+
+[] spawn {
+
+	sleep 2;
+
+	if ((!(SPY_SCORE_OPEN)) && (SPY_bStats_sbEnabled) &&  (SPY_bStats_sbOnDeath)) then {
+	
+		_null = [] spawn SPY_checkScore;
+
+		waitUntil {sleep 0.1; (alive player)};
+
+		closeDialog 46;
+	
+	};
+	
+};
+/***************************************************************************
+END
+****************************************************************************/
+	
+	
+	
+/***************************************************************************
+DEATH TYPE CHECKS (W/O WEAPON CHECKS)
+****************************************************************************/
+// Road kill (team kill)
+if ((_roadKill select 0) && (_kSide == _vSide)) exitWith {
+	
+	// [[_kName, _vName, _kUID, _vUID, _kScoreVar, (typeOf _vehicle), 0, (getPos _k), (getPos _v)], "_this spawn SPY_teamKill;", "SERVER"] spawn SPY_iQueueAdd;
+	[[_kName, _vName, _kUID, _vUID, _kScoreVar, (typeOf _vehicle), 0, (getPos _k), (getPos _v)], "_this spawn SPY_teamKill;", "SERVER"] spawn CAS_mpCB;
+	
+	// Start punish system
+	_null = [_kName, _kScoreVar, _kUID, _vName] spawn SPY_punish;
+	
+};
+
+// Road kill (enemy)
+if ((_roadKill select 0)) exitWith {
+	
+	// [[_k, _kUID, _kName, _kScoreVar, _vUID, _vName, _vScoreVar, (getPos _v), (vehicle _k)], "_this spawn SPY_roadKill;", SPY_bStats_delayMsgTime, "SERVER"] spawn SPY_dQueueAdd;
+	[[_k, _kUID, _kName, _kScoreVar, _vUID, _vName, _vScoreVar, (getPos _v), (vehicle _k), _vSide], "_this spawn SPY_roadKill;", "SERVER"] spawn CAS_mpCB;
+	
+};
+
+// Aircraft crash
+if ((_vehicle isKindOf "Air") && (_inVehicle) && (_vIsDriver) && ((!alive _vehicle) || ((damage _vehicle) >= 0.4)) && ((_vUID == _kUID) || (isNull _k) || (_k in _vehicleCrew)) && ((_dUnitUID == _vUID) || (isNull _dUnit) || (_dUnit in _vehicleCrew)) && (!(_vehicle isKindOf "ParachuteBase"))) exitWith {
+
+	// [[_vUID, _vName, _vScoreVar, (getPos _v), _vehicle], "_this call SPY_acCrash;", "SERVER"] call SPY_iQueueAdd;
+	[[_vUID, _vName, _vScoreVar, (getPos _v), _vehicle, _vSide], "SPY_acCrash", false, false] call BIS_fnc_MP;
+	
+	// Start punish system
+	_null = ["AUTO", _vScoreVar, _vUID, _vName] spawn SPY_punish;
+	
+};
+
+// Drowning & suicide check
+if ((_kUID == _vUID) && (_dUnitUID == _vUID) && ((alive _vehicle) || (isNull _vehicle))) exitWith {
+
+	// Was a drowning
+	if (((getOxygenRemaining _v) <= 0)) then {
+	
+		// [[_vUID, _vName, _vScoreVar, (getPos _v)], "_this spawn SPY_drown;", "SERVER"] spawn SPY_iQueueAdd;
+		[[_vUID, _vName, _vScoreVar, (getPos _v), _vSide], "_this spawn SPY_drown;", "SERVER"] spawn CAS_mpCB;
+		
+	// Was a suicide
+	} else {
+	
+		// [[_vUID, _vName, _vScoreVar, (getPos _v)], "_this spawn SPY_suicide;", "SERVER"] spawn SPY_iQueueAdd;
+		[[_vUID, _vName, _vScoreVar, (getPos _v), _vSide], "_this spawn SPY_suicide;", "SERVER"] spawn CAS_mpCB;
+	
+	};
+	
+};
+
+// Player died with no killer or damaging unit
+if (!(_k isKindOf "Man") && (!(_dUnit isKindOf "Man") || (_dUnit == _v))) exitWith {
+
+	[[_vUID, _vName, (getPos _v), _vScoreVar, _vSide], "SPY_death", false, false] call BIS_fnc_MP;
+
+};
+/***************************************************************************
+END
+****************************************************************************/
+
+
+
+/***************************************************************************
+DEATH TYPE CHECKS (WITH WEAPON CHECKS)
+****************************************************************************/
+// TEAM KILL CHECK (INSTANT)
+if ((_kSide == _vSide) && (_k != _v) && (!(_k in _vehicleCrew))) exitWith {
+
+	// RETRIEVE HIT AMMO & WEAPON USED
+	_ammo = [_v, "SPY_PLAYER_INFO", 6] call SPY_getVarValue;
+	_kWeapon = ([_k, _vUID, _kUID, _ammo, 0] call SPY_getWeapon);
+	
+	// SEND DATA TO SERVER
+	// [[_kName, _vName, _kUID, _vUID, _kScoreVar, _kWeapon, (_k distance _v), (getPos _k), (getPos _v)], "_this spawn SPY_teamKill;", "SERVER"] spawn SPY_iQueueAdd;
+	[[_kName, _vName, _kUID, _vUID, _kScoreVar, _kWeapon, (_k distance _v), (getPos _k), (getPos _v)], "_this spawn SPY_teamKill;", "SERVER"] spawn CAS_mpCB;
+	
+	// START PUNISH SYSTEM
+	_null = [_kName, _kScoreVar, _kUID, _vName] spawn SPY_punish;
+	
+};
+
+// TEAM KILL CHECK (DAMAGE)
+if ((_dUnitSide == _vSide) && (_kUID != _vUID) && (!(_dUnit in _vehicleCrew)) && (_dUnitUID != _vUID)) exitWith {
+
+	// RETRIEVE HIT AMMO & WEAPON USED
+	_ammo = [_v, "SPY_PLAYER_INFO", 6] call SPY_getVarValue;
+	_dWeapon = ([_dUnit, _vUID, _dUnitUID, _ammo, 0] call SPY_getWeapon);
+
+	// SEND DATA TO SERVER
+	// [[_dUnitName, _vName, _dUnitUID, _vUID, _dUnitScoreVar, _dWeapon, (_dUnit distance _v), (getPos _dUnit), (getPos _v)], "_this spawn SPY_teamKill;", "SERVER"] spawn SPY_iQueueAdd;
+	[[_dUnitName, _vName, _dUnitUID, _vUID, _dUnitScoreVar, _dWeapon, (_dUnit distance _v), (getPos _dUnit), (getPos _v)], "_this spawn SPY_teamKill;", "SERVER"] spawn CAS_mpCB;
+	
+	// START PUNISH SYSTEM
+	_null = [_dUnitName, _dUnitScoreVar, _dUnitUID, _vName] spawn SPY_punish;
+	
+};
+
+// ENEMY KILL (INSTANT)
+if (!(isNull _k) && (_kUID != _vUID) && (_kSide != _vSide)) exitWith {
+
+	// RETRIEVE HIT AMMO & WEAPON USED
+	_ammo = [_v, "SPY_PLAYER_INFO", 6] call SPY_getVarValue;
+	_kWeapon = ([_k, _vUID, _kUID, _ammo, 0] call SPY_getWeapon);
+
+	// DEFINE ASSIST (DAMAGING UNITS)
+	{
+		
+		if (((_x select 3) != _vUID) && ((_x select 3) != _kUID) && (!(isNull (_x select 0))) && ((_x select 5) != _vSide)) then {
+
+			_assists = (_assists + [_x]);
+
+		};
+	
+	} forEach _dUnits;
+	
+	// DEFINE ASSISTS (CREW)
+	{
+	
+		if (((assignedVehicleRole _x select 0) != "CARGO") && (_x != _k) && (_x != _dUnit)) then {
+		
+			_assists = (_assists + [[_x, -1, (_x getVariable "SPY_id_player" select 0), (_x getVariable "SPY_id_player" select 1), (_x getVariable "SPY_id_player" select 2)]]);
+			
+		};
+	
+	} forEach (crew (vehicle _k));
+	
+	// SEND KILL, DEATH & KILL ASSIST DATA	
+	// [[_k, _kUID, _kName, _kScoreVar, (getPos _k), _vUID, _vName, _vScoreVar, (getPos _v), _kWeapon, (_k distance _v), _assists], "_this spawn SPY_kill;", SPY_bStats_delayMsgTime, "SERVER"] spawn SPY_dQueueAdd;
+	[[_k, _kUID, _kName, _kScoreVar, (getPos _k), _vUID, _vName, _vScoreVar, (getPos _v), _kWeapon, (_k distance _v), _assists, _vSide], "_this spawn SPY_kill;", "SERVER"] spawn CAS_mpCB;
+
+};
+
+// ENEMY KILL CHECK (DAMAGE)
+if ((_kUID == _vUID) && (_dUnitSide != _vSide) && !(isNull _dUnit)) exitWith {
+
+	// RETRIEVE HIT AMMO & WEAPON USED
+	_ammo = [_v, "SPY_PLAYER_INFO", 6] call SPY_getVarValue;
+	_dWeapon = ([_dUnit, _vUID, _dUnitUID, _ammo, 0] call SPY_getWeapon);
+	
+	// DEFINE ASSIST (DAMAGING UNITS)
+	{
+		
+		if (((_x select 3) != _vUID) && ((_x select 3) != _kUID) && (!(isNull (_x select 0))) && ((_x select 5) != _vSide) && ((_x select 3) != _dUnitUID)) then {
+
+			_assists = (_assists + [_x]);
+
+		};
+	
+	} forEach _dUnits;
+	
+	// DEFINE ASSISTS (CREW)
+	{
+	
+		if (((assignedVehicleRole _x select 0) != "CARGO") && (_x != _dUnit)) then {
+		
+			_assists = (_assists + [[_x, -1, (_x getVariable "SPY_id_player" select 0), (_x getVariable "SPY_id_player" select 1), (_x getVariable "SPY_id_player" select 2)]]);
+			
+		};
+	
+	} forEach (crew (vehicle _dUnit));
+	
+	// SEND KILL, DEATH & KILL ASSIST DATA
+	// [[_dUnit, _dUnitUID, _dUnitName, _dUnitScoreVar, (getPos _dUnit), _vUID, _vName, _vScoreVar, (getPos _v), _dWeapon, (_dUnit distance _v), _assists], "_this spawn SPY_kill;", SPY_bStats_delayMsgTime, "SERVER"] spawn SPY_dQueueAdd;
+	[[_dUnit, _dUnitUID, _dUnitName, _dUnitScoreVar, (getPos _dUnit), _vUID, _vName, _vScoreVar, (getPos _v), _dWeapon, (_dUnit distance _v), _assists, _vSide], "_this spawn SPY_kill;", "SERVER"] spawn CAS_mpCB;
+	
+};
+
+// PLAYER DEATH (DEFAULT) %NOTE% Deprecated?
+// [[_vUID, _vName, (getPos _v), _vScoreVar], "_this call SPY_death;", SPY_bStats_delayMsgTime, "SERVER"] spawn SPY_dQueueAdd;
+[[_vUID, _vName, (getPos _v), _vScoreVar, _vSide], "SPY_death", false, false] call BIS_fnc_MP;
+/***************************************************************************
+END
+****************************************************************************/

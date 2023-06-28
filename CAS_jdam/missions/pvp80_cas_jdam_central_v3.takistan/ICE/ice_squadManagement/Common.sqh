@@ -1,0 +1,223 @@
+#define QUOTEME(x) #x
+#define _c_basePath(_file) QUOTEME(ICE\ice_squadManagement\_file)
+//-----------------------------------------------------------------------------
+// ICE project dependent #defines:
+#ifndef __ICE_debug_setVar
+#define __ICE_debug_setVar(_obj,_varName)
+#endif
+//-----------------------------------------------------------------------------
+// dialog
+#define _c_y (safeZoneY + (safeZoneH * 0.00) + _c_controlHgt + (1 * safeZoneH * 0.024))
+#define _c_y2 (_c_y - _c_controlHgt)
+#define _c_x (safeZoneX + ((safeZoneW - _c_w) / 2))
+#define _c_w (safeZoneW * 0.91)
+#define _c_h (safeZoneH - (1 * _c_controlHgt) - (3 * safeZoneH * 0.024)) // leave space for Question HUD box
+
+// grid boxes area
+#define _c_gb_x (_c_x + (0.02 * safeZoneW))
+#define _c_gb_y (_c_y + ((0.01 + 0.06) * safeZoneW))
+#define _c_gb_h (_c_h - ((0.01 + 0.06) * safeZoneW) - (_c_controlHgt * 5))
+#define _c_gb_w (_c_w * 0.31)
+#define _c_gridArrowW (0.039 * safeZoneW)
+#define _c_innerGridW (_c_gb_w - (2 * _c_gridArrowW))
+
+// scrollbar
+#define _c_sb_bw (0.015 * safeZoneW)
+#define _c_sb_bh (0.030 * safeZoneH)
+
+// TODO: add auto validation so that, after editing gridsAcross and gridsDown, ensure last ExpandMacro_GridControlsClasses(nn); has nn=(x*y)-1
+#define _c_gridsAcross 3
+#define _c_gridsDown 2
+#define _c_gridsPerPage (_c_gridsAcross * _c_gridsDown)
+#define _c_rowsPerGrid 10 // although this is scaled down by *0.8, so you get a couple extra rows
+
+// Constants to standardize and help simplify positioning and sizing
+// modifiers
+#define _c_TEXTHGT_MOD 0.76
+
+// (Calculate proportion, then /100 to represent as percentage)
+#define _c_screenRows 34
+#define _c_controlHgt ((safeZoneH * 100 / _c_screenRows) / 100)
+#define _c_textHgt (_c_controlHgt * _c_TEXTHGT_MOD)
+
+#define _c_gridControlHgt (_c_controlHgt * 0.8)
+
+#define _c_mainButtonW (safeZoneW *0.14)
+#define _c_subMenuButtonW (safeZoneW *0.18)
+#define _c_gridCaptionRows 2
+#define _c_totalGridHgt ((_c_gridCaptionRows * _c_controlHgt)+(_c_rowsPerGrid * _c_gridControlHgt))
+#define _c_totalUpperGridHgt (((_c_gridCaptionRows-1) * _c_controlHgt) + (_c_rowsPerGrid * _c_gridControlHgt))
+#define _c_totalGridHgtAndGap (_c_totalGridHgt+(safeZoneH * 0.01))
+#define _c_gb_widthAndGap (_c_gb_w+(safeZoneW * 0.01))
+
+#define _c_ui_background_full _c_basePath(data\ui_background_full.paa)
+#define _c_ui_background_messagebox _c_basePath(data\ui_background_messagebox.paa)
+//-----------------------------------------------------------------------------
+// IDC's
+#define _c_SqdMgt_IDD 385
+
+//#define _c_IDC_Dummy 99 // not used? special dummy idc to workaround RscListNBox idcLeft bug
+#define _c_IDC_CloseButton 100
+#define _c_IDC_NewGroupButton 101
+#define _c_IDC_GridLeftArrow 102
+#define _c_IDC_GridRightArrow 103
+#define _c_IDC_FrameCaption 104
+#define _c_IDC_Flag 105
+#define _c_IDC_CommanderButton 106
+#define _c_IDC_LeaveCommanderButton 107
+#define _c_IDC_CommanderName 108
+#define _c_IDC_RefreshButton 109
+
+#define _c_IDC_messageBoxBackground 110
+#define _c_IDC_messageBoxTitle 111
+#define _c_IDC_messageBoxText 112
+#define _c_IDC_messageBoxCaption 113
+#define _c_IDC_messageBoxEditBox 114
+#define _c_IDC_messageBoxButton 115
+
+#define _c_IDC_slider 116
+#define _c_IDC_scrollUpButton 117
+#define _c_IDC_scrollDownButton 118
+#define _c_IDC_scrollPageUpButton 119
+#define _c_IDC_scrollPageDownButton 120
+#define _c_IDC_verticalScrollBar 121
+#define _c_IDC_verticalScrollThumb 122
+#define _c_IDC_pageNumber 123
+#define _c_IDC_unitInfo 124
+
+#define _c_IDC_RecruitButton 130
+#define _c_IDC_KickButton 131
+#define _c_IDC_SetSLButton 132
+#define _c_IDC_TagPlayerButton 133
+#define _c_IDC_NoOptionsButton 134
+#define _c_IDC_LockGroupButton 135
+#define _c_IDC_SetTeam1Button 136
+#define _c_IDC_SetTeam2Button 137
+#define _c_IDC_SetTeam3Button 138
+#define _c_IDC_UnassignTeamButton 139
+#define _c_IDC_SetTeamLeaderButton 140
+#define _c_IDC_UntagPlayerButton 141
+#define _c_IDC_UnlockGroupButton 142
+#define _c_IDC_IncreaseGroupSizeLimitButton 143
+#define _c_IDC_DecreaseGroupSizeLimitButton 144
+#define _c_IDC_LockFTsButton 145
+#define _c_IDC_UnlockFTsButton 146
+
+// Note: _c_IDC_NoOptionsButton must always be last entry
+#define _c_IDC_AllMenuButtons [\
+	_c_IDC_RecruitButton,\
+	_c_IDC_TagPlayerButton,\
+	_c_IDC_UntagPlayerButton,\
+	_c_IDC_SetTeamLeaderButton,\
+	_c_IDC_SetTeam1Button,\
+	_c_IDC_SetTeam2Button,\
+	_c_IDC_SetTeam3Button,\
+	_c_IDC_UnassignTeamButton,\
+	_c_IDC_SetSLButton,\
+	_c_IDC_LockGroupButton,\
+	_c_IDC_UnlockGroupButton,\
+	_c_IDC_IncreaseGroupSizeLimitButton,\
+	_c_IDC_DecreaseGroupSizeLimitButton,\
+	_c_IDC_LockFTsButton,\
+	_c_IDC_UnlockFTsButton,\
+	_c_IDC_KickButton,\
+	_c_IDC_NoOptionsButton\
+];
+
+#define _c_IDC_BaseValue 2300
+#define _c_IDC_Grid 0
+#define _c_IDC_GridBG 1
+#define _c_IDC_GridCaption 2
+#define _c_IDC_GridJoinLeaveButton 3
+#define _c_IDC_GridLock 4
+#define _c_IDC_GridNameButton 5
+#define _c_IDC_GridFooter 6
+//-----------------------------------------------------------------------------
+// Colours
+#define _c_color_teamRed 0.4,0,0
+#define _c_color_teamBlue 0,0,0.4
+//#define _c_color_teamRed2 0.7,0.1,0
+//#define _c_color_teamBlue2 0,0.2,0.9
+
+/*
+// FT A=green, FT B=blue, FT C=yellow - medium rich
+#define _c_color_fireteamA 0,201/255,100/255
+#define _c_color_fireteamB 94/255,175/255,249/255
+#define _c_color_fireteamC 1,220/255,100/255
+
+// FT A=green, FT B=blue, FT C=yellow - dark rich
+#define _c_color_fireteamA 0,110/255,68/255
+#define _c_color_fireteamB 38/255,80/255,204/255
+#define _c_color_fireteamC 1,195/255,28/255
+*/
+// FT A=green, FT B=blue, FT C=yellow - BIS medium dull
+#define _c_color_fireteamA 102/255,172/255,71/255
+#define _c_color_fireteamB 70/255,156/255,168/255
+#define _c_color_fireteamC 198/255,190/255,82/255
+
+#define _c_color_fireteamA_hex "<t color='#f066AC47'>"
+#define _c_color_fireteamB_hex "<t color='#f0469CA8'>"
+#define _c_color_fireteamC_hex "<t color='#f0C6BE52'>"
+//-----------------------------------------------------------------------------
+#define _c_colorAttribute_clear {0, 0, 0, 0}
+
+#define _c_color_Black 0,0,0
+#define _c_color_White 1,1,1
+
+// additive primaries
+#define _c_color_Red 1,0,0
+#define _c_color_Lime 0,1,0
+#define _c_color_Blue 0,0,1
+
+// subtractive primaries
+#define _c_color_Yellow 1,1,0
+#define _c_color_Fuchsia 1,0,1 // _c_color_Magenta
+#define _c_color_Aqua 0,1,1 // _c_color_Cyan
+
+// shades
+#define _c_color_Maroon 0.5,0,0
+#define _c_color_Green 0,0.5,0
+#define _c_color_Navy 0,0,0.5
+
+#define _c_color_Olive 0.5,0.5,0
+#define _c_color_Purple 0.5,0,0.5
+#define _c_color_Teal 0,0.5,0.5
+
+// grays
+#define _c_color_Gray 0.5,0.5,0.5 // _c_color_DkGray
+#define _c_color_Silver 0.75,0.75,0.75 // _c_color_LtGray
+#define _c_color_LtGray 0.75,0.75,0.75 // _c_color_Silver
+#define _c_color_DkGray 0.5,0.5,0.5 // _c_color_Gray
+
+// 0.1 is darkest (near black) 0.9 is lightest (near white)
+#define _c_color_Gray_1 0.1,0.1,0.1
+#define _c_color_Gray_2 0.2,0.2,0.2
+#define _c_color_Gray_3 0.3,0.3,0.3
+#define _c_color_Gray_4 0.4,0.4,0.4
+#define _c_color_Gray_5 0.5,0.5,0.5
+#define _c_color_Gray_6 0.6,0.6,0.6
+#define _c_color_Gray_7 0.7,0.7,0.7
+#define _c_color_Gray_8 0.8,0.8,0.8
+#define _c_color_Gray_9 0.9,0.9,0.9
+
+#define _c_colorScheme_DialogBackground 36/256, 41/256, 37/256 // A2 Dark grey bg -- 0x29/256, 0x37/256, 0x46/256 // dark blue
+#define _c_colorScheme_DialogText 1,1,1 // _c_color_white
+
+#define _c_colorScheme_WindowBackground 40/256, 51/256, 34/256 // A2 Dark green bg
+//#define _c_colorScheme_WindowBackground 0x4C/256, 0x5E/256, 0x4A/256 // pale dark green
+#define _c_colorScheme_WindowText 1,1,1 // _c_color_white
+
+#define _c_colorScheme_3DControlBackground 40/256, 51/256, 34/256 // A2 Dark green bg
+//#define _c_colorScheme_3DControlBackground 0x7D/256, 0x77/256, 0x66/256 // pale brown grey
+#define _c_colorScheme_3DControlText 1,1,1 // _c_color_white
+
+#define _c_colorScheme_3DControlFocus 0xDD/256, 0xDF/256, 0x82/256 // tan
+#define _c_colorScheme_HighlightBackground 0x99/256, 0x8C/256, 0x58/256 // tan
+#define _c_colorScheme_HighlightText 1,1,1 // _c_color_white
+
+#define _c_colorScheme_CaptionBackground 0x3E/256, 0x74/256, 0x58/256 // dark green
+#define _c_colorScheme_CaptionText 1,1,1 // _c_color_white
+
+#define _c_colorScheme_MenuBackground 0x29/256, 0x37/256, 0x46/256 // dark blue
+
+//#define _c_color_PaleBlue 0.3,0.3,0.7

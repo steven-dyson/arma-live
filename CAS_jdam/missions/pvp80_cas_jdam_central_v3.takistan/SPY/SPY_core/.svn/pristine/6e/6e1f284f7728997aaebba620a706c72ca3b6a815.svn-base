@@ -1,0 +1,57 @@
+/***************************************************************************
+Client Kick
+Created by Spyder
+spyder@armalive.com
+
+_null = [["Server", "Hack Detected"], "_this spawn SPY_clientKick", "player uid"] spawn CAS_mpCB;
+***************************************************************************/
+
+private ["_violator", "_admin", "_kickReason", "kickType"];
+
+_violator = (_this select 0);
+_admin = (_this select 1);
+_kickReason = (_this select 2);
+_kickType = (_this select 3);
+
+// Run on violator
+if ((player in ["_violator"])) then {
+
+	// Enable simulation to false to ensure message is displayed
+	player enableSimulation false;
+
+	// Inform violator of message
+	_null = [(format ["You were %1 by %2 (%3)", _kickType, _admin, _kickReason]), "LOCAL", 20, 0] spawn SPY_bInfoScreen;
+
+	sleep 10;
+
+	// Send player to lobby
+	endMission "END6";
+
+// Run on everyone else
+} else {
+
+	_null = [1, (format ["%1 was %2 by %3 (%4)", (player getVariable "SPY_id_player" select 1), _kickType, _admin, _kickReason]), "LOCAL", false, 0] spawn SPY_bMessage;
+
+	// Run on admin
+	if ((serverCommandAvailable "#kick")) then {
+	
+		switch (_kickType) do {
+	
+			case "kicked": {
+			
+				serverCommand (format ["#kick %1", (player getVariable "SPY_id_player" select 0)]);
+			
+			};
+			
+			case "banned": {
+			
+				serverCommand (format ["#exec ban %1", (player getVariable "SPY_id_player" select 0)]);
+				serverCommand (format ["#kick %1", (player getVariable "SPY_id_player" select 0)]);
+			
+			};
+			
+		};
+	
+	};
+
+};

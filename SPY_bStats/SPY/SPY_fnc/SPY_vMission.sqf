@@ -1,0 +1,41 @@
+/***************************************************************************
+VALIDATE MISSION
+CREATED BY SPYDER
+SPYDER@ARMALIVE.COM
+****************************************************************************/
+
+private ["_bluforCount", "_opforCount", "_validNumbers", "_vMission"];
+
+_bluforCount = 0;
+_opforCount = 0;
+
+{ 
+
+	{
+	
+		// ACTUAL PLAYER, NOT AI
+		if (((getPlayerUID _x) != "")) then {
+		
+			// ADD TO BLUFOR COUNT
+			if ((side _x == WEST)) then {
+			
+				_bluforCount = (_bluforCount + 1);
+			
+			// ADD TO OPFOR COUNT
+			} else {
+			
+				_opforCount = (_opforCount + 1);
+			
+			};
+			
+		};
+		
+	} forEach units _x;
+  
+} forEach allGroups;
+
+if ((_bluforCount < 4) && (_opforCount < 4)) then {_validNumbers = false;} else {_validNumbers = true;};
+
+if ((_validNumbers)) then {_vMission = true;} else {_vMission = false;};
+
+_vMission

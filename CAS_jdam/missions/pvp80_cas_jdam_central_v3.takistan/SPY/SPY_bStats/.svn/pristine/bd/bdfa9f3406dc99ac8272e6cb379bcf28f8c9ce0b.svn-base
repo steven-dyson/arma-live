@@ -1,0 +1,58 @@
+/***************************************************************************
+Damage
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+private ["_type", "_dVarName", "_vUID", "_dUID", "_weapon", "_distance", "_vPos", "_dPos", "_score", "_addScore",  "_currentScore", "_uplink"];
+
+_type = _this select 0;
+_dVarName = _this select 1;
+_vUID = _this select 2;
+_dUID = _this select 3;
+_weapon = _this select 4;
+_distance = _this select 5;
+_vPos = _this select 6;
+_dPos = _this select 7;
+
+// Add score
+switch (_type) do {
+
+	case "damageTeam": {
+	
+		_score = (["damageteam", objNull, 0] call SPY_scoreValue);
+		_addScore = ((SPY_container getVariable _dVarName select 0) + _score);
+		
+		// Send to armalive
+		"armalive" callExtension format ["friendlydmg1;%1;%2;%3;%4;%5;%6;%7;%8",
+
+			_vUID,
+			_dUID,
+			time,
+			_weapon,
+			_score,
+			_distance,
+			_vPos,
+			_dPos
+			
+		];
+		
+	};
+	
+	case "damageCiv": {
+	
+		_score = (["damageciv", objNull, 0] call SPY_scoreValue);
+		_addScore = ((SPY_container getVariable _dVarName select 0) + _score);
+		
+	};
+	
+};
+	
+// All current values in the array
+_currentScore = (SPY_container getVariable _dVarName);
+
+// set increased value in array
+_currentScore set [0, _addScore];
+
+// Broadcast array
+SPY_container setVariable [_dVarName, _currentScore, true];

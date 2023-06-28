@@ -1,0 +1,125 @@
+/***************************************************************************
+Initialize AI
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+
+
+/***************************************************************************
+Init
+****************************************************************************/
+private ["_ai", "_uid", "_array_playerlist"];
+
+_ai = (_this select 0);
+
+_uid = (str round ((getPos _ai select 0) + (random 1000000))); // UID are assigned randomly, mainly for testing and integration with player systems
+_varName = (format ["SPY_bStats_%1", _uid]); // Standard format bStats variable for scoring
+
+_ai enableSimulation false; // Disable simulation while under init, mainly for testing
+/***************************************************************************
+Init
+****************************************************************************/
+
+
+
+/***************************************************************************
+AI Info: 
+[[damaging units info], overall damage, in vehicle, driver of vehicle, vehicle, [shots, [head, torso, arm, leg, vehicle]], killed ammo]
+
+AI Score: 
+[battle score, teamwork score, tk punish points, kills, deaths, suicides, team kills, vehicle kills, kill assists, aircraft crashes, civilian causalities]
+****************************************************************************/
+_ai setVariable ["SPY_id_uid", _uid, true]; // UID variable
+SPY_container setVariable [("SPY_id_" + _uid), [(name _ai), (side _ai), (faction _ai), true], true]; // ID variable
+SPY_container setVariable [_varName, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, (side _ai)], true]; // Standard score variable array; This may be replaced with separate variables
+
+// AI info variable
+_ai setVariable ["SPY_player_info", [[[_ai, 0, 0, _uid, (name _ai), (side _ai)]], 0, !(vehicle _ai isEqualTo _ai), (!(vehicle _ai isEqualTo _ai) && (driver vehicle _ai isEqualTo _ai)), (vehicle _ai), [0, [0, 0, 0, 0, 0]], ""], true];
+_ai setVariable ["SPY_bStats_vehicle", (vehicle _ai), true];
+_ai setVariable ["SPY_bStats_deathState", 0, false];
+
+_null = [_ai] spawn SPY_getLoadout; // Retrieve AI loadout
+/***************************************************************************
+End
+****************************************************************************/
+
+
+
+/***************************************************************************
+Add AI event handlers
+****************************************************************************/
+// Monitors when an AI is killed.
+_rkeh = _ai addEventHandler 
+[
+	"Killed",
+	{
+		_null = [(_this select 0), (_this select 1)] spawn SPY_reviewAIKill;
+	}
+];
+
+// Executes when an AI is hit. Damaging unit is stored with relevant data.
+_hdeh = _ai addEventHandler 
+[
+	"HandleDamage", 
+	{
+		if ((!alive (_this select 0))) exitWith {
+			(_this select 0) removeAllEventHandlers "HandleDamage";
+			(_this select 0) setVariable ["SPY_bStats_deathState", 0, false];
+		}; 
+		
+		_null = [_this, time] spawn SPY_reviewHit; 
+		(_this select 2);
+	}
+];
+
+_gieh = _ai addEventHandler
+[
+	"GetIn",
+	{
+		_ai setVariable ["SPY_bStats_vehicle", (vehicle _ai), true];
+	}
+];
+
+_gieh = _ai addEventHandler
+[
+	"GetOut",
+	{
+		sleep 5;
+		//_ai setVariable ["SPY_bStats_vehicle", (vehicle _ai), true];
+	}
+];
+/***************************************************************************
+Add AI event handlers
+****************************************************************************/
+
+
+
+/***************************************************************************
+Retrieve AI ID/score variables
+****************************************************************************/
+// Determine AI list
+switch (side _ai) do 
+{
+	case west: 
+	{
+		_array_playerList = "SPY_bStats_players_blu";
+	};
+	case east: 
+	{
+		_array_playerList = "SPY_bStats_players_op";
+	};
+};
+
+// Add AI to side specific AI list
+_playerList = (SPY_container getVariable _array_playerList);
+_playerList = (_playerList + [_uid]);
+SPY_container setVariable [_array_playerList, _playerList, true];
+
+// Debug
+_null = [1, (format ["IAI %1, %2", _ai, _uid]), 0, ["SPY Systems", "Debug Log"], false] spawn SPY_bMessage;
+
+_ai enableSimulation true; // Turn AI simulation back on
+/***************************************************************************
+Retrieve AI ID/score variables
+****************************************************************************/

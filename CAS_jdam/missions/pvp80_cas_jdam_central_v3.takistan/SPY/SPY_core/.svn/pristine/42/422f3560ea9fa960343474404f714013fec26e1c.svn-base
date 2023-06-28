@@ -1,0 +1,17 @@
+/***************************************************************************
+SPY Initialization and Compile (Method)
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+private ["_compile", "_uid"];
+
+if ((isDedicated)) then {
+
+	_compile = [] execVM "SPY\SPY_core\SPY_id\SPY_compile.sqf";
+	waitUntil {scriptDone _compile};
+
+};
+
+// Debug
+_null = [1, "(Core) ID initialized *Server*", 0, ["SPY Systems", "Debug Log"], true] spawn SPY_bMessage;

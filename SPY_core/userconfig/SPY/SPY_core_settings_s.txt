@@ -1,0 +1,19 @@
+/***************************************************************************
+SPY INIT AND COMPILE (METHOD)
+SERVER SIDE SETTINGS
+CREATED BY SPYDER
+SPYDER@ARMALIVE.COM
+
+SETUP:
+["SETTING", SETTING VALUE, BROADCAST BOOLEAN]
+
+USAGE: 
+ONLY MODIFY THE SECOND VALUE UNLESS YOU ARE CREATING YOUR CUSTOM SETTINGS FOR YOUR SCRIPTS
+***************************************************************************/
+
+["SPY_core_allowMissionOverride", false, true], // ALLOW MISSION SETTINGS TO OVERRIDE SERVER SETTINGS WHERE APPLICABLE
+
+["SPY_msg_debug", true, true], // DEBUG MESSAGES
+
+["SPY_connect_idleKick", false, true], // ENABLE AND DISABLE IDLE KICK
+["SPY_connect_idleKickTime", 300, true] // ALLOWED TIME FOR A PLAYER TO BE IDLE

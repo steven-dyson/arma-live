@@ -1,0 +1,62 @@
+/***************************************************************************
+Team Kill
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+private ["_vUID", "_vName", "_vSide", "_vClass", "_vPos", "_kUID", "_kName", "_kSide", "_kClass", "_kPos", "_weapon", "_distance", "_addValue", "_score", "_addScore", "_currentScore"];
+
+_vUID = _this select 0;
+_vName = _this select 1;
+_vSide = _this select 2;
+_vClass = _this select 3;
+_vPos = _this select 4;
+_kUID = _this select 5;
+_kName = _this select 6;
+_kSide = _this select 7;
+_kClass = _this select 8;
+_kPos = _this select 9;
+_weapon = _this select 10;
+_distance = _this select 11;
+
+// Player Message
+if ((SPY_bStats_msgsEnabled)) then {
+
+	_null = [[5, (format ["%1 team killed %2 (%3)", _kName, _vName, ([_weapon] call SPY_displayName)]), 0, ["SPY bStats", "Event Log"], false], "SPY_bMessage", true, false, false] call BIS_fnc_MP;
+
+};
+
+// Current values increased by 1
+_kVarName = (format ["SPY_bStats_%1", _kUID]);
+_addValue = ((SPY_container getVariable _kVarName select 6) + 1);
+
+// Add score
+_score = (["teamkill", objNull, _addValue] call SPY_scoreValue);
+_addScore = ((SPY_container getVariable _kVarName select 0) + _score);
+
+// All current values in the array
+_currentScore = (SPY_container getVariable _kVarName);
+
+// Set increased value in array
+_currentScore set [0, _addScore];
+_currentScore set [6, _addValue];
+
+// Broadcast array
+SPY_container setVariable [_kVarName, _currentScore, true];
+
+// Send to armalive
+"armalive" callExtension format 
+[
+	"inf_killed1;%1;%2;%3;%4;%5;%6;%7;%8;%9;%10;%11",
+	time,
+	_vUID,
+	str _vPos,
+	_vClass,
+	_vSide,
+	_kUID,
+	str _kPos,
+	_kClass,
+	_kSide,
+	_weapon,
+	"teamkill"
+];

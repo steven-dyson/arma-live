@@ -1,0 +1,80 @@
+/***************************************************************************
+Initialize Vehicle
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+
+
+/***************************************************************************
+Add vehicle event handlers
+
+Vehicle info: [vehicle side, crew, side switch]
+Vehicle damage: [[damaging unit, damage], overall damage, killer, valid killer, killed ammo, ready to process]
+****************************************************************************/
+private ["_vehicle", "_side"];
+
+_vehicle = (_this select 0);
+_side = (_this select 1);
+
+waitUntil { sleep 0.1; !isNil "SPY_server_initialized" };
+waitUntil { sleep 0.1; SPY_server_initialized };
+
+if ((isNil {_vehicle getVariable "SPY_bStats_deathState"})) then 
+{	
+	_vehicle setVariable ["SPY_bStats_side", _side, true];
+	_vehicle setVariable ["SPY_bStats_crew", (crew _vehicle), true];
+	_vehicle setVariable ["SPY_bStats_switchState", false, true];
+	
+	_vehicle setVariable ["SPY_bStats_damagers", [[objNull, 0, 0, "", "", _side]], true];
+	_vehicle setVariable ["SPY_bStats_lastDamage", 0, true];
+	_vehicle setVariable ["SPY_bStats_killer", objNull, true];
+	_vehicle setVariable ["SPY_bStats_damagerAmmo", "none", true];
+	_vehicle setVariable ["SPY_bStats_killerWeapon", "", true];
+	_vehicle setVariable ["SPY_bStats_deathState", 0, false]; //0 = No hit processing, 1 = Hit processing, 2 = Ready to process kill, 3 = Kill processed
+};
+
+_vehicle addEventHandler 
+[
+	"HandleDamage", 
+	{
+		private ["_start", "_hitVar"];
+		
+		_vehicle = (_this select 0);
+
+		_start = false;
+		_hitVar = (format ["SPY_%1_%2%3", _vehicle, (round time), (round ((time - (floor time)) * 1000))]);
+
+		if ((isNil {_vehicle getVariable _hitVar})) then 
+		{
+			_vehicle setVariable [_hitVar, [], false];
+			_start = true;
+		};
+		
+		if ((_start)) then 
+		{
+			if ((!alive _vehicle)) then 
+			{
+				_vehicle removeAllEventHandlers "HandleDamage";
+				_vehicle setVariable ["SPY_bStats_deathState", 1, true];
+			};
+			
+			[[_this, time], "SPY_reviewVehHit", false, false] call BIS_fnc_MP; // Only run on server
+		};
+		_this select 2;
+	}
+];
+
+_vehicle addEventHandler ["Killed", {[[(_this select 0), (_this select 1)], "SPY_reviewVehKill", false, false] call BIS_fnc_MP;}];
+
+// Execute reset thread
+if ((isServer)) then 
+{
+	_null = [_vehicle] spawn SPY_resetDamageVehicle;
+};
+
+// Debug
+_null = [[1, (format ["IV: %1, %2", _vehicle, _side]), 0, ["SPY Systems", "Debug Log"], false], "SPY_bMessage", true, false, false] call BIS_fnc_MP;
+/***************************************************************************
+END
+****************************************************************************/

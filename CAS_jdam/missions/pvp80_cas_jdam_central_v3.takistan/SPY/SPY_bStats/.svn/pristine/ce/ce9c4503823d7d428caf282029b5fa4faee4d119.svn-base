@@ -1,0 +1,93 @@
+/***************************************************************************
+On Changed Vehicle Position
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+private ["_pUID", "_position", "_playerIsDriver"];
+
+_player = (_this select 0);
+_args = (_this select 1);
+
+// Retrieve player info
+_pUID = (_player getVariable "SPY_id_uid");
+
+// Store or remove vehicle from player loadout
+_null = [_player] call SPY_getLoadout;
+
+// Player enters vehicle
+if (!((vehicle _player) isEqualTo _player)) then 
+{
+	// Add vehicle info to player
+	_null = [(vehicle _player), false] call SPY_addVeh;
+
+	// New vehicle
+	_vehicle = (_player getVariable "SPY_bStats_vehicle");
+	
+	// Save transport start location
+	_player setVariable ["SPY_bStats_transStart", (getPos _player), false];
+	
+	// Players position in vehicle
+	_position = (assignedVehicleRole _player select 0);
+
+	// If bStats is enabled and vehicle init hasnt run, run init
+	if ((SPY_bStats_enabled) && (isNil {_vehicle getVariable "SPY_bStats_deathState"})) then 
+	{
+		[[_vehicle, (SPY_container getVariable ("SPY_id_" + _pUID) select 1)], "SPY_initVehicle", nil, true] call BIS_fnc_MP;
+	};
+	
+	// If vehicle fired EH has not been added, add EH
+	if ((isNil {_vehicle getVariable "SPY_bStats_firedEH"})) then 
+	{
+		_ehFiredVeh = _vehicle addEventHandler ["Fired", {_null = [player, (_this select 4), (_this select 5)] spawn SPY_storeShot}];
+		_vehicle setVariable ["SPY_bStats_firedEH", _ehFiredVeh, false];
+	};
+	
+// Player exits vehicle
+} 
+else 
+{
+	// Old vehicle
+	_vehicle = (_player getVariable "SPY_bStats_vehicle");
+
+	// Remove vehicle information from player and player information from vehicle
+	_null = [_vehicle, false] spawn SPY_removeVeh;
+	
+	// Remove local fired EH from vehicle
+	_vehicle removeEventHandler ["Fired", (_vehicle getVariable "SPY_bStats_firedEH")];
+	
+	// Define transport start and end location
+	_transStart = (_player getVariable "SPY_bStats_transStart");
+	_playerPos = (getPos _player);
+	
+	// Define distance from start and end of transport
+	_distance = (_transStart distance _playerPos);
+	
+	// Player is driver
+	_playerIsDriver = (_player getVariable "SPY_player_info" select 2);
+	
+	// Award transport points
+	if ((_distance > 5) && !(_playerIsDriver)) then 
+	{
+		[(driver _vehicle), _distance, _playerPos, _playerIsDriver, _vehicle] spawn 
+		{
+			private ["_driver", "_distance", "_playerPos", "_playerIsDriver"];
+
+			_driver = (_this select 0);
+			_distance = (_this select 1);
+			_playerPos = (_this select 2);
+			_playerIsDriver = (_this select 3);
+			_vehicle = (_this select 4);
+		
+			sleep 15;
+		
+			if ((isNull _driver) || (!(alive _player)) || (_driver != (driver _vehicle)) || (_player in (crew _vehicle))) exitWith {};
+		
+			[[_player, (_player getVariable "SPY_id_uid"), _vehicle, _distance, _playerPos], "_this call SPY_trans;", "SERVER"] call SPY_iQueueAdd;
+		};
+	};
+	
+	// Reset global variables
+	_player setVariable ["SPY_bStats_transStart", nil, false];
+	_vehicle setVariable ["SPY_bStats_firedEH", nil, false];
+};

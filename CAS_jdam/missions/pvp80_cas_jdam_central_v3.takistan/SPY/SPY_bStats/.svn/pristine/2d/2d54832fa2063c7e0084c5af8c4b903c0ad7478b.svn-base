@@ -1,0 +1,39 @@
+/***************************************************************************
+Capture Client
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+private ["_p", "_pUID", "_mission", "_obj", "_mission", "_pSV", "_pName", "_currentScore", "_score", "_addScore"];
+
+_p = (_this select 0);
+_pUID = (_this select 1);
+_obj = (_this select 2);
+_mission = (_this select 3);
+
+_pSV = (format ["SPY_bStats_%1", _pUID]);
+_pName = (SPY_container getVariable ("SPY_id_" + _pUID) select 0);
+
+// Current scores
+_currentScore = (SPY_container getVariable _pSV);
+
+// Add score
+_score = (["capture", objNull, 0] call SPY_scoreValue);
+_addScore = ((_currentScore select 0) + _score);
+
+// Set new score
+_currentScore set [0, _addScore];
+
+// Broadcast
+SPY_container setVariable [_pSV, _currentScore, true];
+
+// Format/ send armalive info
+// Need to discuss what we do with this
+// This basically falls under some form of "scenario points"
+//[(format ["bstats_capture (%1, %2, %3, %4)", str _pUID, time, _score, (str _obj)])] call uplink_exec;
+
+// Player message
+if ((SPY_bStats_msgsEnabled)) then
+{
+	_null = [[5, (format ["You captured %1 (%2 points)", _obj, _score]), 0, ["SPY bStats", "Event Log"], false], "SPY_bMessage", true, false, false] call BIS_fnc_MP;
+};

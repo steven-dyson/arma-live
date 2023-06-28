@@ -1,0 +1,86 @@
+/***************************************************************************
+Kill
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+private ["_vUID", "_vName", "_vSide", "_vClass", "_vPos", "_kUID", "_kName", "_kSide", "_kClass", "_kPos", "_weapon", "_distance", "_assists", "_weaponType", "_kScoreVar", "_kScore", "_vScoreVar", "_vScore", "_score", "_addScore", "_addKill", "_addDeath"];
+
+_vUID = _this select 0;
+_vName = _this select 1;
+_vSide = _this select 2;
+_vClass = _this select 3;
+_vPos = _this select 4;
+_kUID = _this select 5;
+_kName = _this select 6;
+_kSide = _this select 7;
+_kClass = _this select 8;
+_kPos = _this select 9;
+_weapon = _this select 10;
+_distance = _this select 11;
+_assists = _this select 12;
+
+// Player message
+if ((SPY_bStats_msgsEnabled) && (SPY_bStats_msgsEnemy)) then 
+{
+	_null = [[5, (format ["%1 killed %2 (%3)", _kName, _vName, ([_weapon] call SPY_displayName)]), 0, ["SPY bStats", "Event Log"], false], "SPY_bMessage", true, false, false] call BIS_fnc_MP;
+};
+
+// Determine weapon type of scoring
+switch (true) do {
+    case (_weapon isKindOf "AllVehicles"): { _weaponType = 2; };
+    default { _weaponType = 1; };
+};
+
+// All current values in the arrays
+_kScoreVar = (format ["SPY_bStats_%1", _kUID]);
+_kScore = (SPY_container getVariable _kScoreVar);
+_vScoreVar = (format ["SPY_bStats_%1", _vUID]);
+_vScore = (SPY_container getVariable _vScoreVar);
+
+// Add score
+_score = (["kill", _weaponType, _distance] call SPY_scoreValue);
+_addScore = ((_kScore select 0) + _score);
+
+// Kill/death increased by 1
+_addKill = ((_kScore select 3) + 1);
+_addDeath = ((_vScore select 4) + 1);
+
+// Set increased value in array
+_kScore set [0, _addScore];
+_kScore set [3, _addKill];
+_vScore set [4, _addDeath];
+
+// Broadcast score
+SPY_container setVariable [_kScoreVar, _kScore, true];
+SPY_container setVariable [_vScoreVar, _vScore, true];
+
+// Kill assists
+{
+	_null = [(_x select 0), (_x select 3)] spawn SPY_killAssist;
+}
+forEach _assists;
+
+// Send to armalive
+"armalive" callExtension format 
+[
+	"inf_killed1;%1;%2;%3;%4;%5;%6;%7;%8;%9;%10;%11",
+	time,
+	_vUID,
+	(str _vPos),
+	_vClass,
+	_vSide,
+	_kUID,
+	(str _kPos),
+	_kClass,
+	_kSide,
+	_weapon,
+	"not"
+];
+
+// Broadcast side score
+switch (_vSide) do 
+{
+	case WEST: { [[0, 1, 1, 0]] call SPY_addSideScore; };
+	case EAST: { [[1, 0, 0, 1]] call SPY_addSideScore; };
+};

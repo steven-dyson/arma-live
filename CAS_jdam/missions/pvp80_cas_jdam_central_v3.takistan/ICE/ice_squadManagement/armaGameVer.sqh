@@ -1,0 +1,12 @@
+#define __ICE_armaGameVer3
+
+#ifdef __ICE_armaGameVer2
+#undef __ICE_armaGameVer2
+#endif
+
+#define __ICE_font1 "PuristaMedium"
+#define __ICE_font2 "PuristaMedium"
+#define __ICE_font3 "PuristaMedium"
+
+//#include "\a3\ui_f\hpp\defineDIKCodes.inc"
+

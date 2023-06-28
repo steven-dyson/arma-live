@@ -1,0 +1,91 @@
+/***************************************************************************
+SPY Initialization and Compile (Method)
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+
+
+/***************************************************************************
+EXEC
+****************************************************************************/
+private ["_idleTimer", "_oDir", "_oPosX", "_oPosY", "_nDir", "_nPosX", "_nPosY"];
+
+_player = (_this select 0);
+
+_idle = false;
+_idleTimer = 0;
+
+while {sleep 0.1; (!isNil {direction player}) && (!_idle)} do {
+
+	if (((vehicle _player) isEqualTo _player)) then {
+
+		_oDir = (direction _player);
+
+	} else {
+
+		if (((assignedVehicleRole _player select 0) in ["Turret"])) then {
+
+			_oDir = (((vehicle _player) weaponDirection (currentMuzzle _player)) select 0);
+		
+		} else {
+
+			_oDir = ((eyeDirection _player) select 0);
+		
+		};
+	
+	};
+	
+	_oPosX = (getPos (vehicle _player) select 0);
+	_oPosY = (getPos (vehicle _player) select 1);
+
+	sleep 1;
+
+	if (((vehicle _player) isEqualTo _player)) then {
+
+		_nDir = (direction _player);
+
+	} else {
+
+		if (((assignedVehicleRole _player select 0) in ["Turret"])) then {
+
+			_nDir = (((vehicle _player) weaponDirection (currentMuzzle _player)) select 0);
+		
+		} else {
+
+			_nDir = ((eyeDirection _player) select 0);
+		
+		};
+	
+	};
+	
+	_nPosX = (getPos (vehicle _player) select 0);
+	_nPosY = (getPos (vehicle _player) select 1);
+	
+	if ((_oDir == _nDir) && (_oPosX == _nPosX) && (_oPosY == _nPosY)) then {
+		
+		if ((_idleTimer == 0)) then {
+	
+			_idleTimer = (time + SPY_connect_idleKickTime);
+			
+		};
+	
+		if ((time > _idleTimer) && (_idleTimer > 0)) then {
+
+			_idle = true;
+			
+			// EXEC CEH
+			_null = ["SPY_ceh_isIdle", []] spawn SPY_cehExec;
+			
+		};
+		
+	} else {
+	
+		_idleTimer = 0;
+		
+	};
+
+};
+/***************************************************************************
+END
+****************************************************************************/

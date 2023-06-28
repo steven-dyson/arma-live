@@ -1,0 +1,125 @@
+/***************************************************************************
+PUNISH
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+
+
+/***************************************************************************
+INIT
+****************************************************************************/
+private ["_kName", "_kVarName", "_kUID", "_vName", "_timeOut", "_punish", "_forgive", "_addPunish", "_currentScore"];
+
+_kName = (_this select 0);
+_kVarName = (_this select 1);
+_kUID = (_this select 2);
+_vName = (_this select 3);
+
+_timeOut = (time + SPY_roe_timeOut);
+/***************************************************************************
+END
+****************************************************************************/
+
+
+
+/***************************************************************************
+MANUAL PUNISH START
+****************************************************************************/
+if ((_kName != "AUTO")) then {
+
+	waitUntil {sleep 0.1; (!(isNull(findDisplay 46)))};
+		
+	_null = [3, (format ["Press zeroing up/down to punish or forgive %1", _kName]), "LOCAL", false, 2] spawn SPY_bMessage;
+
+	_punish = (findDisplay 46) displayAddEventHandler ["KeyDown", "if (([(_this select 1), 'ZeroingUp'] call SPY_isKey)) then {SPY_punishValue = true;}; ([(_this select 1), 'ZeroingUp'] call SPY_isKey);"];
+	_forgive = (findDisplay 46) displayAddEventHandler ["KeyDown", "if (([(_this select 1), 'ZeroingDown'] call SPY_isKey)) then {SPY_punishValue = false;}; ([(_this select 1), 'ZeroingUDown'] call SPY_isKey);"];
+	
+};
+/***************************************************************************
+END
+****************************************************************************/
+
+
+
+/***************************************************************************
+AUTO & TIMEOUT PUNISH START
+****************************************************************************/
+waitUntil {sleep 0.1; (!isNil "SPY_punishValue") || (time > _timeOut) || (SPY_roe_autoPunish) || (_kName == "AUTO")};
+
+if ((time > _timeOut) || (SPY_roe_autoPunish) || (_kName == "AUTO")) then {
+
+	SPY_punishValue = SPY_roe_defaultPunish;
+
+};
+/***************************************************************************
+END
+****************************************************************************/
+
+
+
+/***************************************************************************
+PUNISH & FORGIVE
+****************************************************************************/
+if ((SPY_punishValue)) then {
+
+	// ALL CURRENT VALUES IN THE ARRAY
+	_currentScore = (SPY_container getVariable _kVarName);
+		
+	// ADD PUNISH
+	_addPunish = ((_currentScore select 2) + 1);
+
+	// SET INCREASED VALUE IN ARRAY
+	_currentScore set [2, _addPunish];
+
+	// BROADCAST ARRAY
+	SPY_container setVariable [_kVarName, _currentScore, true];
+	
+	// DISPLAY PUNISH MESSAGE
+	if ((_kName != "AUTO")) then {
+
+		_null = [4, (format ["%1 punished you for an ROE violation", _vName]), _kUID, false, 2] spawn SPY_bMessage;
+		_null = [3, (format ["You punished %1 for an ROE violation", _kName]), "LOCAL", false, 1] spawn SPY_bMessage;
+
+	} else {
+	
+		_null = [4, "The server punished you for an ROE violation", _kUID, false, 2] spawn SPY_bMessage;
+	
+	};
+
+};
+
+if (!(SPY_punishValue)) then {
+
+	if ((_kName != "AUTO")) then {
+		
+		_null = [3, (format ["%1 forgave you for an ROE violation", _vName]), _kUID, false, 1] spawn SPY_bMessage;
+		_null = [4, (format ["You forgave %1 for an ROE violation", _kName]), "LOCAL", false, 1] spawn SPY_bMessage;
+	
+	} else {
+	
+		_null = [4, "The server forgave you for an ROE violation", _kUID, false, 1] spawn SPY_bMessage;
+	
+	};
+
+};
+/***************************************************************************
+END
+****************************************************************************/
+
+
+
+/***************************************************************************
+TERMINATE
+****************************************************************************/
+if ((_kName != "AUTO")) then {
+
+	(findDisplay 46) displayRemoveEventHandler ["KeyDown", _punish];
+	(findDisplay 46) displayRemoveEventHandler ["KeyDown", _forgive];
+
+};
+
+SPY_punishValue = nil;
+/***************************************************************************
+END
+****************************************************************************/

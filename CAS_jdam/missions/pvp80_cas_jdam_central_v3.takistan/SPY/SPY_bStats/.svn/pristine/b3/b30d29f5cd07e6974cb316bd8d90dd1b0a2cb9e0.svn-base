@@ -1,0 +1,42 @@
+/***************************************************************************
+Death
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+private ["_vUID", "_vName", "_vPos", "_vScoreVar", "_vSide", "_currentScore", "_addDeath", "_uplink"];
+
+_vUID = (_this select 0);
+_vName = (_this select 1);
+_vPos = (_this select 2);
+_vScoreVar = (_this select 3);
+_vSide = (_this select 4);
+
+// ALL CURRENT VALUES IN THE ARRAY
+_currentScore = (SPY_container getVariable _vScoreVar);
+
+// CURRENT VALUE INCREASED BY 1
+_addDeath = ((_currentScore select 4) + 1);
+
+// SET INCREASED VALUE IN ARRAY
+_currentScore set [4, _addDeath];
+
+// BROADCAST PLAYER SCORE
+SPY_container setVariable [_vScoreVar, _currentScore, true];
+
+switch (_vSide) do {
+
+	case WEST: {[[0, 1, 0, 0]] call SPY_addSideScore;};
+	case EAST: {[[0, 0, 0, 1]] call SPY_addSideScore;};
+	
+};
+
+// PLAYER DEATH MESSAGE
+if ((SPY_bStats_msgsEnabled)) then {
+    
+    _null = [5, (format ["%1 has died", _vName]), "CLIENT", false] spawn SPY_bMessage;
+    
+};
+
+// FORMAT/SEND TO A2U (IF NO OTHER SENT)
+[(format ["bstats_death (%1, %2, %3, %4)", (str _vUID), time, 0, (str (str _vPos))])] call uplink_exec;

@@ -1,0 +1,75 @@
+/***************************************************************************
+Broadcast Message All
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+scriptName "SPY Core Msg Broadcast Message All";
+
+private ["_type", "_msg", "_target", "_queue", "_hintType", "_lead"];
+
+_type = (_this select 0);
+_msg = (_this select 1);
+_target = (_this select 2);
+_queue = (_this select 3);
+_hintType = (_this select 4);
+
+if ((_type in [1, 2]) && (!SPY_msg_debug)) exitWith {};
+
+switch (_type) do {
+
+	case 1: {_lead = "[D]";};
+	case 2: {_lead = "[E]:";};
+	case 3: {_lead = "[I]";};
+	case 4: {_lead = "[W]";};
+	case 5: {_lead = "[S]";};
+
+};
+
+if ((_target in ["LOCAL"])) then {
+
+	if ((_queue)) then {
+	
+		[[_lead, _msg], "SPY_container globalChat format ['%1 %2', (_this select 0), (_this select 1)];", "LOCAL"] call SPY_iQueueAdd;
+		// [[_type, _msg], "player customChat [(_this select 0), (_this select 1)];", "LOCAL"] call SPY_iQueueAdd;
+	
+	} else {
+
+		SPY_container globalChat format ["%1 %2", _lead, _msg];
+		// player customChat [_type, _msg];
+		
+		if ((isNil "_hintType")) exitWith {};
+		
+		switch (_hintType) do {
+		
+			case 1: {
+			
+				hint (format ["%1 %2", _lead, _msg]);
+				
+			};
+			
+			case 2: {
+			
+				hintC (format ["%1 %2", _lead, _msg]);
+				
+			};
+			
+		};
+	
+	};
+	
+} else {
+
+	if ((_queue)) then {
+	
+		[[_lead, _msg], "SPY_container globalChat format ['%1 %2', (_this select 0), (_this select 1)]", _target] call SPY_iQueueAdd;
+		// [[_type, _msg], "player customChat [(_this select 0), (_this select 1)];", _target] call SPY_iQueueAdd;
+		
+	} else {
+	
+		_null = [[_lead, _msg], "SPY_container globalChat format ['%1 %2', (_this select 0), (_this select 1)]", _target] spawn CAS_mpCB;
+		// [[_type, _msg], "player customChat [(_this select 0), (_this select 1)];", _target] call CAS_mpCB;
+		
+	};
+	
+};

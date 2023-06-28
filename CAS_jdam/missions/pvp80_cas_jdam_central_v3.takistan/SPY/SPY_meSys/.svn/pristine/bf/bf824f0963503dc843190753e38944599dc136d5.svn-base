@@ -1,0 +1,14 @@
+/***************************************************************************
+SPY Initialization and Compile (Method)
+SERVER SIDE SETTINGS
+Created by Spyder
+spyder@armalive.com
+
+SETUP:
+["SETTING", SETTING VALUE, BROADCAST BOOLEAN]
+
+USAGE: 
+ONLY MODIFY THE SECOND VALUE UNLESS YOU ARE CREATING YOUR CUSTOM SETTINGS FOR YOUR SCRIPTS
+***************************************************************************/
+
+["SPY_meSys_crewAuthEnabled", false, true] // REQUIRE PLAYERS TO HAVE PILOT OR CREWMAN KIT

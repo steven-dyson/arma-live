@@ -1,0 +1,6 @@
+#include "keyHandlerMacros.sqh"
+
+#define _c_IDC_main 100
+
+#define QUOTEME(x) #x
+#define _c_basePath(_file) QUOTEME(ICE\ICE_questionHUD\_file)

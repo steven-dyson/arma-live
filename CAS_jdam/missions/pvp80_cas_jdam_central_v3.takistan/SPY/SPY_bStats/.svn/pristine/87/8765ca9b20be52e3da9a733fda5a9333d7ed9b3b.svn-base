@@ -1,0 +1,81 @@
+/***************************************************************************
+SPY Initialization and Compile (Method)
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+
+
+/***************************************************************************
+Server Settings
+****************************************************************************/
+private ["_serverSettingsValues", "_serverSettings", "_missionSettingsValues", "_missionSettings",  "_compile", "_uplink"];
+
+_serverSettingsValues = [
+
+    #include "\userconfig\SPY\SPY_bStats_settings_s.txt"
+
+];
+
+_serverSettings = [_serverSettingsValues] execVM "\userconfig\SPY\system\SPY_settingsProcess.sqf";
+
+waitUntil {sleep 0.1; scriptDone _serverSettings};
+/***************************************************************************
+Server Settings
+****************************************************************************/
+
+
+
+/***************************************************************************
+Mission Settings
+****************************************************************************/
+if ((SPY_bStats_allowMissionOverride)) then {
+
+    _missionSettingsValues = [
+
+        #include "SPY_bStats_settings_s.txt"
+
+    ];
+
+    _missionSettings = [_missionSettingsValues] execVM "\userconfig\SPY\system\SPY_settingsProcess.sqf";
+	
+    waitUntil {sleep 0.1; scriptDone _missionSettings};
+
+};
+/***************************************************************************
+Mission Settings
+****************************************************************************/
+
+
+
+/***************************************************************************
+Exec
+****************************************************************************/
+_compile = [] execVM "SPY\SPY_bStats\SPY_compile.sqf";
+waitUntil {sleep 0.1; scriptDone _compile};
+
+// bStats radio channel
+// SPY_bStats_radioIndex = radioChannelCreate [[0.34, 0.96, 0.13, 0.8], "bStats Radio", "[S]", [player]];
+// publicVariable "SPY_bStats_radioIndex";
+
+// MHJ Uplink
+_uplink = [] execVM "\userconfig\MHJ\MHJ_a2uplink.sqf";
+waitUntil {sleep 0.1; scriptDone _uplink};
+
+// Uplink Stuff
+[format ["bstats_newsession (%1, 1, %2)", (str missionName), uplink_sessionid]] call uplink_exec;
+SPY_container setVariable ["MHJ_A2U_MODE", ["RUNNING", "RANKED UN-OFFICIAL"], true];
+
+SPY_container setVariable ["SPY_bStats_missionInfo", [SPY_bStats_teamOneName, SPY_bStats_teamTwoName], true];
+SPY_container setVariable ["SPY_bStats_sideScore", [0, 0, 0, 0], true]; // %NOTE% THIS MAY BE AFFECTED BY JIP BUG, TEST
+SPY_container setVariable ["MHJ_A2U_MODE", ["NOT RUNNING", "NOT RANKED UN-OFFICIAL"], true];
+SPY_container setVariable ["SPY_bStats_playersWest", [], true];
+SPY_container setVariable ["SPY_bStats_playersEast", [], true];
+
+// Monitor Balance
+_null = [] execVM "SPY\SPY_bStats\balance\SPY_rankingChange.sqf";
+
+_null = [1, "bStats Initialized *Server*", "LOCAL", false] spawn SPY_bMessage;
+/***************************************************************************
+Exec
+****************************************************************************/

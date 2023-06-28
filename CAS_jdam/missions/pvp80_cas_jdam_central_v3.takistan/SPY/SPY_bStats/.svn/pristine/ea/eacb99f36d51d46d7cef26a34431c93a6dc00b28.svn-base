@@ -1,0 +1,52 @@
+/***************************************************************************
+Store Selection
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+private ["_damagingUnit", "_selectionType", "_ammoClass", "_weapon", "_stats", "_damagingUnitInfo", "_wpnInfo", "_hitInfo", "_currentHits", "_uplink"];
+
+_damagingUnit = (_this select 0);
+_selectionType = (_this select 1);
+_ammoClass = (_this select 2);
+
+if ((_ammoClass isEqualTo "")) exitWith {};
+
+_weapon = [_damagingUnit, "", "", _ammoClass, 1] call SPY_getWeapon;
+
+if (!(_weapon isEqualTo (currentMuzzle _damagingUnit)) && (_damagingUnit isEqualTo (vehicle _damagingUnit))) then 
+{
+	_stats = [0, 0, 0, 0, 0];
+	_stats set [_selectionType, 1];
+	
+	// Send to armalive
+	_armalive = format 
+	[
+		"wpninfo1;%1;%2;%3;%4;%5;%6;%7;%8;%9;%10",
+		
+		(_damagingUnit getVariable "SPY_id_uid"),
+		_weapon,
+		time,
+		0,
+		0,
+		(_stats select 0), 
+		(_stats select 1), 
+		(_stats select 2), 
+		(_stats select 3), 
+		(_stats select 4)
+	];
+	
+	_null = [[_armalive], "'armalive' callExtension (_this select 0); diag_log (_this select 0);", "SERVER"] spawn CAS_mpCB;
+}
+else
+{
+	_damagingUnitInfo = (_damagingUnit getVariable "SPY_player_info");
+	_wpnInfo = (_damagingUnitInfo select 5);
+	_hitInfo = (_wpnInfo select 1);
+
+	_hitInfo set [_selectionType, ((_hitInfo select _selectionType) + 1)];
+	_wpnInfo set [1, _hitInfo];
+	_damagingUnitInfo set [5, _wpnInfo];
+
+	_damagingUnit setVariable ["SPY_player_info", _damagingUnitInfo, false];
+};

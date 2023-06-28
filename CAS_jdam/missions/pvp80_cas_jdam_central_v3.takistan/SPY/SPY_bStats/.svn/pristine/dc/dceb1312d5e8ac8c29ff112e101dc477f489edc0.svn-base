@@ -1,0 +1,55 @@
+/***************************************************************************
+RESET DAMAGE VEHICLE
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+private ["_vehicle", "_vehicleDamage"];
+
+_vehicle = (_this select 0);
+
+while {sleep 0.1; true} do {
+	
+	_vehicleDamage = (_vehicle getVariable "SPY_VEHICLE_DAMAGE");
+	_damagingUnits = (_vehicleDamage select 0);
+	_damagingUnitInfo = (_damagingUnits select 0);
+	_damagingUnit = (_damagingUnitsInfo select 0);
+	
+	waitUntil {sleep 0.1; !(isNull _damagingUnit)};
+	
+	// INDIV DAMAGING UNIT WENT 3 MIN W/O APPLYING ADDITIONAL DAMAGE
+	{
+		
+		if ((time >= (_x select 2))) then {
+		
+			_damagingUnits set [_forEachIndex, -1];
+			_damagingUnits = (_damagingUnits - [-1]);
+			_vehicleDamage set [0, _damagingUnits];
+			
+		};
+	
+	} forEach _damagingUnits;
+	
+	// ALL DAMAGING UNITS REMOVED. ADD A PLACEHOLDER & EXIT.
+	if ((count _damagingUnits == 0)) exitWith {
+
+		_vehicleDamage set [0, [[objNull, 0]]];
+
+	};
+
+	// VEHICLE HAS BEEN REPAIRED. RESET & EXIT.
+	if (((damage _vehicle) == 0)) exitWith {
+
+		_vehicleDamage set [0, [[objNull, 0]]];
+		_vehicleDamage set [1, 0];
+
+	};
+	
+	// VEHICLE DESTROYED
+	if ((!alive _vehicle)) exitWith {
+		
+		sleep 30;
+		
+	};
+
+};

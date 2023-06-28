@@ -1,0 +1,127 @@
+/***************************************************************************
+Description
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+
+
+/***************************************************************************
+Mission Settings
+****************************************************************************/
+respawn = "BASE";
+respawnDelay = 5;
+respawnDialog = 0;
+disabledAI = true;
+showGPS = 1;
+showCompass = 1;
+showMap = 1;
+showNotePad = 1;
+showWatch = 1;
+disableChannels[]={0};
+joinUnassigned = 0;//false;
+/***************************************************************************
+Mission Settings
+****************************************************************************/
+
+
+
+/***************************************************************************
+Includes
+****************************************************************************/
+#include "SPY\SPY_bStats\score\DFS_bStatsDlg.hpp"
+#include "armaGameVer.sqh"
+#include "ICE\ICE_squadManagement\SquadManagement.hpp"
+// #include "SPY\SPY_meSys\SPY_loadingProgressDlg.hpp"
+/***************************************************************************
+Includes
+****************************************************************************/
+
+
+
+/***************************************************************************
+Classes
+****************************************************************************/
+class Header { 
+	
+	gameType = SC; 
+	minPlayers = 4; 
+	maxPlayers = 36; 
+		
+};
+
+class RscTitles {
+	
+	#include "ICE\ICE_questionHUD\RscTitles.hpp"
+
+};
+
+class CfgSounds {
+
+	sounds[] = {CAS_JDAM_fx_demoSet};
+	
+	class CAS_JDAM_fx_demoSet {
+	
+		name = "CAS_JDAM_fx_1";
+		sound[] = {"CAS\CAS_JDAM\resouces\CAS_alarmDemo.ogg", 1, 1};
+		titles[] = {};
+		
+	};
+	
+};
+/***************************************************************************
+Classes
+****************************************************************************/
+
+
+
+/***************************************************************************
+Parameters
+****************************************************************************/
+class Params {
+
+	class DayTime {
+
+		title = "Time Of Day";
+		values[] = {1, -8, -6, 0, 8, 13, 2};
+		texts[] = {"Random", "Early Morning", "Morning", "Noon", "Sundown", "Night with Full Moon", "Dark Night"};
+		default = 1;
+
+	};
+
+	class Weather {
+
+		title = "Weather:";
+		values[] = {2, 0, 3, 0.5, 0.75, 1};
+		texts[] = {"Random", "Clear", "Partly Cloudy", "Cloudy", "Overcast", "Storm"};
+		default = 2;
+
+	};
+
+	class CAS_JDAM_param_zonesInPlay {
+
+		title = "Zones in Play";
+		values[] = {0, 1, 2, 3};
+		texts[] = {"Auto", "Zone 1", "Zone 2", "Zone 3"};
+		default = 0;
+
+	};
+
+};
+/***************************************************************************
+Parameters
+****************************************************************************/
+
+
+
+/***************************************************************************
+Load Screen
+****************************************************************************/
+onLoadName = "JDAM";
+// onLoad = "";
+author = "Conflict Arising Studios";
+onLoadMission = "Joint Dynamic Assault Mission (JDAM) is a team versus team, sector based game mode. Visit us at www.armalive.com."; 
+onLoadMissionTime = false;
+/***************************************************************************
+Load Screen
+****************************************************************************/

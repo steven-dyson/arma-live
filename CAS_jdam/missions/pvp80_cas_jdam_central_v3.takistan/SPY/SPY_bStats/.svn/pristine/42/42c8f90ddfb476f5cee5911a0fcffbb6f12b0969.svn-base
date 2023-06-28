@@ -1,0 +1,82 @@
+/***************************************************************************
+Initialize Vehicle
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+
+
+/***************************************************************************
+ADD VEHICLE EVENT HANDLERS
+
+VEHICLE INFO: [VEHICLE SIDE, CREW, SIDE SWITCH]
+VEHICLE DAMAGE: [[DAMAGING UNIT, DAMAGE], OVERALL DAMAGE, KILLER, VALID KILLER, KILLED AMMO, Ready to process]
+****************************************************************************/
+private ["_vehicle", "_side"];
+
+_vehicle = (_this select 0);
+_side = (_this select 1);
+
+if ((isNil {_vehicle getVariable "SPY_VEHICLE_INFO"})) then {
+
+	_vehicle setVariable ["SPY_VEHICLE_INFO", [_side, (crew _vehicle), false], true];
+	_vehicle setVariable ["SPY_VEHICLE_DAMAGE", [[[objNull, 0]], 0, objNull, false, "", false], true];
+	
+};
+
+// _vehicle addEventHandler ["HandleDamage", {_null = [_this, time] spawn SPY_reviewVehHit; _this select 2;}];
+// _vehicle addEventHandler ["Killed", {_null = [(_this select 0), (_this select 1)] spawn SPY_reviewVehKill;}];
+
+_vehicle addEventHandler ["HandleDamage", {
+
+		private ["_start", "_hitVar"];
+
+		_vehicle = (_this select 0);
+		_start = false;
+		_hitVar = (format ["SPY_%1_%2%3", _vehicle, (round time), (round ((time - (floor time)) * 1000))]);
+
+		if ((isNil {_vehicle getVariable _hitVar})) then {
+
+			_vehicle setVariable [_hitVar, [], false];
+			_start = true;
+
+		};
+		
+		if ((_start)) then {
+
+			_null = [1, (format ["EVH: %1, %2", ((_this select 4) == ""), _hitVar]), "CLIENT", false] spawn SPY_bMessage;
+
+			// if (!((str ((_this select 3))) in ["any"])) then {
+			if (((_this select 4) != "")) then {
+			
+				[[_this, time], "SPY_reviewVehHit", false, false] call BIS_fnc_MP;
+				
+			};
+			
+			if ((!alive _vehicle)) then {
+			
+				_vehicle removeAllEventHandlers "HandleDamage";
+				_vehicleDamage = (_vehicle getVariable "SPY_VEHICLE_DAMAGE");			
+				_vehicleDamage set [5, true];
+				
+			};
+			
+		};
+		
+		_this select 2;
+	
+	}
+	
+];
+
+
+_vehicle addEventHandler ["Killed", {[[(_this select 0), (_this select 1)], "SPY_reviewVehKill", false, false] call BIS_fnc_MP;}];
+
+// EXECUTE RESET THREAD
+// _null = [_vehicle] spawn SPY_resetDamageVehicle;
+
+// DEBUG
+_null = [1, (format ["IV: %1, %2", _vehicle, _side]), "CLIENT", false] spawn SPY_bMessage;
+/***************************************************************************
+END
+****************************************************************************/

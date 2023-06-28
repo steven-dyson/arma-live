@@ -1,0 +1,88 @@
+/***************************************************************************
+SPY Initialization and Compile (Method)
+SPY bStats Compile
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+
+
+/***************************************************************************
+All
+****************************************************************************/
+SPY_initVehicle = compile preprocessFileLineNumbers "SPY\SPY_bStats\init\SPY_initVehicle.sqf";
+
+SPY_reviewVehHit = compile preprocessFileLineNumbers "SPY\SPY_bStats\review\SPY_reviewVehHit.sqf";
+SPY_reviewVehKill = compile preprocessFileLineNumbers "SPY\SPY_bStats\review\SPY_reviewVehKill.sqf";
+
+SPY_resetDamageVehicle = compile preprocessFileLineNumbers "SPY\SPY_bStats\info\SPY_resetDamageVehicle.sqf";
+/***************************************************************************
+All
+****************************************************************************/
+
+
+
+/***************************************************************************
+Server
+****************************************************************************/
+if ((isServer)) then {
+
+	SPY_onPlayerConnected = compile preprocessFileLineNumbers "SPY\SPY_bStats\events\SPY_onPlayerConnected.sqf";
+	SPY_onPlayerDisconnected = compile preprocessFileLineNumbers "SPY\SPY_bStats\events\SPY_onPlayerDisconnected.sqf";
+
+	SPY_initAI = compile preprocessFileLineNumbers "SPY\SPY_bStats\init\SPY_initAI.sqf";
+	
+	SPY_reviewAIHit = compile preprocessFileLineNumbers "SPY\SPY_bStats\review\SPY_reviewAIHit.sqf";
+	SPY_reviewAIKill = compile preprocessFileLineNumbers "SPY\SPY_bStats\review\SPY_reviewAIKill.sqf";
+	
+	SPY_kill = compile preprocessFileLineNumbers "SPY\SPY_bStats\scoreType\SPY_kill.sqf";
+	SPY_death = compile preprocessFileLineNumbers "SPY\SPY_bStats\scoreType\SPY_death.sqf";
+	SPY_suicide = compile preprocessFileLineNumbers "SPY\SPY_bStats\scoreType\SPY_suicide.sqf";
+	SPY_teamKill = compile preprocessFileLineNumbers "SPY\SPY_bStats\scoreType\SPY_teamKill.sqf";
+	SPY_vehKill = compile preprocessFileLineNumbers "SPY\SPY_bStats\scoreType\SPY_vehKill.sqf";
+	SPY_killAssist = compile preprocessFileLineNumbers "SPY\SPY_bStats\scoreType\SPY_killAssist.sqf";
+	SPY_acCrash = compile preprocessFileLineNumbers "SPY\SPY_bStats\scoreType\SPY_acCrash.sqf";
+	SPY_civCas = compile preprocessFileLineNumbers "SPY\SPY_bStats\scoreType\SPY_civCas.sqf";
+	SPY_roadKill = compile preprocessFileLineNumbers "SPY\SPY_bStats\scoreType\SPY_roadKill.sqf";
+	SPY_vehTK = compile preprocessFileLineNumbers "SPY\SPY_bStats\scoreType\SPY_vehTK.sqf";
+	SPY_trans = compile preprocessFileLineNumbers "SPY\SPY_bStats\scoreType\SPY_trans.sqf";
+	SPY_damage = compile preprocessFileLineNumbers "SPY\SPY_bStats\scoreType\SPY_damage.sqf";
+	SPY_capture = compile preprocessFileLineNumbers "SPY\SPY_bStats\scoreType\SPY_capture.sqf";
+	SPY_drown = compile preprocessFileLineNumbers "SPY\SPY_bStats\scoreType\SPY_drown.sqf";
+	SPY_bStats_ctf_c = compile preprocessFileLineNumbers "SPY\SPY_bStats\scoreType\SPY_ctf_c.sqf";
+
+	SPY_addSideScore = compile preprocessFileLineNumbers "SPY\SPY_bStats\score\SPY_addSideScore.sqf";
+
+};
+/***************************************************************************
+Server
+****************************************************************************/
+
+
+
+/***************************************************************************
+Client
+****************************************************************************/
+if ((!isDedicated)) then {
+
+	SPY_reviewHit = compile preprocessFileLineNumbers "SPY\SPY_bStats\review\SPY_reviewHit.sqf";
+	SPY_reviewKill = compile preprocessFileLineNumbers "SPY\SPY_bStats\review\SPY_reviewKill.sqf";
+
+	SPY_updateSend = compile preprocessFileLineNumbers "SPY\SPY_bStats\info\SPY_updateSend.sqf";
+	SPY_storeSelection = compile preprocessFileLineNumbers "SPY\SPY_bStats\info\SPY_storeSelection.sqf";
+	SPY_storeShot = compile preprocessFileLineNumbers "SPY\SPY_bStats\info\SPY_storeShot.sqf";
+	SPY_addVeh = compile preprocessFileLineNumbers "SPY\SPY_bStats\info\SPY_addVeh.sqf";
+	SPY_removeVeh = compile preprocessFileLineNumbers "SPY\SPY_bStats\info\SPY_removeVeh.sqf";
+	SPY_resetInfoPlayer = compile preprocessFileLineNumbers "SPY\SPY_bStats\info\SPY_resetInfoPlayer.sqf";
+	SPY_resetDamagePlayer = compile preprocessFileLineNumbers "SPY\SPY_bStats\info\SPY_resetDamagePlayer.sqf";
+	SPY_resetDamageVehicle = compile preprocessFileLineNumbers "SPY\SPY_bStats\info\SPY_resetDamageVehicle.sqf";
+	
+	SPY_checkScore = compile preprocessFileLineNumbers "SPY\SPY_bStats\score\SPY_checkScore.sqf";
+	
+	SPY_onChangedVehPos = compile preprocessFileLineNumbers "SPY\SPY_bStats\events\SPY_onChangedVehPos.sqf";
+	SPY_onSwitchedWpn = compile preprocessFileLineNumbers "SPY\SPY_bStats\events\SPY_onSwitchedWpn.sqf";
+
+};
+/***************************************************************************
+Client
+****************************************************************************/

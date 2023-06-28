@@ -1,0 +1,70 @@
+/***************************************************************************
+Vehicle Kill
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+private ["_killer", "_killerName", "_killerUID", "_kVarName", "_weapon", "_distance", "_killerPos", "_vehiclePos", "_assists", "_killerClass", "_vehicle", "_addValue", "_weaponType", "_score", "_addScore", "_currentScore", "_award", "_fundsName"];
+
+_killer = _this select 0;
+_killerName = _this select 1;
+_killerUID = _this select 2;
+_kVarName = _this select 3;
+_vehicle = _this select 4;
+_weapon = _this select 5;
+_distance = _this select 6;
+_killerPos = _this select 7;
+_vehiclePos = _this select 8;
+_assists = _this select 9;
+_killerClass = _this select 10;
+
+_kIsAI = (SPY_container getVariable ("SPY_id_" + _killerUID) select 3);
+
+// Player message
+if ((SPY_bStats_msgsEnabled) && (SPY_bStats_msgsEnemy) && !(_kIsAI)) then
+{
+	_null = [[5, (format ["You killed a %1 (%2)", ([_vehicle] call SPY_displayName), ([_weapon] call SPY_displayName)]), 0, ["SPY bStats", "Event Log"], false], "SPY_bMessage", _killer, false, false] call BIS_fnc_MP;
+};
+
+// Fail safe, need to figure out why this is needed
+if ((_kVarName == "")) then {_kVarName = (format ["SPY_bStats_%1", _killerUID]);};
+
+// Current value increased by 1
+_addValue = ((SPY_container getVariable _kVarName select 7) + 1);
+
+// Determine weapon type of scoring
+if ((_weapon isKindOf "AllVehicles")) then {_weaponType = 2;} else {_weaponType = 1;};
+
+// Add score
+_score = (["vehkill", [_weaponType, _vehicle], _distance] call SPY_scoreValue);
+_addScore = ((SPY_container getVariable _kVarName select 0) + _score);
+
+// All current values in the array
+_currentScore = (SPY_container getVariable _kVarName);
+
+// Set increased value in array
+_currentScore set [0, _addScore];
+_currentScore set [7, _addValue];
+
+// Broadcast array
+SPY_container setVariable [_kVarName, _currentScore, true];
+
+// Send to armalive
+"armalive" callExtension format ["vehicledestruction;%1;%2;%3;%4;%5;%6;%7",
+
+	time,
+	_killerUID,
+	_killerPos,
+	_weapon,
+	_vehiclePos,
+	_vehicle,
+	_killerClass
+	
+];
+
+// Kill assists
+{
+
+	_null = [(_x select 0), (_x select 3)] spawn SPY_killAssist;
+
+} forEach _assists;

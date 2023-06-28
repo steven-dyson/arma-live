@@ -1,0 +1,30 @@
+/***************************************************************************
+Add Side Score
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+private ["_values", "_addValue", "_currentScore", "_i"];
+
+// Selection in array defined in script
+_values = _this select 0;
+
+_i = 0;
+
+// All current values in the array
+_currentScore = SPY_container getVariable "SPY_bStats_sideScore";
+
+{
+
+	// Current value increased by 1
+	_addValue = (_currentScore select _i) + _x;
+
+	// Set increased value in array
+	_currentScore set [_i, _addValue];
+	
+	_i = (_i + 1);
+
+} forEach _values;
+
+// Broadcast array
+SPY_container setVariable ["SPY_bStats_sideScore", _currentScore, true];

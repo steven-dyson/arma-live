@@ -1,0 +1,93 @@
+/***************************************************************************
+Switch Weapon Event Handler
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+
+
+/***************************************************************************
+Init
+****************************************************************************/
+private ["_player", "_pUID", "_wpn", "_wpnVehicle", "_update", "_startTime", "_wpnInfo", "_wpnShots", "_wpnHits", "_endTime", "_wpnTime", "_type", "_playerInfo"];
+
+_player = (_this select 0);
+_wpn = (_this select 1);
+
+_pUID = (_player getVariable "SPY_id_uid");
+	
+// Is vehicle weapon check
+_wpnVehicle = (_player getVariable "SPY_player_info" select 2);
+/***************************************************************************
+Init
+****************************************************************************/
+
+
+
+/***************************************************************************
+Retrieve Weapon Info
+****************************************************************************/	
+_wpnInfo = (_player getVariable "SPY_player_info" select 5);
+_wpnShots = (_wpnInfo select 0);
+_wpnHits = (_wpnInfo select 1);
+/***************************************************************************
+Retrieve Weapon Info
+****************************************************************************/
+
+
+
+/***************************************************************************
+Send Weapon Time
+****************************************************************************/
+_wpnTime = (round (time - SPY_bStats_wpnStartTime));
+
+// Format for armalive
+if ((_wpnTime >= 2)) then 
+{
+	// Weapon is vehicle
+	if ((_wpnVehicle)) then 
+	{
+		_type = "vehtime1;%1;%2;%3;%4;%5;%6;%7;%8;%9;%10";
+	
+	// Weapon is hand held
+	} 
+	else 
+	{	
+		_type = "wpntime1;%1;%2;%3;%4;%5;%6;%7;%8;%9;%10";
+	};
+
+	// Send to armalive
+	_armalive = format
+	[
+		_type,
+		
+		_pUID,
+		_wpn,
+		time,
+		_wpnTime,
+		_wpnShots,
+		(_wpnHits select 0),
+		(_wpnHits select 1),
+		(_wpnHits select 2),
+		(_wpnHits select 3),
+		(_wpnHits select 4)
+	];
+	
+	_null = [[_armalive], "'armalive' callExtension (_this select 0); diag_log (_this select 0);", "SERVER"] spawn CAS_mpCB;
+};
+/***************************************************************************
+Send Weapon Time
+****************************************************************************/
+
+
+
+/***************************************************************************
+Reset Weapon Info
+****************************************************************************/
+_playerInfo = (_player getVariable "SPY_player_info");
+_playerInfo set [5, [0, [0, 0, 0, 0, 0]]];
+
+SPY_bStats_wpnStartTime = time;
+/***************************************************************************
+Reset Weapon Info
+****************************************************************************/

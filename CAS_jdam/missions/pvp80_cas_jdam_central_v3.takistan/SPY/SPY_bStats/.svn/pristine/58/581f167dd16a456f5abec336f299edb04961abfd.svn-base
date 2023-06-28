@@ -1,0 +1,82 @@
+/***************************************************************************
+Kill
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+private ["_k", "_kUID", "_kName", "_kScoreVar", "_kPos", "_vUID", "_vName", "_vScoreVar", "_vPos", "_weapon", "_weaponType", "_distance", "_assists", "_vSide", "_kScore", "_vScore", "_score", "_addScore", "_addKill", "_addDeath"];
+
+_k = (_this select 0);
+_kUID = (_this select 1);
+_kName = (_this select 2);
+_kScoreVar = (_this select 3);
+_kPos = (_this select 4);
+_vUID = (_this select 5);
+_vName = (_this select 6);
+_vScoreVar = (_this select 7);
+_vPos = (_this select 8);
+_weapon = (_this select 9);
+_distance = (_this select 10);
+_assists = (_this select 11);
+_vSide = (_this select 12);
+
+// PLAYER MESSAGE
+if ((SPY_bStats_msgsEnabled) && (SPY_bStats_msgsEnemy)) then {
+
+	_null = [5, (format ["%1 killed %2 (%3)", _kName, _vName, ([_weapon] call SPY_displayName)]), "CLIENT", false] spawn SPY_bMessage;
+
+};
+
+// DETERMINE WEAPON TYPE OF SCORING
+if ((_weapon isKindOf "AllVehicles")) then {_weaponType = 2;} else {_weaponType = 1;};
+
+// ALL CURRENT VALUES IN THE ARRAYS
+_kScore = (SPY_container getVariable _kScoreVar);
+_vScore = (SPY_container getVariable _vScoreVar);
+
+// ADD SCORE
+_score = (["kill", _weaponType, _distance] call SPY_scoreValue);
+_addScore = ((_kScore select 0) + _score);
+
+// KILL/DEATH INCREASED BY 1
+_addKill = ((_kScore select 3) + 1);
+_addDeath = ((_vScore select 4) + 1);
+
+// SET INCREASED VALUE IN ARRAY
+_kScore set [0, _addScore];
+_kScore set [3, _addKill];
+_vScore set [4, _addDeath];
+
+// BROADCAST SCORE
+SPY_container setVariable [_kScoreVar, _kScore, true];
+SPY_container setVariable [_vScoreVar, _vScore, true];
+
+// KILL ASSISTS
+{
+
+	_null = [(_x select 3)] spawn SPY_killAssist;
+
+} forEach _assists;
+
+// FORMAT/ SEND A2U INFO
+[(format ["bstats_kill (%1, %2, %3, %4, %5, %6, %7, %8)", (str _vUID), (str _kUID), time, (str _weapon), _score, _distance, (str (str _vPos)), (str (str _kPos))])] call uplink_exec;
+
+// BROADCAST SIDE SCORE
+switch (_vSide) do {
+
+	case WEST: {[[0, 1, 1, 0]] call SPY_addSideScore;};
+	case EAST: {[[1, 0, 0, 1]] call SPY_addSideScore;};
+	
+};
+
+// %NOTE% MOVE THIS VALHALLA STUFF
+/*_fundsName = (format ["DAO_WF_Funds_%1", _kName]); 
+_award = Config_AwardKillPlayerValue;
+
+if ((_weapon == "Knife") || (_weapon == "HandGrenadeMuzzle2")) then {_award = _award * 3;};
+
+if ((!(_k getVariable "joied_ts"))) then {_award = (_award * Config_TS3FundsModifier);};
+
+DAO_WF_Logic setVariable [_fundsName, ((DAO_WF_Logic getVariable _fundsName) + _award), true];
+
+_null = [3, (format ["%1 WAS KILLED BY %2 (%3)", _vName, _kName, _award]), "CLIENT", false] spawn SPY_bMessage;*/

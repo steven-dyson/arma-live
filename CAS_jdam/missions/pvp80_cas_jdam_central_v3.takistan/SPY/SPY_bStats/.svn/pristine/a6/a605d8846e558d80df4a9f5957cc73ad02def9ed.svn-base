@@ -1,0 +1,49 @@
+/***************************************************************************
+Suicide
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+private ["_vUID", "_vName", "_vScoreVar", "_vPos", "_vSide", "_vScore", "_score", "_addScore", "_addDeath", "_addSuicide"];
+
+_vUID = (_this select 0);
+_vName = (_this select 1);
+_vScoreVar = (_this select 2);
+_vPos = (_this select 3);
+_vSide = (_this select 4);
+
+// PLAYER MESSAGE
+if ((SPY_bStats_msgsEnabled)) then {
+
+	_null = [5, (format ["%1 committed suicide", _vName]), "CLIENT", false] spawn SPY_bMessage;
+	
+};
+
+// All current values in the array
+_vScore = (SPY_container getVariable _vScoreVar);
+
+// Add score
+_score = (["suicide", objNull, 0] call SPY_scoreValue);
+_addScore = ((_vScore select 0) + _score);
+
+// Current value increased by 1
+_addDeath = ((_vScore select 4) + 1);
+_addSuicide = ((_vScore select 5) + 1);
+
+// Set increased value in array
+_vScore set [0, _addScore];
+_vScore set [4, _addDeath];
+_vScore set [5, _addSuicide];
+
+switch (_vSide) do {
+
+	case WEST: {[[0, 1, 0, 0]] call SPY_addSideScore;};
+	case EAST: {[[0, 0, 0, 1]] call SPY_addSideScore;};
+	
+};
+
+// Broadcast array
+SPY_container setVariable [_vScoreVar, _vScore, true];
+
+// Format/ Send A2U Info
+[(format ["bstats_suicide (%1, %2, %3, %4)", (str _vUID), time, _score, (str (str _vPos))])] call uplink_exec;

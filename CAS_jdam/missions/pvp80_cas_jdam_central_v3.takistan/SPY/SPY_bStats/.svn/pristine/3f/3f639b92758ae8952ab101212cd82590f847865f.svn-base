@@ -1,0 +1,174 @@
+/***************************************************************************
+Check Score
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+
+
+/***************************************************************************
+Init
+****************************************************************************/
+private ["_teamOne", "_teamTwo"];
+
+if ((SPY_SCORE_OPEN)) exitWith {};
+
+SPY_SCORE_OPEN = true;
+
+_teamOne = (SPY_container getVariable "SPY_bStats_missionInfo" select 0);
+_teamTwo = (SPY_container getVariable "SPY_bStats_missionInfo" select 1);
+/***************************************************************************
+End
+****************************************************************************/
+
+
+
+/***************************************************************************
+Basic scoreboard info
+****************************************************************************/
+createDialog "DFS_bStatsDlg";
+
+[] spawn {
+
+	private ["_missionTime", "_wKills", "_wDeaths", "_eKills", "_eDeaths", "_a2uOperation", "_a2uRanking"];
+	
+	((findDisplay 201751) displayCtrl 2) ctrlSetText format ["SERVER NAME: %1", SPY_bStats_serverName];
+	((findDisplay 201751) displayCtrl 4) ctrlSetText format ["MISSION NAME: %1", missionName];
+
+	while {dialog} do {
+
+		_missionTime = ([time] call CAS_formatTime);
+
+		_wKills = (SPY_container getVariable "SPY_bStats_sideScore" select 0);
+		_wDeaths = (SPY_container getVariable "SPY_bStats_sideScore" select 1);
+		_eKills = (SPY_container getVariable "SPY_bStats_sideScore" select 2);
+		_eDeaths = (SPY_container getVariable "SPY_bStats_sideScore" select 3);
+
+		_a2uOperation = (SPY_container getVariable "MHJ_A2U_MODE" select 0);
+		_a2uRanking = (SPY_container getVariable "MHJ_A2U_MODE" select 1);
+
+		((findDisplay 201751) displayCtrl 0) ctrlSetText format ["SPY Battle Statistics v%1", SPY_bStats_version];
+		((findDisplay 201751) displayCtrl 1) ctrlSetText format ["ARMA 2 UPLINK %1 (%2)", _a2uOperation, _a2uRanking];
+		((findDisplay 201751) displayCtrl 3) ctrlSetText format ["GAME TIME: %1", _missionTime];
+		((findDisplay 201751) displayCtrl 10) ctrlSetText format ["%1: %2 PLAYERS", (SPY_container getVariable "SPY_bStats_missionInfo" select 0), (count SPY_bStats_playersBLUFOR)];
+		((findDisplay 201751) displayCtrl 20) ctrlSetText format ["%1: %2 PLAYERS", (SPY_container getVariable "SPY_bStats_missionInfo" select 1), (count SPY_bStats_playersOPFOR)];
+		((findDisplay 201751) displayCtrl 11) ctrlSetText format ["SCORE: %1", 0];
+		((findDisplay 201751) displayCtrl 12) ctrlSetText format ["KILLS: %1", _wKills];
+		((findDisplay 201751) displayCtrl 13) ctrlSetText format ["DEATHS: %1", _wDeaths];
+		((findDisplay 201751) displayCtrl 21) ctrlSetText format ["SCORE: %1", 0];
+		((findDisplay 201751) displayCtrl 22) ctrlSetText format ["KILLS: %1", _eKills];
+		((findDisplay 201751) displayCtrl 23) ctrlSetText format ["DEATHS: %1", _eDeaths];
+		
+		sleep 1;
+
+	};
+
+};
+/***************************************************************************
+End
+****************************************************************************/
+
+
+
+/***************************************************************************
+Display player stats
+****************************************************************************/
+{
+
+	[_x] spawn {
+	
+		private ["_sideData", "_playerList", "_idc"];
+		
+		_sideData = (_this select 0);
+		_playerList = (_sideData select 0);
+		_idc = (_sideData select 1);
+	
+		if ((count _playerList) == 0) then {
+		
+			waitUntil {sleep 0.1; ((count _playerList) != 0)};
+		
+		};
+		
+		while {dialog} do {
+		
+			{
+
+				private ["_uid", "_varName", "_admin", "_name", "_score", "_kills", "_deaths", "_suicides", "_teamKills", "_vehKills", "_killAssists", "_acCrashes", "_civCas"];
+				
+				if ((!dialog)) exitWith {};
+				
+				_player = _x;
+				
+				if ((_player == player)) then {
+				
+				_uid = (_player getVariable "SPY_id_player" select 0);
+				_varName = (format ["SPY_bStats_%1", (_player getVariable "SPY_id_player" select 0)]);
+				
+				_admin = serverCommandAvailable "#kick";
+				
+				if ((_admin)) then {
+				
+					_name = ((_player getVariable "SPY_id_player" select 1) + " " + "*Admin*");
+					
+				} else {
+				
+					_name = (_player getVariable "SPY_id_player" select 1);
+				
+				};
+					
+				_score = ((SPY_container getVariable _varName select 0) + (SPY_container getVariable _varName select 1));
+				_kills = (SPY_container getVariable _varName select 3);
+				_deaths = (SPY_container getVariable _varName select 4);
+				_suicides = (SPY_container getVariable _varName select 5);
+				_teamkills = (SPY_container getVariable _varName select 6);
+				_vehKills = (SPY_container getVariable _varName select 7);
+				_killAssists = (SPY_container getVariable _varName select 8);
+				_acCrashes = (SPY_container getVariable _varName select 9);
+				_civCas = (SPY_container getVariable _varName select 10);
+				
+					_row = ((findDisplay 201751) displayCtrl _idc) lnbAddRow [_name, (str _score), (str _kills), (str _deaths), (str  _suicides), (str _teamKills), (str _vehKills), (str _killAssists), (str _acCrashes), "-"];
+				
+				else {
+				
+					_score = 100;
+					_kills = 11;
+					_deaths = 2;
+					_suicides = 3;
+					_teamkills = 1;
+					_vehKills = 2;
+					_killAssists = 4;
+					_acCrashes = 0;
+					_civCas = 1;
+				
+					_row = ((findDisplay 201751) displayCtrl _idc) lnbAddRow [_x, (str _score), (str _kills), (str _deaths), (str  _suicides), (str _teamKills), (str _vehKills), (str _killAssists), (str _acCrashes), "-"];
+				
+				};
+				
+
+			
+			} forEach _playerList + ["Loki", "t0m", "Hooves", "Omni", "Dragon", "Butcher", "Sputnik", "Vader", "Harry Potter", "Abdul"];
+			
+			sleep 10;
+			
+			lnbClear ((findDisplay 201751) displayCtrl _idc);
+			
+		};
+	
+	};
+	
+} forEach [[(SPY_container getVariable "SPY_bStats_players_blu"), 14], [(SPY_container getVariable "SPY_bStats_players_op"), 24]];
+/***************************************************************************
+End
+****************************************************************************/
+
+
+
+/***************************************************************************
+State dialog is now closed
+****************************************************************************/
+waitUntil {!dialog};
+
+SPY_SCORE_OPEN = false;
+/***************************************************************************
+End
+****************************************************************************/

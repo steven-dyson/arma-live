@@ -1,0 +1,50 @@
+/***************************************************************************
+Reset Damage Vehicle
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+private ["_vehicle", "_vehicleDamage", "_damagingUnits", "_damagingUnitInfo", "_damagingUnit"];
+
+_vehicle = (_this select 0);
+
+_side = (_vehicle getVariable "SPY_bStats_side");
+
+while {sleep 10; alive _vehicle} do 
+{
+	_damagingUnits = (_vehicle getVariable "SPY_bStats_damagers");
+	_damagingUnitInfo = (_damagingUnits select 0);
+	_damagingUnit = (_damagingUnitInfo select 0);
+	
+	if (!(isNull _damagingUnit)) then
+	{
+		// Indiv damaging unit went 3 min w/o applying additional damage
+		{
+			if ((time >= (_x select 2))) then 
+			{
+				_damagingUnits set [_forEachIndex, -1];
+				_damagingUnits = (_damagingUnits - [-1]);
+				_vehicle setVariable ["SPY_bStats_damagers", _damagingUnits, true];
+				player sideChat "Removed unit";
+			};
+		} forEach _damagingUnits;
+		
+		// All damaging units removed. Add a place holder & exit.
+		if ((count _damagingUnits isEqualto 0)) exitWith 
+		{
+			_vehicle setVariable ["SPY_bStats_damagers", [[objNull, 0, 0, "", "", _side]], true];
+			player sideChat "All units removed";
+		};
+
+		// Vehicle has been repaired. Reset & exit.
+		if (((damage _vehicle) isEqualTo 0)) exitWith 
+		{
+			_vehicle setVariable ["SPY_bStats_damagers", [[objNull, 0, 0, "", "", _side]], true];
+			_vehicle setVariable ["SPY_bStats_lastDamage", 0, true];
+			player sideChat "Vehicle repaired";
+		};
+		
+		// Vehicle destroyed
+		if ((!alive _vehicle)) exitWith { player sideChat "vehicle destroyed"; sleep 30; };
+	};
+};

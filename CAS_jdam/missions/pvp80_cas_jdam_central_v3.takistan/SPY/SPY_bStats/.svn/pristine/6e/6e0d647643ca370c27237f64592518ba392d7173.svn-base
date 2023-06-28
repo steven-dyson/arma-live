@@ -1,0 +1,28 @@
+/***************************************************************************
+Remove Vehicle
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+private ["_vehicle", "_switched", "_vehicleInfo", "_playerInfo"];
+
+_vehicle = (_this select 0);
+_switched = (_this select 1);
+
+_vehicleInfo = (_vehicle getVariable "SPY_VEHICLE_INFO");
+_playerInfo = (player getVariable "SPY_PLAYER_INFO");
+
+// If vehicle position changes because of death wait for respawn
+waitUntil { sleep 0.1; alive player };
+
+_playerInfo set [2, false]; // in vehicle boolean
+_playerInfo set [3, false]; // is driver
+_playerInfo set [4, objNull]; //vehicle
+
+// Set and broadcast new vehicle crew %NOTE% This should be done on the server
+_vehicle setVariable ["SPY_bStats_crew", (crew _vehicle), true];
+
+// Save global variable of current vehicle on player. Wait until the player has respawned.
+waitUntil { sleep 0.1; alive player };
+
+player setVariable ["SPY_bStats_vehicle", (vehicle player), true];

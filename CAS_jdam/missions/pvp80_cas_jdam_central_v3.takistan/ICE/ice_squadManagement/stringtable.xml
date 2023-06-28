@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project name="ICE">
+<Package name="squadManagement">
+
+<Container name="squadManagement">
+
+	<Key ID="STR_ICE_sqdMgt_01">
+		<Original>Squad Management</Original>
+		<English>Squad Management</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_26">
+		<Original>Pvt</Original>
+		<English>Pvt</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_27">
+		<Original>Cpl</Original>
+		<English>Cpl</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_28">
+		<Original>Sgt</Original>
+		<English>Sgt</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_29">
+		<Original>Ltn</Original>
+		<English>Ltn</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_30">
+		<Original>Cpt</Original>
+		<English>Cpt</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_31">
+		<Original>Mjr</Original>
+		<English>Mjr</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_32">
+		<Original>Col</Original>
+		<English>Col</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_33">
+		<Original>A.I.</Original>
+		<English>A.I.</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_33b">
+		<Original>AI</Original>
+		<English>AI</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_34">
+		<Original>Dead</Original>
+		<English>Dead</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_37">
+		<Original>SL</Original>
+		<English>SL</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_40">
+		<Original>has left your group</Original>
+		<English>has left your group</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_41">
+		<Original>has joined your group</Original>
+		<English>has joined your group</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_42">
+		<Original>Your new Squad Leader is</Original>
+		<English>Your new Squad Leader is</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_43">
+		<Original>has resigned</Original>
+		<English>has resigned</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_44">
+		<Original>Player</Original>
+		<English>Player</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_45">
+		<Original>was kicked from the group</Original>
+		<English>was kicked from the group</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_46">
+		<Original>soldier was removed from group</Original>
+		<English>soldier was removed from group</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_48">
+		<Original>You are the new Squad Leader</Original>
+		<English>You are the new Squad Leader</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_49">
+		<Original>has been replaced</Original>
+		<English>has been replaced</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_50">
+		<Original>The Squad Leader is no longer an AI player</Original>
+		<English>The Squad Leader is no longer an AI player</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_55">
+		<Original>Remove</Original>
+		<English>Remove</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_56">
+		<Original>Kick</Original>
+		<English>Kick</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_57">
+		<Original>Recruit</Original>
+		<English>Recruit</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_58">
+		<Original>Invite</Original>
+		<English>Invite</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_61">
+		<Original>was invited into your group</Original>
+		<English>was invited into your group</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_62">
+		<Original>soldier was recruited into your group</Original>
+		<English>soldier was recruited into your group</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_63">
+		<Original>you have been invited to join group</Original>
+		<English>you have been invited to join group</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_66">
+		<Original>Unassigned</Original>
+		<English>Unassigned</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_67">
+		<Original>You are already the Squad Leader</Original>
+		<English>You are already the Squad Leader</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_68">
+		<Original>%1 was sent request to become the new squad leader.</Original>
+		<English>%1 was sent request to become the new squad leader.</Original>
+	</Key>
+
+	<Key ID="STR_ICE_sqdMgt_69">
+		<Original>Do you accept the request to become the new squad leader of your group?</Original>
+		<English>Do you accept the request to become the new squad leader of your group?</Original>
+	</Key>
+
+</Container>
+
+</Package>
+</Project>

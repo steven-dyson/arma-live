@@ -1,0 +1,212 @@
+/***************************************************************************
+Review Hit
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+
+
+/***************************************************************************
+INIT
+***************************************************************************/
+private ["_args", "_time", "_victim", "_selection", "_csDamage", "_damagingUnit", "_ammo", "_victimInfo", "_damagingUnitsInfo", "_damagePrevious", "_victimUID", "_victimSide", "_start", "_previousEntry", "_roadKill", "_damagingUnitUID", "_damagingUnitSide", "_damagingUnitScoreVar", "_hitVar", "_hitInfo", "_damageInflicted", "_selectionType", "_waitTime", "_weapon"];
+
+_args = (_this select 0);
+_time = (_this select 1);
+
+_victim = (_args select 0);
+_selection = (_args select 1);
+_csDamage = (_args select 2);
+_damagingUnit = (_args select 3);
+_ammo = (_args select 4);
+
+_victimInfo = (_victim getVariable "SPY_PLAYER_INFO");
+_damagingUnitsInfo = (_victimInfo select 0);
+_damagePrevious = (_victimInfo select 1);
+
+_victimUID = (_victim getVariable "SPY_id_player" select 0);
+_victimSide = (_victim getVariable "SPY_id_player" select 2);
+
+_start = false;
+_previousEntry = false;
+
+if (((getPlayerUID _victim) == "") || !(alive _victim)) then {_victim removeAllEventHandlers "HandleDamage";};
+/***************************************************************************
+END
+***************************************************************************/
+
+
+
+/***************************************************************************
+DEFINE CORRECT DAMAGING UNIT
+***************************************************************************/
+// ROADKILL
+_roadKill = ([_victim] call SPY_detectRK);
+if ((_roadKill select 0)) then {_damagingUnit = (_roadKill select 1);};
+
+// VEHICLE
+if (!(_damagingUnit isKindOf "Man")) then {_damagingUnit = ([false, _damagingUnit, objNull] call SPY_getUnit);};
+
+// NO UNIT, SELF INFLICTED, DEAD, OR IN SAME VEHICLE
+if ((isNull _damagingUnit) || (_damagingUnit == _victim) || !(alive _victim) || (_damagingUnit in (crew (vehicle _victim)))) exitWith {
+
+	_victimInfo set [6, "None"];
+	
+	// Victim ready for death processing
+	if (((getPlayerUID _victim) == "") || !(alive _victim)) then {
+
+		SPY_bStats_victimReady = 2;
+
+	};
+
+};
+
+// Valid unit ammo stored
+if ((_ammo != "") && !(alive _victim)) then {
+
+	_victimInfo set [6, _ammo];
+	
+};
+/***************************************************************************
+END
+***************************************************************************/
+
+
+
+/***************************************************************************
+GATHER DAMAGING UNIT INFO, FORMAT VARIABLE, DEFINE START
+***************************************************************************/
+_damagingUnitUID = (_damagingUnit getVariable "SPY_id_player" select 0);
+_damagingUnitSide = (_damagingUnit getVariable "SPY_id_player" select 2);
+_damagingUnitScoreVar = (format ["SPY_bStats_%1", _damagingUnitUID]);
+
+_hitVar = (format ["SPY_%1_%2%3", _victim, round _time, round ((_time - round _time) * 1000)]);
+
+if ((isNil {_victim getVariable _hitVar})) then {
+
+	_victim setVariable [_hitVar, [], false];
+	_start = true;
+
+};
+/***************************************************************************
+END
+***************************************************************************/
+
+
+
+/***************************************************************************
+PROCESS HANDLE DAMAGE DATA
+***************************************************************************/
+// GATHER CURRENT INFO
+_hitInfo = (_victim getVariable _hitVar);
+
+// SET DAMAGE INFO
+_hitInfo set [count _hitInfo, [_csDamage, _damagingUnit, _damagingUnitUID, _selection, _ammo]];
+
+// SET UNIT VARIABLE INFO
+_victim setVariable [_hitVar, _hitInfo, false];
+
+// EXIT IF NOT INITAL SCRIPT
+if (!(_start)) exitWith {};
+
+if ((!alive _victim)) then {
+
+	SPY_ALIVE_PLAYER = false;
+
+};
+
+// ENSURE ARRAY IN FINISHED
+sleep 0.2;
+
+// RE-GATHER HIT INFO
+_hitInfo = (_victim getVariable _hitVar);
+
+// ORDER HIT INFO ARRAY BY HIGHEST DAMAGE
+_hitInfo = [_hitInfo, 2, 0] call SPY_orderArrayA;
+
+// USE ONLY HIGHEST DAMAGE
+_hitInfo = (_hitInfo select 0);
+
+// HIT VARIABLE NO LONGER REQUIRED
+_victim setVariable [_hitVar, nil, false];
+
+// CALCULATE NEW DAMAGE
+_damageInflicted = ((damage _victim) - _damagePrevious);
+/***************************************************************************
+END
+***************************************************************************/
+
+
+
+/***************************************************************************
+SEND & STORE DATA
+***************************************************************************/
+// STORE AMMO USED
+if ((_ammo != "")) then {_victimInfo set [6, _ammo];};
+
+// TEAM DAMAGE
+if ((alive _victim) && (_damagingUnitSide == _victimSide) && (_damageInflicted > 0.01)) then {
+
+	_weapon = ([_damagingUnit, _victimUID, _damagingUnitUID, _ammo, 0] call SPY_getWeapon);
+	[["damageTeam", _damagingUnitScoreVar, _victimUID, _damagingUnitUID, _weapon, (_damagingUnit distance _victim), (getPos _victim), (getPos _damagingUnit)], "[_this, '_this call SPY_damage;'] call SPY_iQueueAdd", "SERVER"] call CAS_mpCB_A;
+	
+	if ((SPY_bStats_msgsEnabled)) then {
+	
+		_null = [1, "CHECK FIRE! YOU ARE HITTING FRIENDLIES!", _damagingUnitUID, false] spawn SPY_bMessage;
+	
+	};
+	
+};
+
+// UPDATE DAMAGE INFO
+{
+	
+	// PREVIOUS ENTRY
+	if (((_x select 0) == _damagingUnit)) then {
+
+		_damageInflicted = ((_x select 1) + _damageInflicted);
+		_damagingUnitsInfo = (_damagingUnitsInfo + [[_damagingUnit, _damageInflicted, (time + 180)]]);
+		_victimInfo set [0, _damagingUnitsInfo];
+		
+		_previousEntry = true;
+		
+	};
+	
+	if ((_previousEntry)) exitWith {};
+	
+	// NEW ENTRY
+	if ((!_previousEntry)) then {
+		
+		_damagingUnitsInfo = (_damagingUnitsInfo + [[_damagingUnit, _damageInflicted, (time + 180)]]);
+		_victimInfo set [0, _damagingUnitsInfo];
+	
+	};
+
+} forEach _damagingUnitsInfo;
+
+// Victim ready for death processing
+if (((getPlayerUID _victim) == "") || !(alive _victim)) then {
+
+	SPY_bStats_victimReady = 2;
+
+};
+
+// FORMAT SELECTION
+switch (_hitInfo select 3) do {
+
+	case "head_hit": {_selectionType = 0;};
+	case "body": {_selectionType = 1;};
+	case "hands": {_selectionType = 2;};
+	case "legs": {_selectionType = 3;};
+	default {_selectionType = 1;};
+	
+};
+
+// SEND HIT SELECTION TO DAMAGING UNIT (UTILIZE SPY QUEUE LATER)
+if ((_damagingUnitSide != _victimSide) && (SPY_ALIVE_PLAYER)) then {[[_damagingUnit, _selectionType, _ammo], "_this call SPY_storeSelection;", _damagingUnitUID] call CAS_mpCB_A;};
+
+// DEBUG
+_null = [1, (format ["PH: %1, %2, %3", _hitInfo, _ammo, (alive _victim)]), "CLIENT", false] spawn SPY_bMessage;
+/***************************************************************************
+END
+***************************************************************************/

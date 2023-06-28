@@ -1,0 +1,72 @@
+/***************************************************************************
+Reset Damage Player
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+private ["_playerInfo", "_damagingUnits"];
+
+while {sleep 0.1; true} do {
+	
+	waitUntil {
+	
+		sleep 1;
+		_playerInfo = (player getVariable "SPY_PLAYER_INFO");
+		_damagingUnits = (_playerInfo select 0);
+		(!(((_damagingUnits select 0) select 0) in [player]) || !(alive player));
+		
+	};
+	
+	// Player killed
+	if ((!alive player)) then {
+
+		waitUntil {sleep 0.1; alive player};
+		
+		player setVariable ["SPY_PLAYER_INFO", [[[player, 0, 0]], 0, false, false, objNull, [0, [0, 0, 0, 0, 0]], ""], false];
+
+		SPY_ALIVE_PLAYER = true;
+		SPY_bStats_victimReady = 0;
+		
+		_null = [1, "Player was killed", "LOCAL", false] spawn SPY_bMessage;
+		
+	};
+	
+	// Indiv damaging unit went 3 min w/o applying additional damage
+	{
+		
+		if ((time >= (_x select 2)) && (time != 0)) then {
+
+			_damagingUnits = ((player getVariable "SPY_PLAYER_INFO") select 0);
+		
+			_damagingUnits set [_forEachIndex, -1];
+			_damagingUnits = (_damagingUnits - [-1]);
+			
+			_playerInfo set [0, _damagingUnits];
+			player setVariable ["SPY_PLAYER_INFO", _playerInfo, false];
+			
+			_null = [1, "Damage time out", "LOCAL", false] spawn SPY_bMessage;
+			
+		};
+	
+	} forEach _damagingUnits;
+	
+	// All damaging units removed. Add a place holder and exit.
+	if (((count (_damagingUnits)) == 0)) then {
+
+		_playerInfo set [0, [[player, 0, 0]]];
+		
+		_null = [1, "No more damaging units", "LOCAL", false] spawn SPY_bMessage;
+
+	};
+
+	// Player has been healed, reset and exit.
+	if (((damage player) == 0) && (alive player)) then {
+
+		_playerInfo set [0, [[player, 0, 0]]];
+		_playerInfo set [1, 0];
+		
+		_null = [1, "Player was healed", "LOCAL", false] spawn SPY_bMessage;
+
+	};
+
+};

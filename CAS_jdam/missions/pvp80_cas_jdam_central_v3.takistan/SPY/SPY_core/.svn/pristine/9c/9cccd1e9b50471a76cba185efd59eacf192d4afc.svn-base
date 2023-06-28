@@ -1,0 +1,29 @@
+/***************************************************************************
+SPY Initialization and Compile (Method)
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+
+
+/***************************************************************************
+Init
+****************************************************************************/
+private ["_compile", "_uid"];
+
+_compile = [] execVM "SPY\SPY_core\SPY_id\SPY_compile.sqf";
+waitUntil {scriptDone _compile};
+
+_uid = (getPlayerUID player);
+
+// Player ID variable
+player setVariable ["SPY_id_player", [_uid, (name player), (playerSide), (faction player)], true];
+SPY_container setVariable [("SPY_id_player" + _uid), [_uid, (name player), (playerSide), (faction player)], true]; //%NOTE% This will replace the above line
+
+// %NOTE% Not sure if this works/is needed
+// _null = [] execVM "SPY\SPY_core\SPY_identify\SPY_setEnemy.sqf";
+
+_null = [1, "(Core) ID initialized *Client*", "LOCAL", false] spawn SPY_bMessage;
+/***************************************************************************
+End
+****************************************************************************/

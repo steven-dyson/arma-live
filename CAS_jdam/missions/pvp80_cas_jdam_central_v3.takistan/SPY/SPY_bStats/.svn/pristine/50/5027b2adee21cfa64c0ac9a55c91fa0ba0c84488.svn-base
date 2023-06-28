@@ -1,0 +1,71 @@
+/***************************************************************************
+Reset Damage Player
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+private ["_pUID", "_pName", "_pSide", "_playerInfo", "_damagingUnits"];
+
+_pUID = (player getVariable "SPY_id_uid");
+_pName = (SPY_container getVariable ("SPY_id_" + _pUID) select 0);
+_pSide = (SPY_container getVariable ("SPY_id_" + _pUID) select 1);
+
+while {sleep 0.1; true} do 
+{
+	waitUntil { sleep 0.1; (alive player) };
+	
+	waitUntil 
+	{
+		sleep 0.1;
+		_playerInfo = (player getVariable "SPY_player_info");
+		_damagingUnits = (_playerInfo select 0);
+		(!(((_damagingUnits select 0) select 1) isEqualTo 0) || !(alive player));
+	};
+	
+	// Player killed
+	if ((!alive player)) then 
+	{
+		waitUntil {sleep 0.1; (alive player)};
+		
+		player setVariable ["SPY_player_info", [[[player, 0, 0, (player getVariable "SPY_id_uid"), (name player), false]], 0, false, false, objNull, [0, [0, 0, 0, 0, 0]], ""], false];
+		player setVariable ["SPY_bStats_vehicle", (vehicle player), true];
+		
+		player setVariable ["SPY_bStats_deathState", 0, false];
+		
+		player sideChat "Player was killed";
+	}
+	else
+	{
+		// Player has been healed, reset and exit.
+		if (((damage player) isEqualTo 0) && (alive player)) then {
+
+			_playerInfo set [0, [[player, 0, 0, (player getVariable "SPY_id_uid"), (name player), false]]];
+			_playerInfo set [1, 0];
+			
+			player sideChat "Player was healed";
+		};
+	};
+	
+	// Indiv damaging unit went 3 min w/o applying additional damage
+	{
+		if ((time >= (_x select 2)) && !((_x select 2) isEqualTo 0)) then
+		{
+			_damagingUnits = ((player getVariable "SPY_player_info") select 0);
+		
+			_damagingUnits set [_forEachIndex, -1];
+			_damagingUnits = (_damagingUnits - [-1]);
+			
+			_playerInfo set [0, _damagingUnits];
+			
+			player sideChat "Damage time out";
+		};
+	} forEach _damagingUnits;
+	
+	// All damaging units removed. Add a place holder and exit.
+	if (((count (_damagingUnits)) isEqualTo 0)) then 
+	{
+		_playerInfo set [0, [[player, 0, 0, (player getVariable "SPY_id_uid"), (name player), false]]];
+		
+		player sideChat "All damaging units removed";
+	};
+};

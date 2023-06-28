@@ -1,0 +1,146 @@
+/***************************************************************************
+REVIEW AI HIT
+CREATED BY SPYDER
+SPYDER@ARMALIVE.COM
+****************************************************************************/
+
+
+
+/***************************************************************************
+INIT
+****************************************************************************/
+private ["_args", "_time", "_ai", "_selection", "_csDamage", "_damagingUnit", "_ammo", "_roadKill", "_start", "_damagingUnitUID", "_damagingUnitScoreVar", "_hitVar", "_hitAmmoV", "_hitInfo", "_weapon"];
+
+_args = (_this select 0);
+_time = (_this select 1);
+
+_ai = (_args select 0);
+_selection = (_args select 1);
+_csDamage = (_args select 2);
+_damagingUnit = (_args select 3);
+_ammo = (_args select 4);
+
+_roadKill = ([_ai] call SPY_detectRK);
+
+_start = false;
+/***************************************************************************
+END
+****************************************************************************/
+
+
+
+/***************************************************************************
+DEFINE CORRECT DAMAGING UNIT
+***************************************************************************/
+// ROAD KILL
+if ((_roadKill select 0)) then {_damagingUnit = (_roadKill select 1);};
+
+// VEHICLE
+if (!(_damagingUnit isKindOf "Man")) then {_damagingUnit = ([false, _damagingUnit, objNull] call SPY_getUnit);};
+/***************************************************************************
+END
+***************************************************************************/
+
+
+
+/***************************************************************************
+GATHER DAMAGING UNIT INFO, FORMAT VARIABLE, DEFINE START
+***************************************************************************/
+_damagingUnitUID = (_damagingUnit getVariable "SPY_PLAYER_ID" select 0);
+_damagingUnitScoreVar = (format ["SPY_bStats_%1", _damagingUnitUID]);
+
+if ((isNil "_damagingUnitUID")) exitWith {};
+
+_hitVar = (format ["SPY_%1_%2%3", _ai, round _time, round ((_time - floor _time) * 1000)]);
+
+if ((isNil {_ai getVariable _hitVar})) then {
+
+	_ai setVariable [_hitVar, [], false];
+	_start = true;
+
+};
+/***************************************************************************
+END
+***************************************************************************/
+
+
+
+/***************************************************************************
+PROCESS HANDLE DAMAGE DATA
+***************************************************************************/
+// GATHER CURRENT INFO
+_hitInfo = (_ai getVariable _hitVar);
+
+// SET DAMAGE INFO
+_hitInfo set [count _hitInfo, [_csDamage, _damagingUnit, _damagingUnitUID, _selection, _ammo]];
+
+// SET UNIT VARIABLE INFO
+_ai setVariable [_hitVar, _hitInfo, false];
+
+// EXIT IF NOT INITAL SCRIPT
+if (!(_start)) exitWith {};
+
+// ENSURE ARRAY IN FINISHED
+sleep 0.2;
+
+// RE-GATHER HIT INFO
+_hitInfo = (_ai getVariable _hitVar);
+
+// ORDER HIT INFO ARRAY BY HIGHEST DAMAGE
+_hitInfo = [_hitInfo, 2, 0] call SPY_orderArrayA;
+
+// USE ONLY HIGHEST DAMAGE
+_hitInfo = (_hitInfo select 0);
+
+// VARIABLE NO LONGER REQUIRED
+_ai setVariable [_hitVar, nil, false];
+/***************************************************************************
+END
+***************************************************************************/
+
+
+
+/***************************************************************************
+SEND DATA
+****************************************************************************/
+if ((alive _ai)) then {
+
+	_damagingUnitScoreVar = (format ["SPY_bStats_%1", _damagingUnitUID]);
+	
+	_weapon = ([_damagingUnit, "SERVER", _damagingUnitUID, _ammo] call SPY_getWeapon);
+
+	// NEGATIVE POINT FOR DAMAGE
+	[["damageCiv", _damagingUnitScoreVar, "", _damagingUnitUID, _weapon, (_damagingUnit distance _ai), (getPos _ai), (getPos _damagingUnit)], "[_this, '_this call SPY_damage;'] call SPY_iQueueAdd", "SERVER"] call JDAM_mpCB_A;
+	
+	// PLAYER MESSAGE (LOCAL)
+	if ((SPY_bStats_msgsEnabled)) then {
+	
+		_null = [[], "SPY_GAMELOGIC globalChat 'CHECK FIRE! YOU ARE HITTING CIVILIANS!';", _damagingUnitUID] spawn JDAM_mpCB;
+	
+	};
+	
+};
+
+// DEBUG
+// player sideChat format ["%1: %2", _hitVar, _hitInfo];
+/***************************************************************************
+END
+****************************************************************************/
+
+
+
+/***************************************************************************
+REMOVE/ADD EH (ON DEATH/ALIVE)
+***************************************************************************/
+if ((!(alive _ai))) then {
+	
+	// AMMO USED FOR KILL EVENT
+	_hitAmmoV = (format ["SPY_hitAmmo_%1", _ai]);
+	_ai setVariable [_hitAmmoV, _ammo, false];
+
+	_ai removeAllEventHandlers "HandleDamage";
+
+};
+/***************************************************************************
+END
+***************************************************************************/

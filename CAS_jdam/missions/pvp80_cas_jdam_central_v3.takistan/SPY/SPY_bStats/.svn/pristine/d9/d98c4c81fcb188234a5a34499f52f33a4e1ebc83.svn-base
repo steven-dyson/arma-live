@@ -1,0 +1,24 @@
+/***************************************************************************
+Update Send
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+private ["_playerSV"];
+
+if ((!isDedicated)) then {
+
+	// FORMAT PLAYER SCORE VARIABLE NAME
+	_playerSV = (format ["SPY_bStats_%1", (player getVariable "SPY_id_player" select 0)]);
+
+	// REBROADCAST PLAYER SCORE
+	SPY_container setVariable [_playerSV, (SPY_container getVariable _playerSV), true];
+
+	// REBROADCAST PLAYER ID
+	player setVariable ["SPY_id_player", (player getVariable "SPY_id_player"), true];
+
+} else {
+
+	SPY_container setVariable [SPY_bStats_sideScore, (SPY_container getVariable SPY_bStats_sideScore), true];
+
+};

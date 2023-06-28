@@ -1,0 +1,47 @@
+/***************************************************************************
+Death
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+private ["_vUID", "_vName", "_vPos", "_vSide", "_vScoreVar", "_currentScore", "_addDeath", "_uplink"];
+
+_vUID = (_this select 0);
+_vName = (_this select 1);
+_vPos = (_this select 2);
+_vSide = (_this select 3);
+
+// All current values in the array
+_vScoreVar = (format ["SPY_bStats_%1", _vUID]);
+_currentScore = (SPY_container getVariable _vScoreVar);
+
+// Current value increased by 1
+_addDeath = ((_currentScore select 4) + 1);
+
+// Set increased value in array
+_currentScore set [4, _addDeath];
+
+// Broadcast player score
+SPY_container setVariable [_vScoreVar, _currentScore, true];
+
+switch (_vSide) do 
+{
+	case WEST: {[[0, 1, 0, 0]] call SPY_addSideScore;};
+	case EAST: {[[0, 0, 0, 1]] call SPY_addSideScore;};
+};
+
+// Player death message
+if ((SPY_bStats_msgsEnabled)) then 
+{
+	_null = [[5, (format ["%1 has died", _vName]), 0, ["SPY bStats", "Event Log"], false], "SPY_bMessage", true, false, false] call BIS_fnc_MP;
+};
+
+// Send to armalive
+"armalive" callExtension format 
+[
+	"death;%1;%2;%3;%4",
+	time,
+	_vUID,
+	str _vPos,
+	_vSide
+];

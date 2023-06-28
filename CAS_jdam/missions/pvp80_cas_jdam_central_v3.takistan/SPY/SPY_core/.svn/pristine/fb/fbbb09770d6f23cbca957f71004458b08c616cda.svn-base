@@ -1,0 +1,55 @@
+/***************************************************************************
+PROCESS UID
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+private ["_suspense"];
+
+player enableSimulation false;
+SPY_CONNECT_SYNC = false;
+_null = [3, "UID connecting, please wait...", "LOCAL", false, false] spawn SPY_bMessage;
+
+[] spawn {
+
+	waitUntil {sleep 0.1; (!isNil {player getVariable "SPY_id_player"})};
+	
+	if ((playerSide != (player getVariable "SPY_id_player" select 2))) then {
+	
+		player enableSimulation false;
+		_null = [3, "You are a ghost player, please reconnect or restart...", "LOCAL", false, 2] spawn SPY_bMessage;
+		_null = ["You are a ghost player, please reconnect or restart...", "LOCAL", 999, 0] spawn SPY_bInfoScreen;
+	
+	};
+
+};
+
+sleep (random ((count playableUnits) / 6));
+
+_suspense = (diag_tickTime + 60);
+
+_null = [[player, (getPlayerUID player)], "_this spawn SPY_compareUID;", "SERVER"] spawn CAS_mpCB;
+
+waitUntil {(SPY_CONNECT_SYNC) || (diag_tickTime > _suspense)};
+
+if ((SPY_CONNECT_SYNC)) exitWith {
+
+	_null = [3, "UID connection established...", "LOCAL", false, 0] spawn SPY_bMessage;
+	player enableSimulation true;
+
+	_null = [3, (format ["Welcome %1, enjoy your stay...", (name player)]), "LOCAL", false, 0] spawn SPY_bMessage;
+
+};
+
+if ((diag_tickTime > _suspense)) then {
+
+	_null = [3, "UID connection failed, please reconnect...", "LOCAL", false, 2] spawn SPY_bMessage;
+	_null = ["UID connection failed, please reconnect...", "LOCAL", 999, 0] spawn SPY_bInfoScreen;
+	
+	while {true} do {
+	
+		sleep 1;
+		
+	};
+
+};

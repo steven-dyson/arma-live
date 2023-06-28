@@ -1,0 +1,79 @@
+/***************************************************************************
+On Changed Vehicle Position
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+private ["_position", "_driver", "_distance", "_playerDriver"];
+
+// PLAYER ENTERS VEHICLE
+if ((vehicle player) != player) exitWith {
+
+	SPY_bStats_currentVeh = (vehicle player);
+	SPY_bStats_transStart = (getPos player);
+	
+	_position = (assignedVehicleRole player select 0);
+
+	if ((SPY_bStats_enabled) && (isNil {SPY_bStats_currentVeh getVariable "SPY_VEHICLE_INFO"})) then {
+		
+		[[SPY_bStats_currentVeh, (player getVariable "SPY_id_player" select 2)], "SPY_initVehicle", nil, true] call BIS_fnc_MP;
+		
+	};
+
+	waitUntil {sleep 0.1; !(isNil {SPY_bStats_currentVeh getVariable "SPY_vehicle_info"})};
+	
+	_null = [SPY_bStats_currentVeh, false] call SPY_addVeh;
+	
+	if ((isNil "SPY_bStats_ehFiredVeh")) then {
+	
+		SPY_bStats_ehFiredVeh = SPY_bStats_currentVeh addEventHandler ["Fired", "_null = [player, (_this select 4), (_this select 5)] spawn SPY_storeShot"];
+
+	};
+
+};
+
+// PLAYER EXITS VEHICLE
+if ((vehicle player) == player) exitWith {
+
+	waitUntil {(!isNil "SPY_bStats_currentVeh")};
+
+	_driver = (driver SPY_bStats_currentVeh);
+
+	_null = [SPY_bStats_currentVeh, false] spawn SPY_removeVeh;
+	
+	SPY_bStats_currentVeh removeEventHandler ["Fired", SPY_bStats_ehFiredVeh];
+
+	SPY_bStats_transEnd = (getPos player);
+	_distance = (SPY_bStats_transStart distance SPY_bStats_transEnd);
+	
+	SPY_bStats_ehFiredVeh = nil;
+	SPY_bStats_currentVeh = nil;
+	SPY_bStats_transStart = nil;
+	SPY_bStats_transEnd = nil;
+
+	_playerDriver = (player getVariable "SPY_PLAYER_INFO" select 2);
+
+	// Award transport points
+	if ((_distance > 500) && !(_playerDriver)) then {
+
+		[_driver, _distance] spawn {
+
+			private ["_playerDriver", "_driver", "_distance"];
+
+			_playerDriver = (_this select 0);
+			_driver = (_this select 1);
+			_distance = (_this select 2);
+		
+			_playerDriver = false;
+		
+			sleep 15;
+		
+			if ((isNull _driver) || (!(alive player)) || (_driver != (driver SPY_bStats_currentVeh)) || (player in (crew SPY_bStats_currentVeh))) exitWith {};
+		
+			[[(_driver getVariable "SPY_id_player" select 1), (player getVariable "SPY_id_player" select 0), _distance, SPY_bStats_transEnd], "_this call SPY_trans;", "SERVER"] call SPY_iQueueAdd;
+
+		};
+
+	};
+
+};

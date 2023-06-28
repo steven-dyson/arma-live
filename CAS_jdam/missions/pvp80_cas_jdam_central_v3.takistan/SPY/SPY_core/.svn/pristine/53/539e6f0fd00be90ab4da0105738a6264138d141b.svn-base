@@ -1,0 +1,36 @@
+/***************************************************************************
+CUSTOM EVENT HANDLER EXECUTE
+Created by Spyder
+spyder@armalive.com
+
+_null = [CEH NAME] spawn SPY_cehExec
+_null = [CEH NAME] execVM "SPY\SPY_core\SPY_ceh\SPY_cehExec.sqf";
+***************************************************************************/
+
+
+
+/***************************************************************************
+EXEC
+****************************************************************************/
+private ["_cehName", "_reserved", "_cehValue"];
+
+_cehName = (_this select 0);
+_reserved = (_this select 1);
+
+_cehValue = (player getVariable _cehName);
+
+{
+
+	private ["_args", "_script", "_compiledScript"];
+
+	_args = (_x select 1) + _reserved;
+	_script = (_x select 2);
+	
+	_compiledScript = (compile _script);
+	
+	_null = _args spawn _compiledScript;
+	
+} forEach _cehValue;
+/***************************************************************************
+END
+****************************************************************************/

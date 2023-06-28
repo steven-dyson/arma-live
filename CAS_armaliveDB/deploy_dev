@@ -1,0 +1,2 @@
+psql postgres < globals.sql
+psql bstats_master < bstats_master.sql

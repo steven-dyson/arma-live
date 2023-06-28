@@ -1,0 +1,15 @@
+v0.3
+- Multiplayer tested: Seems fully functional
+- Fixed proxy objects beeing visible for other players
+- Description updated
+
+v0.21
+- Removed accidential CBA dependency in example-mission
+
+v0.2
+- Initial Release
+- Added item-dependency (Tactical glasses are needed to watch a livefeed. Helmets are required to provide livefeeds.)
+
+v0.1
+- Proper headtracking added
+- Livefeeds are available for each groupmember

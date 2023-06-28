@@ -1,0 +1,14 @@
+/***************************************************************************
+SPY Initialization and Compile (Method)
+MISSION SIDE SETTINGS
+Created by Spyder
+spyder@armalive.com
+
+SETUP:
+["SETTING", SETTING VALUE, BROADCAST BOOLEAN]
+
+USAGE: 
+ONLY MODIFY THE SECOND VALUE UNLESS YOU ARE CREATING YOUR CUSTOM SETTINGS FOR YOUR SCRIPTS
+***************************************************************************/
+
+["SPY_msg_debug", true, true] // DEBUG MESSAGES

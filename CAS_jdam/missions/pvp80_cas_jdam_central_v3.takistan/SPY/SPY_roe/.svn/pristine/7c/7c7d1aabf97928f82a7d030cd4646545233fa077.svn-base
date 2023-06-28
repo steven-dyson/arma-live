@@ -1,0 +1,39 @@
+/***************************************************************************
+SPY INIT AND COMPILE (METHOD)
+CREATED BY SPYDER
+SPYDER@ARMALIVE.COM
+***************************************************************************/
+
+
+
+/***************************************************************************
+EXEC
+****************************************************************************/
+private ["_compile"];
+
+if ((!isServer)) then {
+
+	_compile = [] execVM "SPY\SPY_roe\SPY_compile.sqf";
+	waitUntil {sleep 0.1; scriptDone _compile};
+	
+};
+
+_uid = (player getVariable "SPY_id_player" select 0);
+
+SPY_container setVariable ["SPY_roe_" + _uid, [0, 0], false];
+
+// Use bStats killed eventhandler as it is more accurate
+if ((SPY_bStats_enabled)) then {
+
+	player addEventHandler ["Killed", {_null = [(_this select 0), (_this select 1)] spawn SPY_reviewROE;}];
+
+};
+
+// Start punish monitor
+_null = [] execVM "SPY\SPY_roe\SPY_gainPunish.sqf";
+
+// Debug
+_null = [0, "ROE INITILIZED *CLIENT*", "LOCAL", false] spawn SPY_bMessage;
+/***************************************************************************
+END
+****************************************************************************/

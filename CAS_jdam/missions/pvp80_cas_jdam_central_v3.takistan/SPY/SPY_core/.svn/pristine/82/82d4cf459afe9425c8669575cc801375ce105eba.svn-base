@@ -1,0 +1,72 @@
+/***************************************************************************
+Broadcast Message All
+Created by Spyder
+spyder@armalive.com
+
+_null = [[2, "FUCK OFF", 0, "SPY_bStats", true], "SPY_bMessage", true, false, false] call BIS_fnc_MP; // all
+_null = [[2, "FUCK OFF", 0, "SPY_bStats", true], "SPY_bMessage", false, false, false] call BIS_fnc_MP; // server
+_null = [[2, "FUCK OFF", 0, "SPY_bStats", true], "SPY_bMessage", player1, false, false] call BIS_fnc_MP; // single client
+_null = [[2, "FUCK OFF", 0, "SPY_bStats", true], "SPY_bMessage", [player1, player2], false, false] call BIS_fnc_MP; // multiple clients
+_null = [[2, "FUCK OFF", 0, "SPY_bStats", true], "SPY_bMessage", WEST, false, false] call BIS_fnc_MP; // side
+***************************************************************************/
+
+// Ensure messages run one at a time
+//waitUntil { SPY_msg_processFinished };
+//SPY_msg_processFinished = false;
+
+scriptName "SPY Core Msg Broadcast Message All";
+
+private ["_type", "_msg", "_hint", "_log", "_rpt", "_lead"];
+
+_type = (_this select 0);
+_msg = (_this select 1);
+_hint = (_this select 2);
+_log = (_this select 3);
+_rpt = (_this select 4);
+
+// Exit if debug is disabled for debug messages
+if ((_type in [1]) && !(SPY_msg_debug)) exitWith {};
+
+// Define message lead symbol %Todo custom symbol add script
+switch (_type) do 
+{
+	case 1: {_lead = "[D]";}; // Debug
+	case 2: {_lead = "[E]:";}; // Errors
+	case 3: {_lead = "[I]";}; // Information
+	case 4: {_lead = "[W]";}; // Warnings
+	case 5: {_lead = "[S]";}; // Stats
+};
+
+// Text message
+SPY_container globalChat format ["%1 %2", _lead, _msg];
+
+// Display hint
+switch (_hint) do
+{
+	case 1: 
+	{
+		hint (format ["%1 %2", _lead, _msg]);
+	};
+	
+	case 2: 
+	{
+		hintC (format ["%1 %2", _lead, _msg]);
+	};
+};
+
+// Add to log
+if (!(_log isEqualTo "")) then
+{
+	player createDiaryRecord [(_log select 0), [(_log select 1), _msg]];
+};
+
+if ((_rpt)) then
+{
+	diag_log (format ["%1 %2", _lead, _msg]);
+};
+
+// Buffer for other messages
+sleep 0.1;
+
+// Message finished
+SPY_msg_processed = true;

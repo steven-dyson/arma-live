@@ -1,0 +1,21 @@
+/***************************************************************************
+SPY Initialization and Compile (Method)
+Server Side Settings
+Created by Spyder
+spyder@armalive.com
+
+Setup:
+["Setting", Setting Value, Broadcast Boolean]
+
+Usage: 
+Only modify the broadcast boolean if you are creating your custom settings for your scripts
+***************************************************************************/
+
+["CAS_JDAM_bp_buildTime", 0, false], // Time it takes a squad leader to build a battle position alone
+["CAS_JDAM_bp_secureDelay", 120, false], // Delay between securing a zone and building a battle position
+["CAS_JDAM_bp_chargeSetDelay", 60, false], // Delay from charge set to battle position destruction
+["CAS_JDAM_bp_chargeSetAlarm", true, false], // Allow alarm to sound when a charge is set on the battle position
+
+["CAS_JDAM_orp_buildTime", 0, true], // Time it takes a squad leader to build a objective rally point alone
+["CAS_JDAM_orp_redeployDelay", 300, true], // Delay from your objective rally point being destroyed/picked to placing a new one
+["CAS_JDAM_orp_deploys", 20, true] // Number of player deployments to the objective rally point

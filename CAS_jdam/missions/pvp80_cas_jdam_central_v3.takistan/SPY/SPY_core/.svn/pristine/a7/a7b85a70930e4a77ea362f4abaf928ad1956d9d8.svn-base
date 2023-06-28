@@ -1,0 +1,28 @@
+/***************************************************************************
+ARRAY TO LIST
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+private ["_a", "_l"];
+
+_a = (_this select 0);
+_l = "";
+
+{
+
+	if ((_l == "")) then {
+	
+		_l = format ["'%1'", _x];
+	
+	} else {
+	
+		_l = format ["%1, '%2'", _l, _x];
+		
+	};
+
+} forEach _a;
+
+// player sideChat format ["L: %1", _l];
+
+_l

@@ -1,0 +1,34 @@
+/***************************************************************************
+Switched Weapon
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+
+
+/***************************************************************************
+INIT
+****************************************************************************/
+private ["_wpn"];
+
+// PLAYER HAS WEAPON
+waitUntil {sleep 0.1; (([player, [], ""] call SPY_currentWeapon) != "") && (alive player)};
+
+while {true} do {
+	
+	// INITAL WEAPON
+	_wpn = ([player, [], ""] call SPY_currentWeapon);
+	
+	// PLAYER SWITCHED WEAPON
+	waitUntil {sleep 0.1; (([player, [], ""] call SPY_currentWeapon) != _wpn)};
+	
+	// EXEC CEH
+	_null = ["SPY_ceh_switchedWpn", [_wpn]] spawn SPY_cehExec;
+	
+	// DEBUG
+	_null = [1, "Switched Weapon", "CLIENT", false] spawn SPY_bMessage;
+	
+};
+/***************************************************************************
+END
+****************************************************************************/

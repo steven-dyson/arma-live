@@ -1,0 +1,45 @@
+/***************************************************************************
+Transportation
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+private ["_p", "_pUID", "_vehicle", "_distance", "_vehiclePos", "_pVarName", "_score", "_addScore", "_currentScore"];
+
+_p = _this select 0;
+_pUID = _this select 1;
+_vehicle = _this select 2;
+_distance = _this select 3;
+_vehiclePos = _this select 4;
+
+_pVarName = (format ["SPY_bStats_%1", _pUID]);
+
+// Add score
+_score = (["trans", _vehicle, 0] call SPY_scoreValue);
+_addScore = ((SPY_container getVariable _pVarName select 0) + _score);
+
+// All current values in the array
+_currentScore = (SPY_container getVariable _pVarName);
+
+// Set increased value in array
+_currentScore set [0, _addScore];
+
+// Broadcast array
+SPY_container setVariable [_pVarName, _currentScore, true];
+
+// Send to armalive
+"armalive" callExtension format ["transport1;%1;%2;%3;%4;%5",
+
+	time,
+	_pUID,
+	_distance,
+	_vehiclePos,
+	_score
+	
+];
+
+// Player message
+if ((SPY_bStats_msgsEnabled)) then
+{
+	_null = [[5, (format ["You dropped off a passenger (%1 meters)", (floor _distance)]), 0, ["SPY bStats", "Event Log"], false], "SPY_bMessage", _p, false, false] call BIS_fnc_MP;
+};

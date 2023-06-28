@@ -1,0 +1,30 @@
+/***************************************************************************
+SPY Initialization and Compile (Method)
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+
+
+/***************************************************************************
+ALL
+****************************************************************************/
+private ["_compile"];
+
+_compile = [] execVM "SPY\SPY_core\SPY_queue\SPY_compile.sqf";
+waitUntil {sleep 0.1; scriptDone _compile};
+
+SPY_queue_instant = [];
+SPY_queue_delay = [];
+
+[] spawn {
+
+	_null = [] execVM "SPY\SPY_core\SPY_queue\SPY_iQueueExec.sqf";
+	_null = [] execVM "SPY\SPY_core\SPY_queue\SPY_dQueueExec.sqf";
+	
+};
+
+_null = [1, "Core: Queue Initialized *Server*", "LOCAL", false] spawn SPY_bMessage;
+/***************************************************************************
+END
+****************************************************************************/

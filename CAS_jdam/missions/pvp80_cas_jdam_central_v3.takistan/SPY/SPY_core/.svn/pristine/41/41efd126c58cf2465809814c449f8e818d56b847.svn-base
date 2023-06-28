@@ -1,0 +1,77 @@
+/***************************************************************************
+Get Unit
+Created by Spyder
+spyder@armalive.com
+
+%NOTE% For now this will do as long as no AI are present in vehicles. However a better solution should be found.
+***************************************************************************/
+
+private ["_inVehicle", "_unit", "_vehicle", "_turret", "_damagingUnits", "_damagingUnitInfo"];
+
+_inVehicle = (_this select 0);
+_unit = (_this select 1);
+_vehicle = (_this select 2);
+
+_turret = [];
+
+// if ((isNil {_this select 3})) exitWith {};
+
+// Check vehicle positions
+if ((_unit in vehicles) && !(isNull _unit)) then 
+{
+	if (!(isNull gunner _unit)) then 
+	{
+		_unit = (gunner _unit);	
+	}
+	else
+	{
+		if (!(isNull (commander _unit))) then
+		{
+			_unit = (commander _unit);
+		}
+		else
+		{
+			_turret = [_unit] call UNN_getTurret;
+		
+			if ((count _turret > 0)) then
+			{
+				_unit = (_turret select 0);
+			}
+			else
+			{
+				_unit = (driver _unit);
+			};
+		};
+	};
+};
+
+// Unit is still not detected, try vehicle's killer
+if (!(_unit isKindOf "Man") && (_inVehicle)) then 
+{
+	waitUntil { (_vehicle getVariable "SPY_bStats_deathState" isEqualTo 3) };
+		
+	_unit = (_vehicle getVariable "SPY_bStats_killer");
+};
+
+// Attempt killer of nearby vehicle WIP
+/*if (!(_unit isKindOf "Man")) then 
+{
+	//if ((isNil "_v")) then {_v = player};
+	{
+		player sideChat str _x;
+		_unit = (_x getVariable "SPY_vehicle_damage" select 2);
+		if (!(isNull _unit)) exitWith {};
+	}
+	forEach (nearestObjects [(getPos ov1), ["LandVehicle"], 20]);
+};*/
+
+// No killer found
+if ((isNull _unit)) then 
+{
+	_unit = objNull;
+};
+
+// Debug
+// _null = [1, (format ["GU %1", _unit]), "CLIENT", false] spawn SPY_bMessage;
+	
+_unit

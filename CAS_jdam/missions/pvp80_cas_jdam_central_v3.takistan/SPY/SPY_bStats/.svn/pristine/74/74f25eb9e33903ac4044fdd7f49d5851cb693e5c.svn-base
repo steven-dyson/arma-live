@@ -1,0 +1,57 @@
+/***************************************************************************
+Aircraft Crash
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+private ["_vUID", "_vName", "_vScoreVar", "_vPos", "_vehicle", "_vSide", "_crewNumber", "_currentScore", "_score", "_addScore", "_addDeath", "_addCrash"];
+
+_vUID = (_this select 0);
+_vName = (_this select 1);
+_vScoreVar = (_this select 2);
+_vPos = (_this select 3);
+_vehicle = (_this select 4);
+_vSide = (_this select 5);
+
+// NUMBER OF PLAYERS IN VEHICLE (MINUS PILOT)
+_crew = (_vehicle getVariable "SPY_VEHICLE_INFO" select 1);
+_crewNumber = ((count _crew) - 1);
+
+// AIRCRAFT NOT INITILIZED
+if ((isNil "_crewNumber")) then {_crewNumber = 0;};
+
+// PLAYER MESSAGE
+if ((SPY_bStats_msgsEnabled)) then {
+
+	_null = [5, (format ["%1 crashed their %2 (%3 passengers)", _vName, ([_vehicle] call SPY_displayName), _crewNumber]), "CLIENT", false] spawn SPY_bMessage;
+
+};
+
+// ALL CURRENT VALUES IN THE ARRAY
+_currentScore = (SPY_container getVariable _vScoreVar);
+
+//ADD SCORE
+_score = (["accrash", objNull, _crewNumber] call SPY_scoreValue);
+_addScore = ((_currentScore select 0) + _score);
+
+// CURRENT VALUE INCREASED BY 1
+_addDeath = ((_currentScore select 4) + 1);
+_addCrash = ((_currentScore select 9) + 1);
+
+// SET INCREASED VALUE IN ARRAY
+_currentScore set [0, _addScore];
+_currentScore set [4, _addDeath];
+_currentScore set [9, _addCrash];
+
+switch (_vSide) do {
+
+	case WEST: {[[0, 1, 0, 0]] call SPY_addSideScore;};
+	case EAST: {[[0, 0, 0, 1]] call SPY_addSideScore;};
+	
+};
+
+// BROADCAST ARRAY
+SPY_container setVariable [_vScoreVar, _currentScore, true];
+
+// FORMAT/ SEND A2U INFO
+[(format ["bstats_accrash (%1, %2, %3, %4, %5)", (str _vUID), time, _crewNumber, _score, (str (str _vPos))])] call uplink_exec;

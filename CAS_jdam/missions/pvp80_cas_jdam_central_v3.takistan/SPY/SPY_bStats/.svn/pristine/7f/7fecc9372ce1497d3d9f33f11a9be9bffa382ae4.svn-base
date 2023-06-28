@@ -1,0 +1,211 @@
+/***************************************************************************
+Review Vehicle Kill
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+
+
+/***************************************************************************
+INIT
+***************************************************************************/
+private ["_vehicleDamage", "_vehicle", "_killer", "_vehicleInfo", "_vehicleSide", "_vehicleCrew", "_vehicleReset", "_assists", "_damagingUnits", "_damagingUnitInfo", "_damagingUnit", "_damagingUnitUID", "_damagingUnitName", "_damagingUnitSide", "_dVarName", "_killerUID", "_killerName", "_killerSide", "_kVarName", "_ammo", "_kWeapon", "_dWeapon"];
+
+_vehicle = (_this select 0);
+_killer = (_this select 1);
+
+waitUntil {_vehicle getVariable "SPY_VEHICLE_DAMAGE" select 5};
+
+_vehicleInfo = (_vehicle getVariable "SPY_VEHICLE_INFO");
+_vehicleSide = (_vehicleInfo select 0);
+_vehicleCrew = (_vehicleInfo select 1);
+_vehicleReset = (_vehicleInfo select 2);
+
+_assists = [];
+
+// NO SCORE FOR CIVILIAN (EMPTY) VEHICLES
+if ((_vehicleSide == CIVILIAN)) exitWith {};
+/***************************************************************************
+END
+***************************************************************************/
+
+
+
+/***************************************************************************
+DEFINE DAMAGING UNITS
+***************************************************************************/
+_vehicleDamage = (_vehicle getVariable "SPY_VEHICLE_DAMAGE");
+_damagingUnits = (_vehicleDamage select 0);
+
+// ADD ADDITIONAL DAMAGING UNIT INFO
+{
+	
+	_x set [3, ((_x select 0) getVariable "SPY_id_player" select 0)]; // UID
+	_x set [4, ((_x select 0) getVariable "SPY_id_player" select 1)]; // NAME
+	_x set [5, ((_x select 0) getVariable "SPY_id_player" select 2)]; // SIDE
+	_x set [6, (format ["SPY_bStats_%1", ((_x select 0) getVariable "SPY_id_player" select 0)])]; // PLAYER SCORE VARIABLE NAME
+
+} forEach _damagingUnits;
+
+// DEFINE MAIN DAMAGING UNIT
+_damagingUnitInfo = (_damagingUnits select ((count _damagingUnits) - 1));
+
+_damagingUnit = (_damagingUnitInfo select 0);
+_damagingUnitUID = (_damagingUnitInfo select 3);
+_damagingUnitName = (_damagingUnitInfo select 4);
+_damagingUnitSide = (_damagingUnitInfo select 5);
+_dVarName = (_damagingUnitInfo select 6);
+/***************************************************************************
+DEFINE DAMAGING UNITS
+***************************************************************************/
+
+
+
+/***************************************************************************
+Define correct killer
+***************************************************************************/
+// Vehicle
+if (!(_killer isKindOf "Man")) then {_killer = [false, _killer, objNull] call SPY_getUnit;};
+
+// Use killer
+if ((_killer isKindOf "Man")) then {
+
+	_killerUID = (_killer getVariable "SPY_id_player" select 0);
+	_killerName = (_killer getVariable "SPY_id_player" select 1);
+	_killerSide = (_killer getVariable "SPY_id_player" select 2);
+	_kVarName = (format ["SPY_bStats_%1", _killerUID]);
+	
+	// STORE VEHICLE'S KILLER
+	_vehicleDamage set [2, _killer];
+	_vehicleDamage set [3, true];
+
+};
+
+// Use damaging unit, fall back for terrain or
+if (((_killer in _vehicleCrew) || !(_killer isKindOf "Man"))) then {
+	
+	// STORE VEHICLE'S KILLER
+	_vehicleDamage set [2, _damagingUnit];
+	_vehicleDamage set [3, true];
+	
+	if (!(_killer isKindOf "Man")) then {
+	
+		_vehicleDamage set [4, "None"];
+		
+	};
+	
+};
+
+// Debug
+_null = [1, (format ["VK %1, %2, %3", _killer, _damagingUnit, _vehicle]), "CLIENT", false] spawn SPY_bMessage;
+
+// No unit to assign as killer
+if ((!(_killer isKindOf "Man") || (_killer in _vehicleCrew)) && (!(_damagingUnit isKindOf "Man") || (_damagingUnit in _vehicleCrew))) exitWith {};
+
+// Retrieve ammo used in kill
+_ammo = [_vehicle, "SPY_VEHICLE_DAMAGE", 4] call SPY_getVarValue;
+/***************************************************************************
+Define correct killer
+***************************************************************************/
+
+
+
+/***************************************************************************
+Death type checks
+***************************************************************************/
+// TEAM VEHICLE KILL CHECK (INSTANT)
+if ((_killerSide == _vehicleSide) && !(isNull _killer) && !(_killer in _vehicleCrew)) exitWith {
+
+	// RETRIEVE WEAPON USED
+	_kWeapon = ([_killer, "SERVER", _killerUID, _ammo, 0] call SPY_getWeapon);
+
+	[[_killerName, _killerUID, _kVarName, _vehicle, _kWeapon, (_killer distance _vehicle), (getPos _killer), (getPos _vehicle)], "_this spawn SPY_vehTK;", "LOCAL"] spawn SPY_iQueueAdd;
+
+	// START PUNISH SYSTEM
+	_null = ["AUTO", _kVarName, _killerUID] spawn SPY_punish;
+
+};
+
+// TEAM VEHICLE KILL CHECK (DAMAGE)
+if ((_damagingUnitSide == _vehicleSide) && !(_damagingUnit in _vehicleCrew) && !(_vehicleReset)) exitWith {
+
+	// RETRIEVE WEAPON USED
+	_dWeapon = ([_damagingUnit, "SERVER", _damagingUnitUID, _ammo, 0] call SPY_getWeapon);
+
+	[[_damagingUnitName, _damagingUnitUID, _dVarName, _vehicle, _dWeapon, (_damagingUnit distance _vehicle), (getPos _damagingUnit), (getPos _vehicle)], "_this spawn SPY_vehTK;", "LOCAL"] spawn SPY_iQueueAdd;
+
+	// START PUNISH SYSTEM
+	_null = ["AUTO", _dVarName, _damagingUnitUID] spawn SPY_punish;
+
+};
+
+// ENEMY VEHICLE KILL (INSTANT)
+if (!(isNull _killer) && !(_killer in _vehicleCrew)) exitWith {
+
+	// RETRIEVE WEAPON USED
+	_kWeapon = ([_killer, "SERVER", _killerUID, _ammo, 0] call SPY_getWeapon);
+	
+	// DEFINE ASSIST (DAMAGING UNIT)
+	{
+
+		if (((_x select 0) != _vehicle) && ((_x select 3) != _killerUID) && (!(isNull (_x select 0))) && ((_x select 5) != _vehicleSide)) then {
+
+			_assists = (_assists + [_x]);
+
+		};
+	
+	} forEach _damagingUnits;
+	
+	// DEFINE ASSISTS (CREW)
+	{
+	
+		if (((assignedVehicleRole _x select 0) != "CARGO") && (_x != _killer) && (_x != _damagingUnit)) then {
+		
+			_assists = (_assists + [["", "", "", (getPlayerUID _x)]]);
+			
+		};
+	
+	} forEach (crew (vehicle _killer));
+	
+	// SEND KILL & KILL ASSIST DATA
+	[[_killer, _killerName, _killerUID, _kVarName, _vehicle, _kWeapon, (_killer distance _vehicle), (getPos _killer), (getPos _vehicle), _assists], "_this spawn SPY_vehKill;", "LOCAL"] spawn SPY_iQueueAdd;
+	
+};
+
+// ENEMY VEHICLE KILL CHECK (DAMAGE)
+if ((_vehicle != _damagingUnit) && (_damagingUnitSide != _vehicleSide) && !(isNull _damagingUnit) && !(_damagingUnit in _vehicleCrew)) exitWith {
+
+	// RETRIEVE WEAPON USED
+	_dWeapon = ([_damagingUnit, "SERVER", _damagingUnitUID, _ammo, 0] call SPY_getWeapon);
+
+	// DEFINE ASSIST (DAMAGING UNIT)
+	{
+		
+		if (((_x select 0) != _vehicle) && ((_x select 0) != _damagingUnit) && ((_x select 5) != _vehicleSide)) then {
+
+			_assists = (_assists + [_x]);
+
+		};
+	
+	} forEach _damagingUnits;
+
+	// DEFINE ASSISTS (CREW)
+	{
+	
+		if ((assignedVehicleRole _x select 0 != "CARGO") && (_x != _damagingUnit)) then {
+		
+			_assists = (_assists + [["", "", "", (getPlayerUID _x)]]);
+			
+		};
+	
+	} forEach (crew (vehicle _damagingUnit));
+	
+	// SEND KILL & KILL ASSIST DATA
+	[[_damagingUnit, _damagingUnitName, _damagingUnitUID, _dVarName, _vehicle, _dWeapon, (_damagingUnit distance _vehicle), (getPos _damagingUnit), (getPos _vehicle), _assists], "_this spawn SPY_vehKill;", "LOCAL"] spawn SPY_iQueueAdd;
+	
+};
+
+_null = [1, "NO KILL TYPE", "CLIENT", false] spawn SPY_bMessage;
+/***************************************************************************
+Death type checks
+***************************************************************************/

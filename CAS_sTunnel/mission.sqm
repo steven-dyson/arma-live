@@ -1,0 +1,3959 @@
+version=11;
+class Mission
+{
+	addOns[]=
+	{
+		"cacharacters2",
+		"cabuildings2_misc_cargo",
+		"castructures_e_misc_misc_well",
+		"desert_e",
+		"cacharacters_e",
+		"CAWheeled_E_ATV",
+		"castructures_castle",
+		"camisc3",
+		"castructures_e_misc_misc_construction",
+		"cadata"
+	};
+	addOnsAuto[]=
+	{
+		"cacharacters_e",
+		"castructures_e_misc_misc_well",
+		"camisc3",
+		"castructures_castle",
+		"cadata",
+		"desert_e"
+	};
+	randomSeed=16303999;
+	class Intel
+	{
+		startWeather=0.30000001;
+		forecastWeather=0.30000001;
+		year=2012;
+		month=6;
+		day=24;
+	};
+	class Groups
+	{
+		items=4;
+		class Item0
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={1773.829,44.669724,1144.0875};
+					azimut=337.34155;
+					id=57;
+					side="WEST";
+					vehicle="US_Soldier_AT_EP1";
+					player="PLAYER COMMANDER";
+					leader=1;
+					skill=0.60000002;
+				};
+			};
+		};
+		class Item1
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={1774.8053,44.65213,1144.525};
+					azimut=-25.227528;
+					id=61;
+					side="WEST";
+					vehicle="US_Soldier_AT_EP1";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+				};
+			};
+		};
+		class Item2
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={1778.1123,44.672565,1147.1364};
+					azimut=-25.227528;
+					id=62;
+					side="WEST";
+					vehicle="US_Soldier_AT_EP1";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+				};
+			};
+		};
+		class Item3
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={1777.1803,44.668686,1146.6884};
+					azimut=-25.227528;
+					id=63;
+					side="WEST";
+					vehicle="US_Soldier_AT_EP1";
+					player="PLAY CDG";
+					leader=1;
+					skill=0.60000002;
+				};
+			};
+		};
+	};
+	class Vehicles
+	{
+		items=306;
+		class Item0
+		{
+			position[]={1440.3698,42.808899,1301.1453};
+			id=0;
+			side="EMPTY";
+			vehicle="Land_Misc_Well_C_EP1";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_s1";
+			init="_null = [this, CAS_sTunnel_t1_e1] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelEntrance.sqf"";";
+		};
+		class Item1
+		{
+			position[]={1366.5078,41.118305,1642.5657};
+			azimut=-193.464;
+			id=1;
+			side="EMPTY";
+			vehicle="Garbage_can";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2";
+			init="_null = [this, true, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item2
+		{
+			position[]={1365.8807,41.107059,1641.8185};
+			azimut=-193.46414;
+			id=2;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item3
+		{
+			position[]={1367.2042,41.02412,1636.3126};
+			azimut=-193.46414;
+			id=3;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item4
+		{
+			position[]={1368.5973,41.090893,1630.8068};
+			azimut=-193.46414;
+			id=4;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item5
+		{
+			position[]={1371.3838,41.062119,1620.561};
+			azimut=-193.46414;
+			id=5;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item6
+		{
+			position[]={1353.2893,41.385216,1406.4454};
+			azimut=-458.46991;
+			id=6;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item7
+		{
+			position[]={1373.7782,40.953846,1610.051};
+			azimut=-193.46414;
+			id=7;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item8
+		{
+			position[]={1374.9506,40.942131,1605.3763};
+			azimut=-193.46414;
+			id=8;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item9
+		{
+			position[]={1376.3439,40.964947,1599.8704};
+			azimut=-193.46414;
+			id=9;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item10
+		{
+			position[]={1377.5978,40.997089,1594.7827};
+			azimut=-193.46414;
+			id=10;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item11
+		{
+			position[]={1378.9508,41.056614,1589.5294};
+			azimut=-193.46414;
+			id=11;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_3";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item12
+		{
+			position[]={1380.3439,41.050175,1584.0234};
+			azimut=-193.46414;
+			id=12;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_3";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item13
+		{
+			position[]={1382.059,41.05315,1575.7769};
+			azimut=-184.05229;
+			id=13;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_3";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item14
+		{
+			position[]={1358.4977,41.391171,1406.408};
+			azimut=-444.28775;
+			id=14;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_4";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item15
+		{
+			position[]={1363.4525,40.871506,1554.7043};
+			azimut=-94.934601;
+			id=15;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_4";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item16
+		{
+			position[]={1354.2247,40.728321,1554.5984};
+			azimut=-82.120903;
+			id=16;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_5";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item17
+		{
+			position[]={1416.8014,43.281673,1154.0331};
+			azimut=-81.004944;
+			id=17;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_5";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item18
+		{
+			position[]={1399.0281,41.336628,1548.4866};
+			azimut=-258.96985;
+			id=18;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_5";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item19
+		{
+			position[]={1405.2411,41.300694,1546.869};
+			azimut=-253.52054;
+			id=19;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_6";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item20
+		{
+			position[]={1382.7349,41.018955,1569.1589};
+			azimut=-185.30702;
+			id=20;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_6";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item21
+		{
+			position[]={1378.6121,41.122307,1532.9261};
+			azimut=-174.05742;
+			id=21;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_6";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item22
+		{
+			position[]={1378.8395,41.066353,1526.3157};
+			azimut=-183.46622;
+			id=22;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_7";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item23
+		{
+			position[]={1379.7496,40.927544,1515.7687};
+			azimut=-366.60318;
+			id=23;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_7";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item24
+		{
+			position[]={1365.8033,41.291348,1405.5056};
+			azimut=-257.61731;
+			id=24;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_7";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item25
+		{
+			position[]={1373.6028,41.197659,1404.4209};
+			azimut=-267.61523;
+			id=25;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_8";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item26
+		{
+			position[]={1381.8004,41.036213,1504.8795};
+			azimut=-193.46414;
+			id=26;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_8";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item27
+		{
+			position[]={1383.0543,41.064514,1499.7919};
+			azimut=-193.46414;
+			id=27;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_8";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item28
+		{
+			position[]={1383.3048,41.08654,1495.014};
+			azimut=-173.61696;
+			id=28;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_9";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item29
+		{
+			position[]={1382.7457,41.06599,1489.3619};
+			azimut=-173.61696;
+			id=29;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_9";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item30
+		{
+			position[]={1382.1979,40.976219,1484.1509};
+			azimut=-173.61696;
+			id=30;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_9";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item31
+		{
+			position[]={1382.5778,40.959072,1478.5985};
+			azimut=-193.46414;
+			id=31;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_10";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item32
+		{
+			position[]={1383.9708,41.429722,1473.0925};
+			azimut=-193.46414;
+			id=32;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_10";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item33
+		{
+			position[]={1385.2247,46.423717,1468.0049};
+			azimut=-193.46414;
+			id=33;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_10";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item34
+		{
+			position[]={1387.7799,41.438297,1463.2318};
+			azimut=-218.42979;
+			id=34;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_11";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item35
+		{
+			position[]={1391.3668,41.051849,1458.828};
+			azimut=-218.42979;
+			id=35;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_11";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item36
+		{
+			position[]={1394.651,41.122314,1454.745};
+			azimut=-218.42979;
+			id=36;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_11";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item37
+		{
+			position[]={1400.1812,41.271484,1446.3353};
+			azimut=-204.64044;
+			id=37;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_12";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item38
+		{
+			position[]={1386.8534,41.243782,1405.2026};
+			azimut=-102.30668;
+			id=38;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_12";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item39
+		{
+			position[]={1403.7257,41.449863,1435.3563};
+			azimut=-193.46414;
+			id=39;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_13";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item40
+		{
+			position[]={1405.1188,41.474407,1429.8503};
+			azimut=-193.46414;
+			id=40;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_13";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item41
+		{
+			position[]={1447.5488,41.479195,1419.8527};
+			azimut=-283.13654;
+			id=41;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_13";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item42
+		{
+			position[]={1440.297,41.470791,1418.2869};
+			azimut=-462.31812;
+			id=42;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_14";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item43
+		{
+			position[]={1428.463,41.502998,1415.1841};
+			azimut=-282.26642;
+			id=43;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_14";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item44
+		{
+			position[]={1392.6335,41.306465,1406.6703};
+			azimut=-103.47113;
+			id=44;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_15";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item45
+		{
+			position[]={1380.01,41.167286,1404.2787};
+			azimut=89.624977;
+			id=45;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_15";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item46
+		{
+			position[]={1414.0372,41.348625,1393.7894};
+			azimut=-193.46414;
+			id=46;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_15";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item47
+		{
+			position[]={1415.861,41.41346,1388.9596};
+			azimut=-207.73358;
+			id=47;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_16";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item48
+		{
+			position[]={1418.5685,41.439095,1383.9668};
+			azimut=-207.73358;
+			id=48;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_16";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item49
+		{
+			position[]={1421.0372,41.44556,1379.3452};
+			azimut=-207.73358;
+			id=49;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_16";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item50
+		{
+			position[]={1426.5162,41.537045,1370.1396};
+			azimut=-211.64807;
+			id=50;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_17";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item51
+		{
+			position[]={1429.295,41.590862,1365.6971};
+			azimut=-211.64807;
+			id=51;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_17";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item52
+		{
+			position[]={1431.2814,41.624531,1360.9995};
+			azimut=-193.46414;
+			id=52;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_18";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item53
+		{
+			position[]={1432.674,41.713169,1355.4935};
+			azimut=-193.46414;
+			id=53;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_18";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item54
+		{
+			position[]={1435.2423,41.806351,1345.0587};
+			azimut=-196.91327;
+			id=54;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_19";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item55
+		{
+			position[]={1436.964,41.871166,1339.6465};
+			azimut=-196.91327;
+			id=55;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_19";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item56
+		{
+			position[]={1438.5216,41.899696,1334.6437};
+			azimut=-196.91327;
+			id=56;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_19";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item57
+		{
+			position[]={1360.7555,41.113342,1664.3107};
+			id=58;
+			side="EMPTY";
+			vehicle="Land_Misc_Well_C_EP1";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_s2";
+			init="_null = [this, CAS_sTunnel_t1_e2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelEntrance.sqf"";";
+		};
+		class Item58
+		{
+			position[]={1442.5211,42.168991,1323.0956};
+			azimut=-289.66861;
+			id=59;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_19_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item59
+		{
+			position[]={1362.7932,41.238876,1654.0208};
+			azimut=-283.79373;
+			id=60;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_19_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item60
+		{
+			position[]={1440.1843,41.967274,1329.2977};
+			azimut=-196.91327;
+			id=64;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_19_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item61
+		{
+			position[]={1438.8158,41.902954,1333.6338};
+			azimut=-193.464;
+			id=65;
+			side="EMPTY";
+			vehicle="Garbage_can";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e1";
+			init="_null = [this, true, CAS_sTunnel_t1_s1] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item62
+		{
+			position[]={1412.2329,41.259781,1401.374};
+			azimut=-14.767969;
+			id=66;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_19_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item63
+		{
+			position[]={1407.6045,41.452152,1420.4304};
+			azimut=-193.65059;
+			id=67;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_19_3";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item64
+		{
+			position[]={1400.8994,41.329205,1408.5812};
+			azimut=76.919502;
+			id=68;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_19_4";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item65
+		{
+			position[]={1418.8816,41.450718,1412.6311};
+			azimut=-102.74105;
+			id=69;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_19_2_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item66
+		{
+			position[]={1347.3317,41.33778,1404.4429};
+			azimut=-471.48734;
+			id=70;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item67
+		{
+			position[]={1341.9449,41.29681,1401.7222};
+			azimut=-482.68976;
+			id=71;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item68
+		{
+			position[]={1336.7518,41.302399,1397.8965};
+			azimut=-493.79111;
+			id=72;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_3";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item69
+		{
+			position[]={1331.9149,41.305035,1393.3688};
+			azimut=-491.86176;
+			id=73;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_4";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item70
+		{
+			position[]={1322.8041,41.444035,1384.6663};
+			azimut=-494.92047;
+			id=74;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_5";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item71
+		{
+			position[]={1381.5133,44.050331,1203.6459};
+			azimut=-313.82541;
+			id=75;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_6";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item72
+		{
+			position[]={1327.3334,41.333786,1388.736};
+			azimut=-491.46365;
+			id=76;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_7";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item73
+		{
+			position[]={1367.9934,44.880611,1192.0183};
+			azimut=-496.07834;
+			id=77;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_8";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item74
+		{
+			position[]={1413.97,42.749241,1191.2762};
+			azimut=-312.63657;
+			id=78;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_9";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item75
+		{
+			position[]={1397.7937,43.39912,1178.5861};
+			azimut=-314.77069;
+			id=79;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_10";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item76
+		{
+			position[]={1295.6023,41.826622,1358.16};
+			azimut=-493.41159;
+			id=80;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_11";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item77
+		{
+			position[]={1291.4154,41.897923,1353.838};
+			azimut=-494.10886;
+			id=81;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_12";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item78
+		{
+			position[]={1286.7699,42.074547,1348.9246};
+			azimut=-315.02719;
+			id=82;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_13";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item79
+		{
+			position[]={1281.8927,42.236301,1344.1882};
+			azimut=-314.21042;
+			id=83;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_14";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item80
+		{
+			position[]={1267.698,42.545647,1330.5333};
+			azimut=-477.31998;
+			id=84;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_15";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item81
+		{
+			position[]={1252.4685,42.496578,1328.4828};
+			azimut=-444.97693;
+			id=85;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_16";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item82
+		{
+			position[]={1228.6349,41.867176,1328.5746};
+			azimut=-455.80704;
+			id=86;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_17";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item83
+		{
+			position[]={1236.1879,42.12973,1329.598};
+			azimut=-458.46991;
+			id=87;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_18";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item84
+		{
+			position[]={1244.2881,42.353519,1329.6213};
+			azimut=-442.22263;
+			id=88;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_19";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item85
+		{
+			position[]={1260.0806,42.589668,1328.2474};
+			azimut=-460.17966;
+			id=89;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_20";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item86
+		{
+			position[]={1272.8555,42.43335,1334.485};
+			azimut=-494.08755;
+			id=90;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_21";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item87
+		{
+			position[]={1277.8384,42.335316,1339.6899};
+			azimut=-314.45203;
+			id=91;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_22";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item88
+		{
+			position[]={1382.8007,41.020073,1561.572};
+			azimut=-173.27876;
+			id=92;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_19_2_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item89
+		{
+			position[]={1380.1262,41.197662,1542.1447};
+			azimut=-352.16144;
+			id=93;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_19_3_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item90
+		{
+			position[]={1390.7063,41.206028,1550.7144};
+			azimut=-81.591316;
+			id=94;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_19_4_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item91
+		{
+			position[]={1372.4902,40.999146,1553.533};
+			azimut=-261.25183;
+			id=95;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_19_2_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item92
+		{
+			position[]={1587.5684,43.355194,1492.0591};
+			azimut=-124.27002;
+			id=96;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_2";
+			init="_null = [this, true, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item93
+		{
+			position[]={1583.7495,43.22633,1489.5604};
+			azimut=-124.27002;
+			id=97;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_4";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item94
+		{
+			position[]={1579.0734,43.060329,1486.3676};
+			azimut=-124.27002;
+			id=98;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item95
+		{
+			position[]={1574.4202,43.006428,1483.1094};
+			azimut=-124.27002;
+			id=99;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_4";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item96
+		{
+			position[]={1565.8333,42.881409,1476.8661};
+			azimut=-124.27002;
+			id=100;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_14";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item97
+		{
+			position[]={1556.8585,42.908569,1470.8943};
+			azimut=-124.27002;
+			id=101;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item98
+		{
+			position[]={1552.9047,42.90303,1468.1385};
+			azimut=-124.27002;
+			id=102;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_2_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item99
+		{
+			position[]={1548.2545,42.78204,1464.8793};
+			azimut=-124.27002;
+			id=103;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_2_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item100
+		{
+			position[]={1543.943,42.651245,1461.8998};
+			azimut=-124.27002;
+			id=104;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_2_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item101
+		{
+			position[]={1342.5536,46.031502,1184.1172};
+			azimut=-124.27002;
+			id=105;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_3_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item102
+		{
+			position[]={1539.4678,42.553596,1459.2614};
+			azimut=-124.27002;
+			id=106;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_3_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item103
+		{
+			position[]={1326.7384,46.803753,1186.1774};
+			azimut=-114.85818;
+			id=107;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_3_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item104
+		{
+			position[]={1334.8568,46.287628,1174.6704};
+			azimut=-110.91572;
+			id=108;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_4_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item105
+		{
+			position[]={1511.0795,42.183834,1444.4052};
+			azimut=-108.2618;
+			id=109;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_5_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item106
+		{
+			position[]={1505.5803,42.175518,1442.658};
+			azimut=-108.2618;
+			id=110;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_5_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item107
+		{
+			position[]={1500.6166,42.131428,1440.9827};
+			azimut=-108.2618;
+			id=111;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_5_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item108
+		{
+			position[]={1495.7721,42.049416,1439.7767};
+			azimut=-99.349472;
+			id=112;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_6_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item109
+		{
+			position[]={1490.1797,42.010254,1438.7816};
+			azimut=-99.349472;
+			id=113;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_6_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item110
+		{
+			position[]={1485.016,41.960159,1437.8967};
+			azimut=-99.349472;
+			id=114;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_6_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item111
+		{
+			position[]={1480.382,41.869644,1436.4193};
+			azimut=-114.2721;
+			id=115;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_7_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item112
+		{
+			position[]={1470.8455,41.76358,1431.8225};
+			azimut=-297.40897;
+			id=116;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_7_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item113
+		{
+			position[]={1461.3951,41.637733,1426.0378};
+			azimut=-124.27002;
+			id=117;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_8_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item114
+		{
+			position[]={1457.0846,41.575424,1423.0582};
+			azimut=-124.27002;
+			id=118;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_8_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item115
+		{
+			position[]={1452.707,41.532486,1421.1273};
+			azimut=-104.42285;
+			id=119;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_9_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item116
+		{
+			position[]={1595.165,43.453381,1497.3816};
+			azimut=-214.59946;
+			id=120;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_19_1_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item117
+		{
+			position[]={1433.6796,41.486816,1416.4053};
+			azimut=-462.31812;
+			id=121;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_14_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item118
+		{
+			position[]={1532.0736,42.458221,1439.4886};
+			azimut=-121.34824;
+			id=122;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_19_2_2_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item119
+		{
+			position[]={1520.7936,42.348927,1460.397};
+			azimut=-208.44411;
+			id=123;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_19_3_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item120
+		{
+			position[]={1517.3358,42.307568,1447.228};
+			azimut=62.125916;
+			id=124;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_19_4_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item121
+		{
+			position[]={1533.6877,42.446228,1455.7354};
+			azimut=-117.53462;
+			id=125;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_19_2_1_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item122
+		{
+			position[]={1438.1733,41.590721,1536.5991};
+			azimut=-233.42284;
+			id=126;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_3";
+			init="_null = [this, true, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item123
+		{
+			position[]={1441.7864,41.609936,1533.8113};
+			azimut=-233.42284;
+			id=127;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_5";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item124
+		{
+			position[]={1446.3368,41.651173,1530.4408};
+			azimut=-233.42284;
+			id=128;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_17";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item125
+		{
+			position[]={1450.9401,41.742954,1527.1147};
+			azimut=-233.42284;
+			id=129;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_12";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item126
+		{
+			position[]={1459.6565,41.750519,1521.0516};
+			azimut=-233.42284;
+			id=130;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_18";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item127
+		{
+			position[]={1468.2416,41.914021,1514.5333};
+			azimut=-233.42284;
+			id=131;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_1_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item128
+		{
+			position[]={1472.1421,41.983292,1511.703};
+			azimut=-233.42284;
+			id=132;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_2_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item129
+		{
+			position[]={1476.7461,42.037174,1508.3771};
+			azimut=-233.42284;
+			id=133;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_2_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item130
+		{
+			position[]={1480.975,42.051151,1505.2825};
+			azimut=-233.42284;
+			id=134;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_2_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item131
+		{
+			position[]={1485.3861,42.035934,1502.1244};
+			azimut=-233.42284;
+			id=135;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_3_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item132
+		{
+			position[]={1489.99,42.030891,1498.7988};
+			azimut=-233.42284;
+			id=136;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_3_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item133
+		{
+			position[]={1498.0939,42.192078,1491.6051};
+			azimut=-224.011;
+			id=137;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_3_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item134
+		{
+			position[]={1504.9543,42.288536,1483.9958};
+			azimut=-220.06853;
+			id=138;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_4_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item135
+		{
+			position[]={1508.2307,42.296345,1479.8242};
+			azimut=-217.4146;
+			id=139;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_5_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item136
+		{
+			position[]={1511.7391,42.39278,1475.3572};
+			azimut=-217.4146;
+			id=140;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_5_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item137
+		{
+			position[]={1514.9492,42.469196,1471.2169};
+			azimut=-217.4146;
+			id=141;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_5_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item138
+		{
+			position[]={1517.6796,42.434853,1467.0361};
+			azimut=-208.50227;
+			id=142;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_6_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item139
+		{
+			position[]={1411.1006,41.279999,1545.4075};
+			azimut=-259.2962;
+			id=143;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_4_2_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item140
+		{
+			position[]={1416.2771,41.322151,1544.2474};
+			azimut=-256.64227;
+			id=144;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_5_2_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item141
+		{
+			position[]={1421.8196,41.394753,1543.0056};
+			azimut=-256.64227;
+			id=145;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_5_2_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item142
+		{
+			position[]={1426.9241,41.482246,1541.829};
+			azimut=-256.64227;
+			id=146;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_5_2_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item143
+		{
+			position[]={1431.6833,41.556843,1540.3173};
+			azimut=-247.72995;
+			id=147;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_6_2_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item144
+		{
+			position[]={1400.4413,43.281502,1163.424};
+			azimut=-594.61462;
+			id=148;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_23";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item145
+		{
+			position[]={1329.4009,40.530777,1565.67};
+			azimut=-580.4325;
+			id=149;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_4_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item146
+		{
+			position[]={1324.7579,40.43116,1571.3823};
+			azimut=-393.76163;
+			id=150;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_7_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item147
+		{
+			position[]={1400.1224,43.291092,1163.1067};
+			azimut=-607.63202;
+			id=151;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item148
+		{
+			position[]={1407.7114,42.963554,1163.5195};
+			azimut=-618.83441;
+			id=152;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_2_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item149
+		{
+			position[]={1319.6552,40.452789,1577.9976};
+			azimut=-394.17023;
+			id=153;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_3_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item150
+		{
+			position[]={1316.001,40.492359,1583.5237};
+			azimut=-392.24078;
+			id=154;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_4_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item151
+		{
+			position[]={1308.9435,40.553947,1593.9609};
+			azimut=-395.2995;
+			id=155;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_5_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item152
+		{
+			position[]={1303.144,40.489594,1601.9747};
+			azimut=-214.20406;
+			id=156;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_6_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item153
+		{
+			position[]={1312.1991,40.549049,1588.8142};
+			azimut=-391.84274;
+			id=157;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_7_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item154
+		{
+			position[]={1298.0841,40.482388,1609.3511};
+			azimut=-396.45746;
+			id=158;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_8_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item155
+		{
+			position[]={1295.1915,40.43639,1613.4525};
+			azimut=-213.01523;
+			id=159;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_9_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item156
+		{
+			position[]={1291.3668,40.230236,1618.9763};
+			azimut=-215.14937;
+			id=160;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_10_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item157
+		{
+			position[]={1238.567,39.752701,1635.6283};
+			azimut=-452.01666;
+			id=161;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_11_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item158
+		{
+			position[]={1231.2018,39.690838,1635.308};
+			azimut=-452.71393;
+			id=162;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_12_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item159
+		{
+			position[]={1224.4694,39.571686,1634.6942};
+			azimut=-273.63181;
+			id=163;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_13_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item160
+		{
+			position[]={1217.6791,39.466793,1634.3674};
+			azimut=-272.81503;
+			id=164;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_14_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item161
+		{
+			position[]={1162.3448,39.270428,1615.3711};
+			azimut=-320.02707;
+			id=165;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_15_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item162
+		{
+			position[]={1175.6033,39.233727,1623.1415};
+			azimut=-287.68408;
+			id=166;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_16_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item163
+		{
+			position[]={1197.2748,39.306267,1631.502};
+			azimut=-291.26419;
+			id=167;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_17_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item164
+		{
+			position[]={1191.0521,39.272369,1628.3978};
+			azimut=-301.17697;
+			id=168;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_18_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item165
+		{
+			position[]={1183.5883,39.24044,1625.2499};
+			azimut=-284.92975;
+			id=169;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_19_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item166
+		{
+			position[]={1168.4916,39.227715,1620.4224};
+			azimut=-302.88669;
+			id=170;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_20_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item167
+		{
+			position[]={1204.483,39.372559,1633.0625};
+			azimut=-452.69257;
+			id=171;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_21_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item168
+		{
+			position[]={1211.6637,39.429161,1633.6722};
+			azimut=-273.05667;
+			id=172;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_22_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item169
+		{
+			position[]={1275.8044,40.226639,1633.9084};
+			azimut=-421.9115;
+			id=173;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_24";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item170
+		{
+			position[]={1279.9653,40.345726,1630.7759};
+			azimut=-407.72931;
+			id=174;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_4_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item171
+		{
+			position[]={1285.2964,40.28952,1625.6993};
+			azimut=-221.05882;
+			id=175;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_7_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item172
+		{
+			position[]={1345.9093,46.003052,1211.994};
+			azimut=-231.05675;
+			id=176;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_8_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item173
+		{
+			position[]={1269.8262,40.210869,1635.8488};
+			azimut=-434.92889;
+			id=177;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_1_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item174
+		{
+			position[]={1263.879,40.167126,1636.8718};
+			azimut=-446.13135;
+			id=178;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_2_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item175
+		{
+			position[]={1257.4287,40.022457,1636.892};
+			azimut=-457.23267;
+			id=179;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_3_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item176
+		{
+			position[]={1250.8459,39.899651,1636.1359};
+			azimut=-455.30334;
+			id=180;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_4_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item177
+		{
+			position[]={1244.407,39.791225,1635.1437};
+			azimut=-454.90521;
+			id=181;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_1_7_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item178
+		{
+			position[]={1409.5344,43.699535,1223.9338};
+			azimut=218.42044;
+			id=182;
+			side="EMPTY";
+			vehicle="RampConcrete";
+			skill=0.60000002;
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item179
+		{
+			position[]={1159.6226,39.089314,1596.8068};
+			azimut=-52.710587;
+			id=183;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_19_2_3";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item180
+		{
+			position[]={1144.9542,39.221878,1607.9902};
+			azimut=-141.71387;
+			id=184;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_19_3_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item181
+		{
+			position[]={1144.8555,38.926765,1594.0232};
+			azimut=128.448;
+			id=185;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_19_4_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item182
+		{
+			position[]={1157.9448,39.334587,1609.7722};
+			azimut=-140.68362;
+			id=186;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_19_2_1_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item183
+		{
+			position[]={1412.8291,43.549625,1221.5327};
+			azimut=218.42007;
+			id=187;
+			side="EMPTY";
+			vehicle="RampConcrete";
+			skill=0.60000002;
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item184
+		{
+			position[]={1422.2271,43.386665,1224.3933};
+			azimut=307.9841;
+			id=188;
+			side="EMPTY";
+			vehicle="RampConcrete";
+			skill=0.60000002;
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item185
+		{
+			position[]={1407.9618,43.264065,1209.3529};
+			azimut=308.28647;
+			id=189;
+			side="EMPTY";
+			vehicle="RampConcrete";
+			skill=0.60000002;
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item186
+		{
+			position[]={1189.9526,39.119289,1566.7565};
+			azimut=-206.50008;
+			id=190;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_5_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item187
+		{
+			position[]={1192.4838,39.150276,1561.6915};
+			azimut=-206.50008;
+			id=191;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_17_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item188
+		{
+			position[]={1195.0817,39.139309,1556.6414};
+			azimut=-206.50008;
+			id=192;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_12_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item189
+		{
+			position[]={1204.8116,39.250114,1537.5887};
+			azimut=-206.50008;
+			id=193;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_1_2_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item190
+		{
+			position[]={1207.0078,39.274269,1533.3002};
+			azimut=-206.50008;
+			id=194;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_2_2_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item191
+		{
+			position[]={1209.6077,39.284019,1528.2495};
+			azimut=-206.50008;
+			id=195;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_2_2_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item192
+		{
+			position[]={1211.9766,39.299824,1523.575};
+			azimut=-206.50008;
+			id=196;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_2_2_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item193
+		{
+			position[]={1214.4799,39.32481,1518.7623};
+			azimut=-206.50008;
+			id=197;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_3_2_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item194
+		{
+			position[]={1217.0789,39.34079,1513.7126};
+			azimut=-206.50008;
+			id=198;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_3_2_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item195
+		{
+			position[]={1221.0468,39.424938,1503.6294};
+			azimut=-197.08826;
+			id=199;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_3_2_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item196
+		{
+			position[]={1235.6775,39.715595,1477.4397};
+			azimut=-36.766327;
+			id=200;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_4_2_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item197
+		{
+			position[]={1232.6472,39.7061,1481.7925};
+			azimut=-34.112385;
+			id=201;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_5_2_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item198
+		{
+			position[]={1229.4019,39.66489,1486.4554};
+			azimut=-34.112385;
+			id=202;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_5_2_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item199
+		{
+			position[]={1226.4352,39.584881,1490.7733};
+			azimut=-34.112385;
+			id=203;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_5_2_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item200
+		{
+			position[]={1223.95,39.506096,1495.104};
+			azimut=-25.200056;
+			id=204;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_6_2_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item201
+		{
+			position[]={1167.8435,39.035812,1590.9901};
+			azimut=-232.37346;
+			id=205;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_4_2_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item202
+		{
+			position[]={1171.9336,39.017723,1587.6111};
+			azimut=-229.71953;
+			id=206;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_5_2_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item203
+		{
+			position[]={1176.3136,39.033897,1583.9951};
+			azimut=-229.71953;
+			id=207;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_5_2_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item204
+		{
+			position[]={1180.3329,39.068165,1580.6339};
+			azimut=-229.71953;
+			id=208;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_5_2_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item205
+		{
+			position[]={1183.8907,39.096848,1577.1318};
+			azimut=-220.80721;
+			id=209;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_6_2_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item206
+		{
+			position[]={1278.1244,40.592327,1403.2766};
+			azimut=-379.5513;
+			id=210;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_3_2";
+			init="_null = [this, true, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item207
+		{
+			position[]={1276.6781,40.471859,1407.6047};
+			azimut=-379.5513;
+			id=211;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_5_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item208
+		{
+			position[]={1274.7787,40.330784,1412.9388};
+			azimut=-379.5513;
+			id=212;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_17_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item209
+		{
+			position[]={1272.8098,40.219891,1418.2665};
+			azimut=-379.5513;
+			id=213;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_12_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item210
+		{
+			position[]={1268.9529,40.076355,1428.1587};
+			azimut=-379.5513;
+			id=214;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_18_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item211
+		{
+			position[]={1266.5353,39.93256,1434.553};
+			azimut=-381.26233;
+			id=215;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_1_2_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item212
+		{
+			position[]={1320.2112,47.166977,1166.1935};
+			azimut=-390.04602;
+			id=216;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_2_2_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item213
+		{
+			position[]={1317.3049,47.244873,1171.0732};
+			azimut=-390.04602;
+			id=217;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_2_2_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item214
+		{
+			position[]={1314.6512,47.543682,1175.5916};
+			azimut=-390.04602;
+			id=218;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_2_2_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item215
+		{
+			position[]={1264.15,39.845116,1439.6591};
+			azimut=-387.25034;
+			id=219;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_3_2_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item216
+		{
+			position[]={1375.0552,44.538265,1155.3385};
+			azimut=-393.34717;
+			id=220;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_3_2_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item217
+		{
+			position[]={1375.3831,44.392071,1169.4321};
+			azimut=-396.22961;
+			id=221;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_3_2_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item218
+		{
+			position[]={1366.1445,45.306942,1166.958};
+			azimut=-403.59979;
+			id=222;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_4_2_3";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item219
+		{
+			position[]={1389.0468,43.660023,1189.4424};
+			azimut=-400.94586;
+			id=223;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_5_2_3";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item220
+		{
+			position[]={1362.5663,45.930367,1151.9806};
+			azimut=-400.94586;
+			id=224;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_5_2_3";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item221
+		{
+			position[]={1242.5884,39.82695,1467.9044};
+			azimut=-400.94586;
+			id=225;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_5_2_3";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item222
+		{
+			position[]={1239.6062,39.7672,1471.9091};
+			azimut=-392.0336;
+			id=226;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_6_2_3";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item223
+		{
+			position[]={1295.6929,41.227619,1380.8746};
+			azimut=-405.42465;
+			id=227;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_4_2_1_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item224
+		{
+			position[]={1292.0421,41.042778,1384.7227};
+			azimut=-402.77072;
+			id=228;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_5_2_1_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item225
+		{
+			position[]={1288.1323,40.938553,1388.8425};
+			azimut=-402.77072;
+			id=229;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_5_2_1_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item226
+		{
+			position[]={1284.5499,40.876587,1392.6644};
+			azimut=-402.77072;
+			id=230;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_5_2_1_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item227
+		{
+			position[]={1281.4408,40.832157,1396.5719};
+			azimut=-393.8584;
+			id=231;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_6_2_1_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item228
+		{
+			position[]={1346.3915,41.892208,1364.2513};
+			azimut=493.45624;
+			id=232;
+			side="EMPTY";
+			vehicle="RampConcrete";
+			skill=0.60000002;
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item229
+		{
+			position[]={1300.5696,41.71064,1362.3657};
+			azimut=43.640583;
+			id=233;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_19_2_3_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item230
+		{
+			position[]={1314.3771,41.633156,1376.2914};
+			azimut=-135.24202;
+			id=234;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_19_3_2_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item231
+		{
+			position[]={1300.7712,41.445145,1375.7957};
+			azimut=135.32802;
+			id=235;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_19_4_2_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item232
+		{
+			position[]={1342.2158,41.823204,1367.5612};
+			azimut=493.45624;
+			id=236;
+			side="EMPTY";
+			vehicle="RampConcrete";
+			skill=0.60000002;
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item233
+		{
+			position[]={1318.7474,41.962914,1357.8124};
+			azimut=-135.0218;
+			id=237;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_19_2_1_2_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item234
+		{
+			position[]={1229.7493,41.926067,1328.4255};
+			azimut=-193.464;
+			id=238;
+			side="EMPTY";
+			vehicle="Garbage_can";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e3";
+			init="_null = [this, true, CAS_sTunnel_t1_s3] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item235
+		{
+			position[]={1201.8131,41.058327,1324.5131};
+			id=239;
+			side="EMPTY";
+			vehicle="Land_Misc_Well_C_EP1";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_s3";
+			init="_null = [this, CAS_sTunnel_t1_e3] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelEntrance.sqf"";";
+		};
+		class Item236
+		{
+			position[]={1585.0544,43.310696,1491.6158};
+			azimut=-331.28699;
+			id=240;
+			side="EMPTY";
+			vehicle="Garbage_can";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e4";
+			init="_null = [this, true, CAS_sTunnel_t1_s4] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item237
+		{
+			position[]={1604.1768,43.556866,1502.1375};
+			azimut=-216.62801;
+			id=241;
+			side="EMPTY";
+			vehicle="Land_Misc_Well_C_EP1";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_s4";
+			init="_null = [this, CAS_sTunnel_t1_e4] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelEntrance.sqf"";";
+		};
+		class Item238
+		{
+			position[]={1214.9381,41.400311,1326.9086};
+			azimut=-187.31816;
+			id=242;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_19_1_2";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item239
+		{
+			position[]={1524.6001,42.356426,1453.3713};
+			azimut=-29.8757;
+			id=243;
+			side="EMPTY";
+			vehicle="Land_ConcreteBlock";
+			skill=0.60000002;
+			init="_null = [this] execVM ""CAS\CAS_sTunnel\init\CAS_intersectionFloor.sqf"";";
+		};
+		class Item240
+		{
+			position[]={1526.7283,42.346706,1449.7421};
+			azimut=-29.8757;
+			id=244;
+			side="EMPTY";
+			vehicle="Land_ConcreteBlock";
+			skill=0.60000002;
+			init="_null = [this] execVM ""CAS\CAS_sTunnel\init\CAS_intersectionFloor.sqf"";";
+		};
+		class Item241
+		{
+			position[]={1308.8519,41.599911,1370.7482};
+			azimut=-134.36476;
+			id=245;
+			side="EMPTY";
+			vehicle="Land_ConcreteBlock";
+			skill=0.60000002;
+			init="_null = [this] execVM ""CAS\CAS_sTunnel\init\CAS_intersectionFloor.sqf"";";
+		};
+		class Item242
+		{
+			position[]={1306.1304,41.606506,1368.0253};
+			azimut=-134.36476;
+			id=246;
+			side="EMPTY";
+			vehicle="Land_ConcreteBlock";
+			skill=0.60000002;
+			init="_null = [this] execVM ""CAS\CAS_sTunnel\init\CAS_intersectionFloor.sqf"";";
+		};
+		class Item243
+		{
+			position[]={1259.8562,39.792473,1446.4326};
+			azimut=-37.466206;
+			id=247;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_19_2_4";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item244
+		{
+			position[]={1248.2332,39.83382,1462.2271};
+			azimut=-216.34888;
+			id=248;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_19_3_3";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item245
+		{
+			position[]={1243.0165,39.70211,1445.8933};
+			azimut=145.27115;
+			id=249;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_19_4_3";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item246
+		{
+			position[]={1261.6461,39.785431,1459.3831};
+			azimut=-125.43932;
+			id=250;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_19_2_1_3";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item247
+		{
+			position[]={1252.7362,39.779999,1453.2031};
+			azimut=-126.74979;
+			id=251;
+			side="EMPTY";
+			vehicle="Land_ConcreteBlock";
+			skill=0.60000002;
+			init="_null = [this] execVM ""CAS\CAS_sTunnel\init\CAS_intersectionFloor.sqf"";";
+		};
+		class Item248
+		{
+			position[]={1255.7866,39.771908,1455.451};
+			azimut=-126.74979;
+			id=252;
+			side="EMPTY";
+			vehicle="Land_ConcreteBlock";
+			skill=0.60000002;
+			init="_null = [this] execVM ""CAS\CAS_sTunnel\init\CAS_intersectionFloor.sqf"";";
+		};
+		class Item249
+		{
+			position[]={1250.1094,39.809948,1459.1536};
+			azimut=-217.52301;
+			id=253;
+			side="EMPTY";
+			vehicle="Land_ConcreteBlock";
+			skill=0.60000002;
+			init="_null = [this] execVM ""CAS\CAS_sTunnel\init\CAS_intersectionFloor.sqf"";";
+		};
+		class Item250
+		{
+			position[]={1257.7885,39.784023,1449.407};
+			azimut=-216.82962;
+			id=254;
+			side="EMPTY";
+			vehicle="Land_ConcreteBlock";
+			skill=0.60000002;
+			init="_null = [this] execVM ""CAS\CAS_sTunnel\init\CAS_intersectionFloor.sqf"";";
+		};
+		class Item251
+		{
+			position[]={1265.942,39.783516,1463.2837};
+			azimut=-308.83905;
+			id=255;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_18_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item252
+		{
+			position[]={1274.4122,39.806431,1469.95};
+			azimut=-308.83905;
+			id=256;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_1_2_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item253
+		{
+			position[]={1278.1324,39.867981,1473.012};
+			azimut=-308.83905;
+			id=257;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_2_2_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item254
+		{
+			position[]={1282.5111,39.982212,1476.6313};
+			azimut=-308.83905;
+			id=258;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_2_2_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item255
+		{
+			position[]={1286.5713,40.06514,1479.9441};
+			azimut=-308.83905;
+			id=259;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_2_2_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item256
+		{
+			position[]={1290.7378,40.116886,1483.4181};
+			azimut=-308.83905;
+			id=260;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_3_2_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item257
+		{
+			position[]={1295.1157,40.150597,1487.0363};
+			azimut=-308.83905;
+			id=261;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_3_2_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item258
+		{
+			position[]={1304.1178,40.148216,1493.067};
+			azimut=-299.42725;
+			id=262;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_3_2_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item259
+		{
+			position[]={1326.842,40.580116,1514.2854};
+			azimut=-153.64354;
+			id=263;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_4_2_2_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item260
+		{
+			position[]={1322.9717,40.468563,1509.0662};
+			azimut=-136.45137;
+			id=264;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_5_2_2_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item261
+		{
+			position[]={1319.1097,40.341187,1504.8993};
+			azimut=-136.45137;
+			id=265;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_5_2_2_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item262
+		{
+			position[]={1315.5259,40.311375,1501.0784};
+			azimut=-136.45137;
+			id=266;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_5_2_2_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item263
+		{
+			position[]={1311.8258,40.25264,1497.7249};
+			azimut=-127.53904;
+			id=267;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_6_2_2_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item264
+		{
+			position[]={1330.254,40.505413,1520.1024};
+			azimut=-500.82465;
+			id=268;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_6_2_3_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item265
+		{
+			position[]={1357.6707,45.364578,1200.4717};
+			azimut=-216.54089;
+			id=269;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_4_2_2_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item266
+		{
+			position[]={1337.063,40.587975,1541.3561};
+			azimut=-162.76221;
+			id=270;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_5_2_2_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item267
+		{
+			position[]={1335.3419,40.510559,1534.171};
+			azimut=-169.00897;
+			id=271;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_5_2_2_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item268
+		{
+			position[]={1353.1549,45.971336,1172.4644};
+			azimut=-159.48462;
+			id=272;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_3_5_2_2_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item269
+		{
+			position[]={1333.5063,40.448097,1527.3937};
+			azimut=-159.35143;
+			id=273;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_6_2_2_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item270
+		{
+			position[]={1350.5094,40.858921,1570.4366};
+			azimut=-605.211;
+			id=274;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_6_2_3_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item271
+		{
+			position[]={1335.6737,40.618725,1561.8014};
+			azimut=114.82783;
+			id=275;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_19_2_4_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item272
+		{
+			position[]={1413.8234,43.057716,1142.375};
+			azimut=297.56512;
+			id=276;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_19_4_3_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item273
+		{
+			position[]={1340.1108,40.56028,1549.5043};
+			azimut=26.854733;
+			id=277;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_1_19_2_1_3_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item274
+		{
+			position[]={1345.1255,40.707378,1559.118};
+			azimut=25.544243;
+			id=278;
+			side="EMPTY";
+			vehicle="Land_ConcreteBlock";
+			skill=0.60000002;
+			init="_null = [this] execVM ""CAS\CAS_sTunnel\init\CAS_intersectionFloor.sqf"";";
+		};
+		class Item275
+		{
+			position[]={1343.4708,40.633595,1555.7096};
+			azimut=25.544243;
+			id=279;
+			side="EMPTY";
+			vehicle="Land_ConcreteBlock";
+			skill=0.60000002;
+			init="_null = [this] execVM ""CAS\CAS_sTunnel\init\CAS_intersectionFloor.sqf"";";
+		};
+		class Item276
+		{
+			position[]={1137.1432,39.194874,1601.4867};
+			id=280;
+			side="EMPTY";
+			vehicle="Land_Misc_Well_C_EP1";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_s5";
+			init="_null = [this, CAS_sTunnel_t1_e5] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelEntrance.sqf"";";
+		};
+		class Item277
+		{
+			position[]={1152.0951,39.228638,1601.0787};
+			azimut=-193.464;
+			id=281;
+			side="EMPTY";
+			vehicle="Garbage_can";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e5";
+			init="_null = [this, true, CAS_sTunnel_t1_s5] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item278
+		{
+			position[]={1150.5808,39.204247,1600.1074};
+			azimut=-141.35306;
+			id=282;
+			side="EMPTY";
+			vehicle="Land_ConcreteBlock";
+			skill=0.60000002;
+			init="_null = [this] execVM ""CAS\CAS_sTunnel\init\CAS_intersectionFloor.sqf"";";
+		};
+		class Item279
+		{
+			position[]={1153.4347,39.287189,1604.0035};
+			azimut=-141.35306;
+			id=283;
+			side="EMPTY";
+			vehicle="Land_ConcreteBlock";
+			skill=0.60000002;
+			init="_null = [this] execVM ""CAS\CAS_sTunnel\init\CAS_intersectionFloor.sqf"";";
+		};
+		class Item280
+		{
+			position[]={1199.4005,39.159172,1547.2328};
+			azimut=-206.50008;
+			id=284;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_2_12_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item281
+		{
+			position[]={1187.5841,39.096241,1572.0533};
+			azimut=-213.59795;
+			id=285;
+			side="EMPTY";
+			vehicle="Land_A_Castle_Gate";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e2_1_5_1_1";
+			init="_null = [this, false, CAS_sTunnel_t1_s2] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item282
+		{
+			position[]={1305.7325,41.583839,1370.7861};
+			azimut=-44.422741;
+			id=286;
+			side="EMPTY";
+			vehicle="Land_ConcreteBlock";
+			skill=0.60000002;
+			init="null = [this] execVM ""CAS\CAS_sTunnel\init\CAS_intersectionRoof.sqf"";";
+		};
+		class Item283
+		{
+			position[]={1308.9608,41.640678,1367.5299};
+			azimut=-44.422741;
+			id=287;
+			side="EMPTY";
+			vehicle="Land_ConcreteBlock";
+			skill=0.60000002;
+			init="null = [this] execVM ""CAS\CAS_sTunnel\init\CAS_intersectionRoof.sqf"";";
+		};
+		class Item284
+		{
+			position[]={1407.494,41.349579,1410.225};
+			azimut=-102.7716;
+			id=288;
+			side="EMPTY";
+			vehicle="Land_ConcreteBlock";
+			skill=0.60000002;
+			init="null = [this] execVM ""CAS\CAS_sTunnel\init\CAS_intersectionRoof.sqf"";";
+		};
+		class Item285
+		{
+			position[]={1411.9922,41.386391,1411.0952};
+			azimut=-102.772;
+			id=289;
+			side="EMPTY";
+			vehicle="Land_ConcreteBlock";
+			skill=0.60000002;
+			init="null = [this] execVM ""CAS\CAS_sTunnel\init\CAS_intersectionRoof.sqf"";";
+		};
+		class Item286
+		{
+			position[]={1342.5771,40.655437,1557.6613};
+			azimut=-66.967056;
+			id=290;
+			side="EMPTY";
+			vehicle="Land_ConcreteBlock";
+			skill=0.60000002;
+			init="null = [this] execVM ""CAS\CAS_sTunnel\init\CAS_intersectionRoof.sqf"";";
+		};
+		class Item287
+		{
+			position[]={1346.2734,40.658543,1556.3588};
+			azimut=-66.967102;
+			id=291;
+			side="EMPTY";
+			vehicle="Land_ConcreteBlock";
+			skill=0.60000002;
+			init="null = [this] execVM ""CAS\CAS_sTunnel\init\CAS_intersectionRoof.sqf"";";
+		};
+		class Item288
+		{
+			position[]={1150.265,39.250847,1603.3256};
+			azimut=-53.152817;
+			id=292;
+			side="EMPTY";
+			vehicle="Land_ConcreteBlock";
+			skill=0.60000002;
+			init="null = [this] execVM ""CAS\CAS_sTunnel\init\CAS_intersectionRoof.sqf"";";
+		};
+		class Item289
+		{
+			position[]={1153.8453,39.216805,1600.6525};
+			azimut=-53.152817;
+			id=293;
+			side="EMPTY";
+			vehicle="Land_ConcreteBlock";
+			skill=0.60000002;
+			init="null = [this] execVM ""CAS\CAS_sTunnel\init\CAS_intersectionRoof.sqf"";";
+		};
+		class Item290
+		{
+			position[]={1381.5242,41.18795,1549.9781};
+			azimut=-171.438;
+			id=294;
+			side="EMPTY";
+			vehicle="Land_ConcreteBlock";
+			skill=0.60000002;
+			init="_null = [this] execVM ""CAS\CAS_sTunnel\init\CAS_intersectionFloor.sqf"";";
+		};
+		class Item291
+		{
+			position[]={1382.0973,41.121052,1554.197};
+			azimut=-172.14343;
+			id=295;
+			side="EMPTY";
+			vehicle="Land_ConcreteBlock";
+			skill=0.60000002;
+			init="_null = [this] execVM ""CAS\CAS_sTunnel\init\CAS_intersectionFloor.sqf"";";
+		};
+		class Item292
+		{
+			position[]={1527.4856,42.37027,1452.8258};
+			azimut=-119.48469;
+			id=296;
+			side="EMPTY";
+			vehicle="Land_ConcreteBlock";
+			skill=0.60000002;
+			init="null = [this] execVM ""CAS\CAS_sTunnel\init\CAS_intersectionRoof.sqf"";";
+		};
+		class Item293
+		{
+			position[]={1522.9695,42.345901,1450.0792};
+			azimut=59.72533;
+			id=297;
+			side="EMPTY";
+			vehicle="Land_ConcreteBlock";
+			skill=0.60000002;
+			init="null = [this] execVM ""CAS\CAS_sTunnel\init\CAS_intersectionRoof.sqf"";";
+		};
+		class Item294
+		{
+			position[]={1410.4556,41.334267,1408.1326};
+			azimut=-12.169702;
+			id=298;
+			side="EMPTY";
+			vehicle="Land_ConcreteBlock";
+			skill=0.60000002;
+			init="_null = [this] execVM ""CAS\CAS_sTunnel\init\CAS_intersectionFloor.sqf"";";
+		};
+		class Item295
+		{
+			position[]={1409.196,41.392948,1412.9288};
+			azimut=527.31201;
+			id=299;
+			side="EMPTY";
+			vehicle="Land_ConcreteBlock";
+			skill=0.60000002;
+			init="_null = [this] execVM ""CAS\CAS_sTunnel\init\CAS_intersectionFloor.sqf"";";
+		};
+		class Item296
+		{
+			position[]={1384.4857,41.185139,1551.5767};
+			azimut=-83.427277;
+			id=300;
+			side="EMPTY";
+			vehicle="Land_ConcreteBlock";
+			skill=0.60000002;
+			init="null = [this] execVM ""CAS\CAS_sTunnel\init\CAS_intersectionRoof.sqf"";";
+		};
+		class Item297
+		{
+			position[]={1379.6877,41.142597,1552.175};
+			azimut=-82.552826;
+			id=301;
+			side="EMPTY";
+			vehicle="Land_ConcreteBlock";
+			skill=0.60000002;
+			init="null = [this] execVM ""CAS\CAS_sTunnel\init\CAS_intersectionRoof.sqf"";";
+		};
+		class Item298
+		{
+			position[]={1770.0073,44.92424,1156.8855};
+			id=302;
+			side="EMPTY";
+			vehicle="Land_Misc_Well_C_EP1";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_s6";
+			init="_null = [this, CAS_sTunnel_t1_e6] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelEntrance.sqf"";";
+		};
+		class Item299
+		{
+			position[]={1769.741,45.79604,1187.8348};
+			id=303;
+			side="EMPTY";
+			vehicle="Garbage_can";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e6";
+			init="_null = [this, true, CAS_sTunnel_t1_s6] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item300
+		{
+			position[]={1713.2285,45.704159,1165.1335};
+			id=304;
+			side="EMPTY";
+			vehicle="Land_Misc_Well_C_EP1";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_s9";
+			init="_null = [this, CAS_sTunnel_t1_e9] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelEntrance.sqf"";";
+		};
+		class Item301
+		{
+			position[]={1622.1139,44.314236,1256.8228};
+			id=305;
+			side="EMPTY";
+			vehicle="Land_Misc_Well_C_EP1";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_s8";
+			init="_null = [this, CAS_sTunnel_t1_e8] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelEntrance.sqf"";";
+		};
+		class Item302
+		{
+			position[]={1713.1909,54.389297,1349.0266};
+			id=306;
+			side="EMPTY";
+			vehicle="Land_Misc_Well_C_EP1";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_s7";
+			init="_null = [this, CAS_sTunnel_t1_e7] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelEntrance.sqf"";";
+		};
+		class Item303
+		{
+			position[]={1713.1909,46.974438,1194.3036};
+			id=307;
+			side="EMPTY";
+			vehicle="Garbage_can";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e9";
+			init="_null = [this, true, CAS_sTunnel_t1_s9] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item304
+		{
+			position[]={1651.6775,45.411289,1256.1532};
+			id=308;
+			side="EMPTY";
+			vehicle="Garbage_can";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e8";
+			init="_null = [this, true, CAS_sTunnel_t1_s8] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+		class Item305
+		{
+			position[]={1713.1388,50.024773,1318.9551};
+			id=309;
+			side="EMPTY";
+			vehicle="Garbage_can";
+			skill=0.60000002;
+			text="CAS_sTunnel_t1_e7";
+			init="_null = [this, true, CAS_sTunnel_t1_s7] execVM ""CAS\CAS_sTunnel\init\CAS_initTunnelExit.sqf"";";
+		};
+	};
+	class Markers
+	{
+		items=49;
+		class Item0
+		{
+			position[]={1609.2234,43.558506,1504.9594};
+			name="tunnel 4";
+			text="TUNNEL 4";
+			type="mil_start";
+		};
+		class Item1
+		{
+			position[]={1441.2057,42.988335,1295.3108};
+			name="TUNNEL 1";
+			text="TUNNEL 1";
+			type="mil_start";
+		};
+		class Item2
+		{
+			position[]={1195.1967,40.844448,1325.2733};
+			name="TUNNEL 3";
+			text="TUNNEL 3";
+			type="mil_start";
+		};
+		class Item3
+		{
+			position[]={1358.9946,40.950211,1674.7858};
+			name="TUNNEL 2";
+			text="TUNNEL 2";
+			type="mil_start";
+		};
+		class Item4
+		{
+			position[]={1128.0721,39.244644,1601.8074};
+			name="TUNNEL 5";
+			text="TUNNEL 5";
+			type="mil_start";
+		};
+		class Item5
+		{
+			position[]={1820.1783,45.338982,1146.9937};
+			name="cas_stunnel_path";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+		};
+		class Item6
+		{
+			position[]={1769.7433,45.840271,1189.4879};
+			name="cas_stunnel_path_1";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+		};
+		class Item7
+		{
+			position[]={1769.7395,46.321331,1199.4053};
+			name="cas_stunnel_path_2";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+		};
+		class Item8
+		{
+			position[]={1769.7501,46.829956,1209.3362};
+			name="cas_stunnel_path_3";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+		};
+		class Item9
+		{
+			position[]={1769.7655,47.263977,1219.2715};
+			name="cas_stunnel_path_4";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+		};
+		class Item10
+		{
+			position[]={1768.4933,47.258831,1228.7976};
+			name="cas_stunnel_path_5";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+			angle=345;
+		};
+		class Item11
+		{
+			position[]={1764.8865,47.448235,1237.907};
+			name="cas_stunnel_path_6";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+			angle=330;
+		};
+		class Item12
+		{
+			position[]={1759.2498,47.600594,1245.6862};
+			name="cas_stunnel_path_7";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+			angle=315;
+		};
+		class Item13
+		{
+			position[]={1751.5438,47.630001,1251.2908};
+			name="cas_stunnel_path_8";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+			angle=300;
+		};
+		class Item14
+		{
+			position[]={1742.8816,47.674538,1255.7896};
+			name="cas_stunnel_path_9";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+			angle=285;
+		};
+		class Item15
+		{
+			position[]={1770.084,44.913807,1156.5479};
+			name="TUNNEL 6";
+			text="TUNNEL 6";
+			type="mil_start";
+		};
+		class Item16
+		{
+			position[]={1843.5116,45.696507,1159.426};
+			name="cas_stunnel_path_end";
+			markerType="RECTANGLE";
+			type="Empty";
+			colorName="ColorOrange";
+			a=11;
+			b=4.9699998;
+			angle=90;
+		};
+		class Item17
+		{
+			position[]={1769.7905,45.456894,1173.519};
+			name="cas_stunnel_path_end_1";
+			markerType="RECTANGLE";
+			type="Empty";
+			colorName="ColorOrange";
+			a=11;
+			b=4.9699998;
+			angle=90;
+		};
+		class Item18
+		{
+			position[]={1733.2498,47.779995,1257.1233};
+			name="cas_stunnel_path_10";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+			angle=270;
+		};
+		class Item19
+		{
+			position[]={1723.3378,47.902241,1257.1239};
+			name="cas_stunnel_path_11";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+			angle=270;
+		};
+		class Item20
+		{
+			position[]={1713.3617,48.076611,1247.3037};
+			name="cas_stunnel_path_12";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+			angle=180;
+		};
+		class Item21
+		{
+			position[]={1713.5157,47.910603,1267.0603};
+			name="cas_stunnel_path_13";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+		};
+		class Item22
+		{
+			position[]={1703.668,47.823006,1257.0674};
+			name="cas_stunnel_path_14";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+			angle=270;
+		};
+		class Item23
+		{
+			position[]={1846.9077,45.565311,1142.625};
+			name="cas_stunnel_roof";
+			markerType="RECTANGLE";
+			type="Empty";
+			fillName="Border";
+			a=5;
+			b=3;
+			drawBorder=1;
+		};
+		class Item24
+		{
+			position[]={1714.3618,47.891277,1259.6409};
+			name="cas_stunnel_roof_1";
+			markerType="RECTANGLE";
+			type="Empty";
+			fillName="Border";
+			a=4.8499999;
+			b=2.45;
+			drawBorder=1;
+		};
+		class Item25
+		{
+			position[]={1714.3646,47.977676,1254.7335};
+			name="cas_stunnel_roof_2";
+			markerType="RECTANGLE";
+			type="Empty";
+			fillName="Border";
+			a=4.8499999;
+			b=2.45;
+			drawBorder=1;
+		};
+		class Item26
+		{
+			position[]={1714.7615,47.895439,1259.3829};
+			name="cas_stunnel_floor_1";
+			markerType="RECTANGLE";
+			type="Empty";
+			fillName="Border";
+			a=4.8499999;
+			b=2.45;
+			drawBorder=1;
+		};
+		class Item27
+		{
+			position[]={1714.7643,47.977612,1254.4756};
+			name="cas_stunnel_floor_2";
+			markerType="RECTANGLE";
+			type="Empty";
+			fillName="Border";
+			a=4.8499999;
+			b=2.45;
+			drawBorder=1;
+		};
+		class Item28
+		{
+			position[]={1693.7295,47.612835,1257.0632};
+			name="cas_stunnel_path_15";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+			angle=270;
+		};
+		class Item29
+		{
+			position[]={1683.7986,47.03746,1257.0546};
+			name="cas_stunnel_path_16";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+			angle=270;
+		};
+		class Item30
+		{
+			position[]={1673.8698,46.422935,1257.0468};
+			name="cas_stunnel_path_17";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+			angle=270;
+		};
+		class Item31
+		{
+			position[]={1663.9283,45.844074,1257.0452};
+			name="cas_stunnel_path_18";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+			angle=270;
+		};
+		class Item32
+		{
+			position[]={1654.0049,45.48307,1257.0585};
+			name="cas_stunnel_path_19";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+			angle=270;
+		};
+		class Item33
+		{
+			position[]={1713.5314,48.094379,1277.0006};
+			name="cas_stunnel_path_20";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+		};
+		class Item34
+		{
+			position[]={1713.5216,48.289463,1286.9319};
+			name="cas_stunnel_path_21";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+		};
+		class Item35
+		{
+			position[]={1713.5156,48.576294,1296.8673};
+			name="cas_stunnel_path_22";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+		};
+		class Item36
+		{
+			position[]={1713.5059,49.060802,1306.8103};
+			name="cas_stunnel_path_23";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+		};
+		class Item37
+		{
+			position[]={1713.501,49.748619,1316.7488};
+			name="cas_stunnel_path_24";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+		};
+		class Item38
+		{
+			position[]={1713.3535,48.526501,1237.3687};
+			name="cas_stunnel_path_25";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+		};
+		class Item39
+		{
+			position[]={1713.3431,48.930828,1227.4399};
+			name="cas_stunnel_path_26";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+		};
+		class Item40
+		{
+			position[]={1713.348,48.688435,1217.5038};
+			name="cas_stunnel_path_27";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+		};
+		class Item41
+		{
+			position[]={1713.3347,47.877842,1207.5654};
+			name="cas_stunnel_path_28";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+		};
+		class Item42
+		{
+			position[]={1713.3276,47.130001,1197.6226};
+			name="cas_stunnel_path_29";
+			markerType="RECTANGLE";
+			type="Empty";
+			a=11;
+			b=4.9699998;
+		};
+		class Item43
+		{
+			position[]={1713.2101,46.697544,1181.6497};
+			name="cas_stunnel_path_end_2";
+			markerType="RECTANGLE";
+			type="Empty";
+			colorName="ColorOrange";
+			a=11;
+			b=4.9699998;
+			angle=90;
+		};
+		class Item44
+		{
+			position[]={1713.2026,52.125698,1332.6864};
+			name="cas_stunnel_path_end_3";
+			markerType="RECTANGLE";
+			type="Empty";
+			colorName="ColorOrange";
+			a=11;
+			b=4.9699998;
+			angle=90;
+		};
+		class Item45
+		{
+			position[]={1638.0461,44.977356,1256.8469};
+			name="cas_stunnel_path_end_4";
+			markerType="RECTANGLE";
+			type="Empty";
+			colorName="ColorOrange";
+			a=11;
+			b=4.9699998;
+		};
+		class Item46
+		{
+			position[]={1712.9559,45.672058,1164.9344};
+			name="TUNNEL 9";
+			text="TUNNEL 9";
+			type="mil_start";
+		};
+		class Item47
+		{
+			position[]={1622.0486,44.308426,1256.7437};
+			name="TUNNEL 8";
+			text="TUNNEL 8";
+			type="mil_start";
+		};
+		class Item48
+		{
+			position[]={1713.4026,54.406109,1349.0836};
+			name="TUNNEL 7";
+			text="TUNNEL 7";
+			type="mil_start";
+		};
+	};
+};
+class Intro
+{
+	addOns[]=
+	{
+		"desert_e"
+	};
+	addOnsAuto[]=
+	{
+		"desert_e"
+	};
+	randomSeed=5123794;
+	class Intel
+	{
+		startWeather=0.30000001;
+		forecastWeather=0.30000001;
+		year=2012;
+		month=6;
+		day=24;
+	};
+};
+class OutroWin
+{
+	addOns[]=
+	{
+		"desert_e"
+	};
+	addOnsAuto[]=
+	{
+		"desert_e"
+	};
+	randomSeed=3253853;
+	class Intel
+	{
+		startWeather=0.30000001;
+		forecastWeather=0.30000001;
+		year=2012;
+		month=6;
+		day=24;
+	};
+};
+class OutroLoose
+{
+	addOns[]=
+	{
+		"desert_e"
+	};
+	addOnsAuto[]=
+	{
+		"desert_e"
+	};
+	randomSeed=7291061;
+	class Intel
+	{
+		startWeather=0.30000001;
+		forecastWeather=0.30000001;
+		year=2012;
+		month=6;
+		day=24;
+	};
+};

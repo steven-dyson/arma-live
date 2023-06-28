@@ -1,0 +1,103 @@
+/***************************************************************************
+Review Vehicle Kill
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+_scriptName = "SPY\SPY_bStats\review\SPY_reviewVehKill.sqf";
+
+private ["_vehicleDamage", "_vehicle", "_k", "_vehicleSide", "_vehicleCrew", "_vehicleReset", "_assists", "_damagingUnits", "_damagingUnitInfo", "_d", "_dUID", "_damagingUnitName", "_dSide", "_dVarName", "_kUID", "_kName", "_kSide", "_kVarName", "_ammo", "_weapon"];
+
+_vehicle = (_this select 0);
+_k = (_this select 1);
+
+// Vehicle review hit has processed after destruction
+if ((_vehicle getVariable "SPY_bStats_deathState" isEqualTo 1)) then
+{
+	waitUntil { _vehicle getVariable "SPY_bStats_deathState" isEqualTo 2 };
+};
+
+// Retrieve vehicle info
+_vehicleSide = (_vehicle getVariable "SPY_bStats_side");
+_vehicleCrew = (_vehicle getVariable "SPY_bStats_crew");
+_vehicleReset = (_vehicle getVariable "SPY_bStats_switchState");
+_damagingUnits = (_vehicle getVariable "SPY_bStats_damagers");
+_assists = [];
+
+// Pull main damaging unit from vehicle
+_damagingUnitInfo = (_damagingUnits select ((count _damagingUnits) - 1));
+_d = (_damagingUnitInfo select 0);
+
+// Killer was not a playable unit, run detection
+if (!(_k isKindOf "Man")) then
+{
+	_k = [false, _k, objNull] call SPY_getUnit;
+};
+
+// Use damaging unit as killer if killer is not a player or killer was in the victim vehicle
+if (!(_k isKindOf "Man") || (_k in (_vehicle getVariable "SPY_bStats_crew")) || (isNull _k)) then 
+{
+	_k = _d;
+};
+
+// Debug
+_null = [[1, (format ["VK %1, %2", _k, _vehicle]), 0, ["SPY Systems", "Debug Log"], false], "SPY_bMessage", true, false, false] call BIS_fnc_MP;
+
+// No unit to assign as killer
+if ((!(_k isKindOf "Man") || (_k in _vehicleCrew)) && (!(_d isKindOf "Man") || (_d in _vehicleCrew))) exitWith
+{
+	_vehicle setVariable ["SPY_bStats_deathState", 3, true];
+};
+
+// Retrieve killer data
+_kUID = (_k getVariable "SPY_id_uid");
+_kName = (SPY_container getVariable ("SPY_id_" + _kUID) select 0);
+_kSide = (SPY_container getVariable ("SPY_id_" + _kUID) select 1);
+_kVarName = (format ["SPY_bStats_%1", _kUID]);
+
+// Retrieve ammo & weapon used
+_ammo = (_vehicle getVariable "SPY_bStats_damagerAmmo");
+_weapon = ([_k, "SERVER", _kUID, _ammo, 0] call SPY_getWeapon);
+
+// Vehicle death process complete
+_vehicle setVariable ["SPY_bStats_killer", _k, true];
+_vehicle setVariable ["SPY_bStats_killedWeapon", _weapon, true];
+_vehicle setVariable ["SPY_bStats_deathState", 3, true];
+
+// Team vehicle kill check (instant)
+if ((_kSide isEqualTo _vehicleSide) && !(isNull _k) && !(_k in _vehicleCrew)) exitWith
+{
+	[[_kName, _kUID, _kVarName, _vehicle, _weapon, (_k distance _vehicle), (getPos _k), (getPos _vehicle), (typeOf _k)], "_this spawn SPY_vehTK;", "LOCAL"] spawn SPY_iQueueAdd;
+
+	// Start punish system
+	_null = [_k, "Auto", _kUID, "Server"] spawn SPY_punish;
+};
+
+// Enemy vehicle kill (instant)
+if (!(isNull _k) && !(_k in _vehicleCrew)) exitWith
+{
+
+	// Define assist (damaging unit)
+	{
+		if (!((_x select 3) isEqualTo _kUID) && !((_x select 5) isEqualTo _vehicleSide)) then
+		{
+			_assists = (_assists + [_x]);
+		};
+	}
+	forEach _damagingUnits;
+	
+	// Define assists (crew)
+	{
+		if (!((assignedVehicleRole _x select 0) isEqualTo "CARGO") && !(_x isEqualTo _k) && !(_x isEqualTo _d)) then
+		{
+			_assists = (_assists + [[_x, 0, 0, (_x getVariable "SPY_id_uid")]]);
+		};
+	}
+	forEach _vehicleCrew;
+	
+	// Send kill & kill assist data
+	[[_k, _kName, _kUID, _kVarName, _vehicle, _weapon, (_k distance _vehicle), (getPos _k), (getPos _vehicle), _assists, (typeOf _k)], "_this spawn SPY_vehKill;", SPY_bStats_delayMsgTime, "LOCAL"] spawn SPY_dQueueAdd;
+};
+
+// Error message
+_null = [[2, "No kill defined reviewVehKill!", 0, ["SPY Systems", "Debug Log"], false], "SPY_bMessage", true, false, false] call BIS_fnc_MP;

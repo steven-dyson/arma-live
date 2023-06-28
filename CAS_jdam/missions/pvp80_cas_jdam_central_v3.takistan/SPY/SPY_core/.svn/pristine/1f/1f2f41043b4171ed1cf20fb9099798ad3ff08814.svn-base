@@ -1,0 +1,41 @@
+/***************************************************************************
+CUSTOM EVENT HANDLER REMOVE
+Created by Spyder
+spyder@armalive.com
+
+_null = [CEH NAME, "handle"] spawn SPY_cehRemove;
+_null = [CEH NAME, "handle"] execVM "SPY\SPY_core\SPY_ceh\SPY_cehRemove.sqf";
+***************************************************************************/
+
+
+
+/***************************************************************************
+EXEC
+****************************************************************************/
+private ["_cehName", "_handle", "_cehValue", "_index"];
+
+_cehName = (_this select 0);
+_handle = (_this select 1);
+
+_cehValue = (player getVariable _cehName);
+
+_index = 0;
+
+{
+
+	if ((_x select 0) == _handle) then {
+		
+		_cehValue set [_index, -1];
+		
+		player setVariable [_cehName, _cehValue, false];
+	
+	} else {
+	
+		_index = (_index + 1);
+	
+	};
+
+} forEach _cehValue;
+/***************************************************************************
+END
+****************************************************************************/

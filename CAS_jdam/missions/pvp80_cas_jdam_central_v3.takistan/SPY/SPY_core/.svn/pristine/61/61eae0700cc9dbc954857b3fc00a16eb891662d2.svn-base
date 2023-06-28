@@ -1,0 +1,170 @@
+/***************************************************************************
+Get Weapon
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+
+
+/***************************************************************************
+INIT
+***************************************************************************/
+private ["_unit", "_victimUID", "_unitUID", "_ammoClass", "_send", "_uIsAI", "_wpnVar", "_tgt", "_weapon", "_loadout", "_grenades", "_grenadesNL", "_allowedMags"];
+
+_unit = (_this select 0);
+_victimUID = (_this select 1);
+_unitUID = (_this select 2);
+_ammoClass = (_this select 3);
+_send = (_this select 4);
+
+_uIsAI = (SPY_container getVariable ("SPY_id_" + _unitUID) select 3);
+/***************************************************************************
+END
+***************************************************************************/
+
+
+
+/***************************************************************************
+RETURN WEAPON
+***************************************************************************/
+if ((_send == 0)) exitWith 
+{
+	// ERROR
+	if ((isNil "_unitUID") || (_ammoClass isEqualTo "")) exitWith 
+	{
+		_null = [[2, "(Get Weapon 0) Missing UID or ammo class!", 0, ["SPY Systems", "Debug Log"], false], "SPY_bMessage", true, false, false] call BIS_fnc_MP;
+	};
+
+	_wpnVar = (format ["SPY_WPN_%1", (random 10000)]);
+
+	// If target is AI send weapon info to server, not AI UID
+	if ((_uIsAI)) then
+	{
+		_tgt = "SERVER"; // AI is controlled by the server, sending information to their UIDs can't be done
+	}
+	else
+	{
+		_tgt = _unitUID; // Use player UID for broadcast
+	};
+	
+	_null = [[_unit, _victimUID, _unitUID, _ammoClass, 1, _wpnVar], "_null = _this spawn SPY_getWeapon;", _tgt] spawn CAS_mpCB;
+
+	waitUntil { !isNil {_unit getVariable _wpnVar} };
+
+	_weapon = (_unit getVariable _wpnVar);
+
+	_unit setVariable [_wpnVar, nil, false];
+	
+	// Debug
+	// _null = [1, (format ["(Get Weapon 0) %1, %2, %3, %4", _victimUID, _unitUID, _ammoClass, _wpnVar]), "LOCAL", false] spawn SPY_bMessage;
+	
+	_weapon
+};
+/***************************************************************************
+END
+***************************************************************************/
+
+
+		
+/***************************************************************************
+SEND WEAPON
+***************************************************************************/
+if ((_send == 1)) exitWith 
+{
+	_loadout = (_unit getVariable "SPY_player_loadout");
+
+	// Unit is not a vehicle
+	if (((vehicle _unit) isKindOf "Man")) then 
+	{
+		{
+			private ["_i"];
+		
+			_i = _x;
+
+			{
+				if (_ammoClass == (getText (configFile >> "CfgMagazines" >> _x >> "ammo"))) exitWith {
+
+					_weapon = _i;
+				};
+			} forEach (getArray (configFile >> "cfgWeapons" >> _x >> "magazines"));		
+		} forEach ([(_loadout select 0), (_loadout select 3)] + (_loadout select 2));
+
+		if ((!isNil "_weapon")) exitWith {};
+		
+		// Grenade launcher
+		{
+			if (_ammoClass isEqualTo (getText (configFile >> "CfgMagazines" >> _x >> "ammo"))) exitWith 
+			{
+				_weapon = (_loadout select 1);
+			};
+		} forEach (getArray (configFile >> "cfgWeapons" >> "UGL_F" >> "magazines"));
+		
+		if ((!isNil "_weapon")) exitWith {};
+
+		// Explosives & grenades 
+		if ((_ammoClass in ["explosives", "ATMine_Range_Ammo", "APERSMine_Range_Ammo", "APERSBoundingMine_Range_Ammo", "SLAMDirectionalMine_Wire_Ammo", "APERSTripMine_Wire_Ammo", "ClaymoreDirectionalMine_Remote_Ammo", "DemoCharge_Remote_Ammo", "SatchelCharge_Remote_Ammo"])) then 
+		{
+			_weapon = _ammoClass;
+		}
+		else
+		{
+			_grenades = ["GrenadeHand", "mini_Grenade"];
+			_grenadesNL = ["SmokeShell", "SmokeShellGreen", "SmokeShellRed", "SmokeShellOrange", "SmokeShellYellow", "SmokeShellPurple", "SmokeShellBlue", "Chemlight_green", "Chemlight_red", "Chemlight_yellow", "Chemlight_blue", "IRStrobe"];
+
+			if ((_ammoClass in _grenades)) then 
+			{
+				_weapon = "HandGrenadeMuzzle";
+			}
+			else
+			{
+				if ((_ammoClass in _grenadesNL)) then 
+				{
+					_weapon = "NLGrenadeMuzzle";
+				};
+			};				
+		};
+		
+	// Unit is a vehicle
+	}
+	else
+	{
+		_weapon = (typeOf (vehicle _unit));
+	};
+	
+	// Unit was in a vehicle previously
+	if ((isNil "_weapon")) then 
+	{
+		{
+			private ["_i"];
+		
+			_i = _x;
+
+			{
+				if (_ammoClass == (getText (configFile >> "CfgMagazines" >> _x >> "ammo"))) exitWith 
+				{
+					_weapon = (_i select 0);
+				};
+			} forEach (getArray (configFile >> "cfgWeapons" >> (_i select 1) >> "magazines"));	
+		} forEach (_loadout select 5);
+	};
+	
+	// Last effort
+	if ((isNil "_weapon")) then 
+	{
+		_weapon = "Unknown";
+	};
+	
+	// Debug
+	// _null = [1, (format ["(Get Weapon 1) %1, %2", _ammoClass, _weapon]), "LOCAL", false] spawn SPY_bMessage;
+	
+	// Send weapon used to victim
+	if ((!isNil {_this select 5})) exitWith 
+	{
+		_null = [[_unit, (_this select 5), _weapon], "(_this select 0) setVariable [(_this select 1), (_this select 2), false]", _victimUID] spawn CAS_mpCB;
+	};
+	
+	_weapon
+};
+/***************************************************************************
+END
+***************************************************************************/

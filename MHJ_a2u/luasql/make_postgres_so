@@ -1,0 +1,20 @@
+# About postgres.so
+#
+# Prefer the system provided when it does provide it. 
+# If your system package manager allows you to get and install luasql-postgres
+# then do that and delete my postgres.so
+#
+# Mine will probably require libpq.so* installed. 
+# If it breaks for any reason, delete it and rebuild it using luarocks.
+
+# At the time I did this, I had to add a new server to the list in /etc/luarocks/config.lua
+# [[http://www.luarocks.org/repositories/rocks-cvs/]]
+# when git is invoked it will fetch from github.com as well.
+
+# If running on ubuntu, with a broken luarocks, add CFLAGS=-fPIC before "install"
+# If it fails to find the postgres includes, POSTGRES_DIR=/path/to/postgres/9.0
+
+rm postgres.so
+
+luarocks install luasql-postgres
+

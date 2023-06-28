@@ -1,0 +1,336 @@
+version=11;
+class Mission
+{
+	addOns[]=
+	{
+		"cacharacters_e",
+		"ca_modules_functions",
+		"desert_e",
+		"CAAir_E_UH60M",
+		"CATracked_E",
+		"caair_e",
+		"caweapons_e"
+	};
+	addOnsAuto[]=
+	{
+		"cacharacters_e",
+		"ca_modules_functions",
+		"CAAir_E_UH60M",
+		"CATracked_E",
+		"caair_e",
+		"caweapons_e",
+		"desert_e"
+	};
+	randomSeed=7428265;
+	class Intel
+	{
+		startWeather=1;
+		forecastWeather=1;
+		year=2012;
+		month=6;
+		day=24;
+	};
+	class Groups
+	{
+		items=5;
+		class Item0
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=4;
+				class Item0
+				{
+					position[]={1364.873,41.687641,1372.1815};
+					id=0;
+					side="WEST";
+					vehicle="US_Soldier_EP1";
+					player="PLAYER COMMANDER";
+					leader=1;
+					rank="COLONEL";
+					skill=0.60000002;
+					init="this moveInDriver w01";
+				};
+				class Item1
+				{
+					position[]={1370.277,41.655674,1372.2885};
+					id=3;
+					side="WEST";
+					vehicle="US_Soldier_Pilot_EP1";
+					player="PLAY CDG";
+					skill=0.60000002;
+				};
+				class Item2
+				{
+					position[]={1370.3723,41.755539,1367.6156};
+					id=4;
+					side="WEST";
+					vehicle="US_Soldier_EP1";
+					player="PLAY CDG";
+					skill=0.60000002;
+				};
+				class Item3
+				{
+					position[]={1364.6864,41.767597,1367.2402};
+					id=2;
+					side="WEST";
+					vehicle="US_Soldier_Crew_EP1";
+					player="PLAY CDG";
+					skill=0.60000002;
+				};
+			};
+		};
+		class Item1
+		{
+			side="LOGIC";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={1427.9453,41.384377,1466.139};
+					id=1;
+					side="LOGIC";
+					vehicle="FunctionsManager";
+					leader=1;
+					lock="UNLOCKED";
+					skill=0.60000002;
+				};
+			};
+		};
+		class Item2
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=5;
+				class Item0
+				{
+					position[]={1333.3085,41.899834,1362.0354};
+					id=12;
+					side="WEST";
+					vehicle="US_Soldier_EP1";
+					leader=1;
+					skill=0.60000002;
+					init="this moveInCargo w01";
+				};
+				class Item1
+				{
+					position[]={1333.7159,41.870781,1364.2057};
+					id=18;
+					side="WEST";
+					vehicle="US_Soldier_EP1";
+					skill=0.60000002;
+					init="this moveInCargo w01";
+				};
+				class Item2
+				{
+					position[]={1335.0654,41.871662,1363.0148};
+					id=10;
+					side="WEST";
+					vehicle="US_Soldier_EP1";
+					skill=0.60000002;
+					init="this moveInCargo w01";
+				};
+				class Item3
+				{
+					position[]={1331.9697,41.902462,1362.7766};
+					id=9;
+					side="WEST";
+					vehicle="US_Soldier_EP1";
+					skill=0.60000002;
+					init="this moveInCargo w01";
+				};
+				class Item4
+				{
+					position[]={1336.8912,41.891071,1361.4271};
+					id=11;
+					side="WEST";
+					vehicle="US_Soldier_EP1";
+					skill=0.60000002;
+					init="this moveInCargo w01";
+				};
+			};
+		};
+		class Item3
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=5;
+				class Item0
+				{
+					position[]={1333.9081,42.080971,1353.304};
+					id=17;
+					side="WEST";
+					vehicle="US_Soldier_EP1";
+					leader=1;
+					skill=0.60000002;
+					init="this moveInCargo w01";
+				};
+				class Item1
+				{
+					position[]={1333.4288,42.007149,1356.0948};
+					id=13;
+					side="WEST";
+					vehicle="US_Soldier_EP1";
+					skill=0.60000002;
+					init="this moveInCargo w01";
+				};
+				class Item2
+				{
+					position[]={1332.0599,42.052284,1355.0476};
+					id=15;
+					side="WEST";
+					vehicle="US_Soldier_EP1";
+					skill=0.60000002;
+					init="this moveInCargo w01";
+				};
+				class Item3
+				{
+					position[]={1335.3624,42.04015,1354.1852};
+					id=14;
+					side="WEST";
+					vehicle="US_Soldier_EP1";
+					skill=0.60000002;
+					init="this moveInCargo w01";
+				};
+				class Item4
+				{
+					position[]={1330.5552,42.125851,1352.8143};
+					id=16;
+					side="WEST";
+					vehicle="US_Soldier_EP1";
+					skill=0.60000002;
+					init="this moveInCargo w01";
+				};
+			};
+		};
+		class Item4
+		{
+			side="WEST";
+			class Vehicles
+			{
+				items=1;
+				class Item0
+				{
+					position[]={1333.7159,41.870781,1364.2057};
+					id=19;
+					side="WEST";
+					vehicle="US_Soldier_EP1";
+					leader=1;
+					skill=0.60000002;
+					init="this moveInCargo w01";
+				};
+			};
+		};
+	};
+	class Vehicles
+	{
+		items=4;
+		class Item0
+		{
+			position[]={1367.1957,41.403522,1389.1619};
+			special="NONE";
+			id=5;
+			side="EMPTY";
+			vehicle="UH60M_EP1";
+			leader=1;
+			skill=0.60000002;
+			text="w02";
+			init="_null = [this, west, ""trans_helo""] execVM ""SPY\SPY_meSys\SPY_setObjectScript.sqf"";";
+		};
+		class Item1
+		{
+			position[]={1391.8669,41.52079,1391.214};
+			id=6;
+			side="EMPTY";
+			vehicle="M1A2_US_TUSK_MG_EP1";
+			leader=1;
+			skill=0.60000002;
+			init="_null = [this, west, ""tank""] execVM ""SPY\SPY_meSys\SPY_setObjectScript.sqf"";";
+		};
+		class Item2
+		{
+			position[]={1334.5098,41.342171,1391.0378};
+			azimut=270;
+			special="FLY";
+			id=7;
+			side="EMPTY";
+			vehicle="C130J_US_EP1";
+			skill=0.60000002;
+			text="w01";
+			init="_null = [this, west, ""cargo_plane""] execVM ""SPY\SPY_meSys\SPY_setObjectScript.sqf"";";
+		};
+		class Item3
+		{
+			position[]={1367.9459,41.921913,1355.3976};
+			azimut=180;
+			id=8;
+			side="EMPTY";
+			vehicle="M119_US_EP1";
+			skill=0.60000002;
+			init="_null = [this, west, ""arty""] execVM ""SPY\SPY_meSys\SPY_setObjectScript.sqf"";";
+		};
+	};
+};
+class Intro
+{
+	addOns[]=
+	{
+		"desert_e"
+	};
+	addOnsAuto[]=
+	{
+		"desert_e"
+	};
+	randomSeed=7345505;
+	class Intel
+	{
+		startWeather=0.30000001;
+		forecastWeather=0.30000001;
+		year=2012;
+		month=6;
+		day=24;
+	};
+};
+class OutroWin
+{
+	addOns[]=
+	{
+		"desert_e"
+	};
+	addOnsAuto[]=
+	{
+		"desert_e"
+	};
+	randomSeed=11277268;
+	class Intel
+	{
+		startWeather=0.30000001;
+		forecastWeather=0.30000001;
+		year=2012;
+		month=6;
+		day=24;
+	};
+};
+class OutroLoose
+{
+	addOns[]=
+	{
+		"desert_e"
+	};
+	addOnsAuto[]=
+	{
+		"desert_e"
+	};
+	randomSeed=13672512;
+	class Intel
+	{
+		startWeather=0.30000001;
+		forecastWeather=0.30000001;
+		year=2012;
+		month=6;
+		day=24;
+	};
+};

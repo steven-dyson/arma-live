@@ -1,0 +1,61 @@
+/***************************************************************************
+ORDER ARRAY OF VARIABLES
+CREATED BY SPYDER
+SPYDER@ARMALIVE.COM
+
+_ARRAY: ARRAY OF VARIABLE TO BE ORDERED
+_OBJECT: OBJECT TO RETRIEVE VARIABLE FROM
+_INDEX: INDEX OF VARIABLE TO CHECK
+_ORDER: 1 = LOW TO HIGH, 2 = HIGH TO LOW
+****************************************************************************/
+
+private ["_array", "_object", "_index", "_indexTotal", "_a", "_b", "_y", "_z", "_checks", "_order"];
+
+_array = _this select 0;
+_object = _this select 1;
+_index = _this select 2;
+_order = _this select 3;
+
+_indexTotal = ((count _array) - 1);
+_y = 0;
+_z = 1;
+_checks = 0;
+
+for "_i" from 1 to (_indexTotal * _indexTotal) do {
+
+	_checks = 1;
+	
+	if (((_object getVariable (_array select _y) select _index) > (_object getVariable (_array select _z) select _index)) && (_order == 1)) then {
+		
+		_a = _array select _y;
+		_b = _array select _z;
+		
+		_array set [_y, _b];
+		_array set [_z, _a];
+
+	};
+	
+	if (((_object getVariable (_array select _y) select _index) < (_object getVariable (_array select _z) select _index)) && (_order == 2)) then {
+		
+		_a = _array select _y;
+		_b = _array select _z;
+		
+		_array set [_y, _b];
+		_array set [_z, _a];
+
+	};
+		
+	_y = (_y + 1);
+	_z = (_z + 1);
+
+		
+	if ((_z == _indexTotal) && (_checks != 4*4)) then {
+		
+		_y = 0;
+		_z = 1;
+		
+	};
+
+};
+
+_array

@@ -1,0 +1,44 @@
+/***************************************************************************
+CIVILIAN CASUALITY
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+private ["_killerName", "_killerUID", "_kVarName", "_weapon", "_distance", "_victimPos", "_killerPos", "_addValue", "_addPunish", "_score", "_addScore", "_currentScore"];
+
+_killerName = (_this select 0);
+_killerUID = (_this select 1);
+_kVarName = (_this select 2);
+_weapon = (_this select 3);
+_distance = (_this select 4);
+_victimPos = (_this select 5);
+_killerPos = (_this select 6);
+
+// Current values increased by 1
+_addValue = ((SPY_container getVariable _kVarName select 10) + 1);
+// _addPunish = ((SPY_container getVariable _kVarName select 2) + 1);
+
+// Add score
+_score = (["civcas", objNull, _addValue] call SPY_scoreValue);
+_addScore = ((SPY_container getVariable _kVarName select 0) + _score);
+
+// All current values in the array
+_currentScore = (SPY_container getVariable _kVarName);
+
+// Set increased values in array
+_currentScore set [0, _addScore];
+_currentScore set [10, _addValue];
+// _currentScore set [2, _addPunish];
+
+// Broadcast array
+SPY_container setVariable [_kVarName, _currentScore, true];
+
+// Format/ Send A2U Info
+[(format ["bstats_civcas (nil, %1, %2, %3, %4, %5, %6, %7)", str _killerUID, time, str _weapon, _score, _distance, (str (str _victimPos)), (str (str _killerPos))])] call uplink_exec;
+
+// PLAYER MESSAGE
+if ((SPY_bStats_msgsEnabled)) then {
+
+	_null = [5, (format ["%1 KILLED A CIVILIAN (%2)", _killerName, ([_weapon] call SPY_displayName)]), "CLIENT", false] spawn SPY_bMessage;
+
+};

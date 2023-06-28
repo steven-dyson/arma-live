@@ -1,0 +1,238 @@
+/***************************************************************************
+DISPLAY NAME
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+private ["_className", "_displayName"];
+
+_className = (_this select 0);
+
+// OBJECT WAS SENT
+if ((typeName _className != "STRING") && (typeName _className != "SIDE")) then {_className = typeOf _className};
+
+switch (_className) do {
+
+	// SIDES & FACTIONS
+
+		// BLUFOR
+		case WEST: {_displayName = "BLUFOR";};
+		//case BLU_F: {_displayName = "BLUFOR";};
+
+		// OPFOR
+		case EAST: {_displayName = "OPFOR";};
+		//case OPF_F: {_displayName = "BLUFOR";};
+
+		// ALL
+		case "HandGrenadeMuzzle": {_displayName = "Grenade";};
+		case "DemoCharge_Remote_Ammo": {_displayName = "Demo Charge";};
+		case "SatchelCharge_Remote_Ammo": {_displayName = "Satchel Charge";};
+		case "ATMine_Range_Ammo": {_displayName = "AT Mine";};
+		case "ClaymoreDirectionalMine_Remote_Ammo": {_displayName = "Claymore";};
+		case "APERSMine_Range_Ammo": {_displayName = "APERS Mine";};
+		case "APERSBoundingMine_Range_Ammo": {_displayName = "APERS Bouncing";};
+		case "SLAMDirectionalMine_Wire_Ammo": {_displayName = "SLAM";};
+		case "APERSTripMine_Wire_Ammo": {_displayName = "APRES Tripwire";};
+		case "explosives": {_displayName = "Explosives";};
+
+	// WEAPONS
+
+		// RIFLES
+		
+			// BLUFOR
+			
+				// MX
+				case "arifle_MX_ACO_pointer_F": {_displayName = "MX";};
+				case "arifle_MX_ACO_point_grip_F": {_displayName = "MX";};
+				case "arifle_MX_ACO_point_gripod_mzls_F": {_displayName = "MX";};
+				case "arifle_MX_ACOg_point_grip_F": {_displayName = "MX";};
+				case "arifle_MX_ACOg_point_gripod_mzls_F": {_displayName = "MX";};
+				case "arifle_MX_ARCO_point_grip_F": {_displayName = "MX";};
+				case "arifle_MX_F": {_displayName = "MX";};
+				case "arifle_MX_GL_ACO_point_F": {_displayName = "MX";};
+				case "arifle_MX_GL_ACOg_point_F": {_displayName = "MX";};
+				case "arifle_MX_GL_ARCO_point_mzls_F": {_displayName = "MX";};
+				case "arifle_MX_GL_F": {_displayName = "MX";};
+				case "arifle_MX_GL_Hamr_point_mzls_F": {_displayName = "MX";};
+				case "arifle_MX_Hamr_point_grip_F": {_displayName = "MX";};
+				case "arifle_MX_SW_ARCO_point_gripod_F": {_displayName = "MX";};
+				case "arifle_MX_SW_F": {_displayName = "MX";};
+				case "arifle_MX_SW_Hamr_point_gripod_F": {_displayName = "MX";};
+				case "arifle_MXC_ACO_flash_grip_mzls_F": {_displayName = "MXC";};
+				case "arifle_MXC_ACO_point_grip_F": {_displayName = "MXC";};
+				case "arifle_MXC_ACO_point_grip_mzls_F": {_displayName = "MXC";};
+				case "arifle_MXC_ACOg_flash_grip_mzls_F": {_displayName = "MXC";};
+				case "arifle_MXC_ACOg_point_grip_F": {_displayName = "MXC";};
+				case "arifle_MXC_ACOg_point_grip_mzls_F": {_displayName = "MXC";};
+				case "arifle_MXC_F": {_displayName = "MXC";};
+				case "arifle_MXC_Holo_F": {_displayName = "MXC";};
+				case "arifle_MXC_Holo_point_grip_F": {_displayName = "MXC";};
+				case "arifle_MXC_Holo_point_grip_snds_F": {_displayName = "MXC";};
+				
+				// GRENADE LAUNCHERS
+				case "GL_3GL_F": {_displayName = "3GL";};
+				
+				// MXM
+				case "arifle_MXM_ARCO_point_gripod_F": {_displayName = "MXM";};
+				case "arifle_MXM_F": {_displayName = "MXM";};
+				case "arifle_MXM_Hamr_point_gripod_F": {_displayName = "MXM";};
+				
+				// TRG20
+				case "arifle_TRG20_ACO_F": {_displayName = "TRG20";};
+				case "arifle_TRG20_ACO_flash_mzls_F": {_displayName = "TRG20";};
+				case "arifle_TRG20_ACO_point_F": {_displayName = "TRG20";};
+				case "arifle_TRG20_ACOg_F": {_displayName = "TRG20";};
+				case "arifle_TRG20_ACOg_flash_mzls_F": {_displayName = "TRG20";};
+				case "arifle_TRG20_ACOg_point_F": {_displayName = "TRG20";};
+				case "arifle_TRG20_F": {_displayName = "TRG20";};
+				case "arifle_TRG20_Holo_F": {_displayName = "TRG20";};
+				case "arifle_TRG20_Holo_mzls_F": {_displayName = "TRG20";};
+				case "arifle_TRG20_Holo_point_F": {_displayName = "TRG20";};
+				case "arifle_TRG20_Nstalker_point_mzls_F": {_displayName = "TRG20";};
+				
+				// TRG21
+				case "arifle_TRG21_ACO_point_F": {_displayName = "TRG21";};
+				case "arifle_TRG21_ACOg_point_F": {_displayName = "TRG21";};
+				case "arifle_TRG21_ARCO_point_F": {_displayName = "TRG21";};
+				case "arifle_TRG21_F": {_displayName = "TRG21";};
+				case "arifle_TRG21_GL_ACO_point_F": {_displayName = "TRG21";};
+				case "arifle_TRG21_GL_ACO_point_mzls_F": {_displayName = "TRG21";};
+				case "arifle_TRG21_GL_ACOg_point_F": {_displayName = "TRG21";};
+				case "arifle_TRG21_GL_ACOg_point_mzls_F": {_displayName = "TRG21";};
+				case "arifle_TRG21_GL_F": {_displayName = "TRG21";};
+				case "arifle_TRG21_Hamr_point_F": {_displayName = "TRG21";};
+		
+				// SDAR
+				case "arifle_SDAR_F": {_displayName = "SDAR";};
+				
+				// Vermin
+				case "SMG_01_F": {_displayName = "SMG";};
+				case "hgun_ACPC2_F": {_displayName = "ACPC2";};
+				case "SMG_02_F": {_displayName = "SMG";};
+				case "LMG_Zafir_F": {_displayName = "Zafir";};
+				case "srifle_GM6_F": {_displayName = "GM6";};
+				case "srifle_LRR_F": {_displayName = "LRR";};			
+
+			// OPFOR
+			
+				// KATIBA
+				case "arifle_Katiba_ACO_point_F": {_displayName = "Katiba";};
+				case "arifle_Katiba_ACOg_point_F": {_displayName = "Katiba";};
+				case "arifle_Katiba_ARCO_point_F": {_displayName = "Katiba";};
+				case "arifle_Katiba_C_ACO_F": {_displayName = "Katiba";};
+				case "arifle_Katiba_C_ACO_flash_mzls_F": {_displayName = "Katiba";};
+				case "arifle_Katiba_C_ACO_point_F": {_displayName = "Katiba";};
+				case "arifle_Katiba_C_ACOg_F": {_displayName = "Katiba";};
+				case "arifle_Katiba_C_ACOg_flash_mzls_F": {_displayName = "Katiba";};
+				case "arifle_Katiba_C_ACOg_point_F": {_displayName = "Katiba";};
+				case "arifle_Katiba_C_F": {_displayName = "Katiba";};
+				case "arifle_Katiba_C_Holo_F": {_displayName = "Katiba";};
+				case "arifle_Katiba_C_Holo_mzls_F": {_displayName = "Katiba";};
+				case "arifle_Katiba_C_Holo_point_F": {_displayName = "Katiba";};
+				case "arifle_Katiba_C_Nstalker_point_mzls_F 	": {_displayName = "Katiba";};
+				case "arifle_Katiba_F": {_displayName = "Katiba";};
+				case "arifle_Katiba_GL_ACO_point_F": {_displayName = "Katiba";};
+				case "arifle_Katiba_GL_ACO_point_mzls_F": {_displayName = "Katiba";};
+				case "arifle_Katiba_GL_ACOg_point_F": {_displayName = "Katiba";};
+				case "arifle_Katiba_GL_ACOg_point_mzls_F": {_displayName = "Katiba";};
+				case "arifle_Katiba_GL_F": {_displayName = "Katiba";};
+				case "arifle_Katiba_Holo_mzls_F": {_displayName = "Katiba";};
+				
+				// GRENADE LAUNCHERS
+				case "EGLM": {_displayName = "EGLM";};
+				
+				// Mk200
+				case "LMG_Mk200_ACO_grip_F": {_displayName = "Mk200";};
+				case "LMG_Mk200_ACO_point_gripf_F": {_displayName = "Mk200";};
+				case "LMG_Mk200_ARCO_bipod_F": {_displayName = "Mk200";};
+				case "LMG_Mk200_ARCO_pointer_bipod_F": {_displayName = "Mk200";};
+				case "LMG_Mk200_COWS_pointer_bipod_F": {_displayName = "Mk200";};
+				case "LMG_Mk200_F": {_displayName = "Mk200";};
+				
+				// EBR
+				case "srifle_EBR_ACO_grip_F": {_displayName = "EBR";};
+				case "srifle_EBR_ACO_point_grip_F": {_displayName = "EBR";};
+				case "srifle_EBR_ACOg_grip_F": {_displayName = "EBR";};
+				case "srifle_EBR_ACOg_point_grip_F": {_displayName = "EBR";};
+				case "srifle_EBR_ARCO_grip_F": {_displayName = "EBR";};
+				case "srifle_EBR_ARCO_point_grip_F": {_displayName = "EBR";};
+				case "srifle_EBR_F": {_displayName = "EBR";};
+				case "srifle_EBR_Hamr_grip_F": {_displayName = "EBR";};
+				case "srifle_EBR_Hamr_point_grip_F": {_displayName = "EBR";};
+				case "srifle_EBR_Holo_grip_F": {_displayName = "EBR";};
+				case "srifle_EBR_Holo_point_grip_F": {_displayName = "EBR";};
+
+		// PISTOLS
+		
+			// BLUFOR
+			case "hgun_P07_F": {_displayName = "P07 9mm";};
+			case "hgun_P07_snds_F": {_displayName = "P07 9mm";};
+		
+			// OPFOR
+			case "hgun_Rook40_F": {_displayName = "Rook-40 9mm";};
+			case "hgun_Rook40_snds_F": {_displayName = "Rook-40 9mm";};
+			
+		// LAUNCHER
+		
+			// BLUFOR
+			case "launch_NLAW_F": {_displayName = "NLAW";};
+			
+			// OPFOR
+			case "launch_RPG32_F": {_displayName = "RPG42";};
+		
+	// VEHICLES
+	
+		// CARS
+		
+			// BLUFOR
+			case "B_MRAP_01_F": {_displayName = "Hunter";};
+			case "B_MRAP_01_hmg_F": {_displayName = "Hunter HMG";};
+			case "B_MRAP_01_gmg_F": {_displayName = "Hunter GMG";};
+			case "B_Quadbike_01_F": {_displayName = "ATV";};
+
+			// OPFOR
+			case "O_MRAP_02_F": {_displayName = "Ifrit";};
+			case "O_MRAP_02_gmg_F": {_displayName = "Ifirt GMG";};
+			case "O_MRAP_02_hmg_F": {_displayName = "Ifirt HMG";};
+			case "O_Quadbike_01_F": {_displayName = "ATV";};
+			
+		// AIRCRAFT
+		
+			// BLUFOR
+			case "B_Heli_Light_01_armed_F": {_displayName = "AH9";};
+			case "B_Heli_Light_01_F": {_displayName = "MH9";};
+			case "B_Heli_Attack_01_F": {_displayName = "AH99";};
+			case "B_Heli_Transport_01_F": {_displayName = "UH80";};
+			
+			// OPFOR
+			case "O_Heli_Light_02_F": {_displayName = "PO-30A";};
+			case "O_Heli_Light_02_unarmed_F": {_displayName = "PO-30U";};
+			case "O_Heli_Attack_02_F": {_displayName = "Mi-48N";};
+			case "O_Heli_Attack_02_black_F": {_displayName = "Mi-48B";};
+			
+		// SHIP
+		
+			// BLUFOR
+			case "B_Boat_Transport_01_F": {_displayName = "Assault Boat";};
+			case "B_Lifeboat": {_displayName = "Lifeboat";};
+			case "B_Boat_Armed_01_minigun_F": {_displayName = "Speedboat";};
+			
+			// OPFOR
+			case "O_Boat_Transport_01_F": {_displayName = "Assault Boat";};
+			case "O_Lifeboat": {_displayName = "Lifeboat";};
+			case "O_Boat_Armed_01_hmg_F": {_displayName = "Speedboat";};
+			
+		// STATIC
+		
+			// BLUFOR
+			case "B_Mortar_01_F": {_displayName = "Mk6 Mortar";};
+			
+			// OPFOR
+			case "O_Mortar_01_F": {_displayName = "Mk6 Mortar";};
+			
+	// DEFAULT
+	default {_displayName = _className;};
+
+};
+
+_displayName;

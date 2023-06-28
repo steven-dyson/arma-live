@@ -1,0 +1,37 @@
+/***************************************************************************
+Capture Client
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+private ["_player", "_uid", "_mission", "_obj", "_mission", "_playerSV", "_playerName", "_currentScore", "_score", "_addScore", "_award", "_fundsName"];
+
+_player = (_this select 0);
+_uid = (_this select 1);
+_obj = (_this select 2);
+_mission = (_this select 3);
+
+_playerSV = (format ["SPY_bStats_%1", _uid]);
+_playerName = (_player getVariable "SPY_id_player" select 1);
+
+// CURRENT SCORES
+_currentScore = (SPY_container getVariable _playerSV);
+
+// ADD SCORE
+_score = (["capture", objNull, 0] call SPY_scoreValue);
+_addScore = ((_currentScore select 0) + _score);
+
+// SET NEW SCORE
+_currentScore set [0, _addScore];
+
+// BROADCAST
+SPY_container setVariable [_playerSV, _currentScore, true];
+
+// FORMAT/ SEND A2U INFO
+[(format ["bstats_capture (%1, %2, %3, %4)", str _uid, time, _score, (str _obj)])] call uplink_exec;
+
+if ((SPY_bStats_msgsEnabled)) then {
+
+	_null = [5, (format ["YOU CAPTURED %1 (%2 POINTS)", _obj, _score]), _uid, false] spawn SPY_bMessage;
+
+};

@@ -1,0 +1,32 @@
+/***************************************************************************
+Broadcast Information Screen All
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+scriptName "SPY Core Msg Broadcast Information Screen All";
+
+private ["_msg", "_target", "_duration", "_fadeIn", "_endTime"];
+
+_msg = (_this select 0);
+_target = (_this select 1);
+_duration = (_this select 2);
+_fadeIn = (_this select 3);
+
+_endTime = (time + _duration);
+
+if ((_target in ["LOCAL"])) then {
+
+	titleText [_msg, "BLACK OUT", _fadeIn];
+	sleep _fadeIn;
+	titleText [format ['%1', _msg], 'BLACK FADED', 999];
+	
+} else {
+	
+	_null = [[_msg, _fadeIn], "titleText [format ['%1', (_this select 0)], 'BLACK OUT', (_this select 1)]; sleep (_this select 1); titleText [format ['%1', (_this select 0)], 'BLACK FADED', 999];", _target] spawn CAS_mpCB;
+	
+};
+
+waitUntil {sleep 0.1; time > _endTime};
+
+titleText ["", "BLACK IN", 3];

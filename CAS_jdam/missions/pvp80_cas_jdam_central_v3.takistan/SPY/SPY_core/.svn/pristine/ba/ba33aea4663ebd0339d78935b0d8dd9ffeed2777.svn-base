@@ -1,0 +1,39 @@
+/***************************************************************************
+CUSTOM EVENT HANDLER ADD
+Created by Spyder
+spyder@armalive.com
+
+_null = [CEH NAME, "handle", [_args], "code", "target", 0] spawn SPY_cehAdd;
+_null = [CEH NAME, "handle", [_args], "code", "target", 0] execVM "SPY\SPY_core\SPY_ceh\SPY_cehAdd.sqf";
+***************************************************************************/
+
+
+
+/***************************************************************************
+EXEC
+****************************************************************************/
+private ["_cehName", "_handle", "_args", "_script", "_target", "_queue", "_cehValue"];
+
+_cehName = (_this select 0);
+_handle = (_this select 1);
+_args = (_this select 2);
+_script = (_this select 3);
+_target = (_this select 4);
+_queue = (_this select 5);
+
+// if ((isNil _cehName)) then {
+
+	// player setVariable [_cehName, [], false];
+	
+// };
+
+_cehValue = (player getVariable _cehName);
+_cehValue set [(count _cehValue), [_handle, _args, _script]];
+
+player setVariable [_cehName, _cehValue, false];
+
+// Debug
+_null = [1, (format ["CEH: %1 added (%2)", _cehName, _handle]), 0, ["SPY Systems", "Debug Log"], true] spawn SPY_bMessage;
+/***************************************************************************
+END
+****************************************************************************/

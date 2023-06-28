@@ -1,0 +1,125 @@
+/***************************************************************************
+Review Vehicle Hit
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+
+
+/***************************************************************************
+INIT
+***************************************************************************/
+private ["_args", "_vehicle", "_damagingUnit", "_ammo", "_vehicleInfo", "_vehicleSide", "_damagingUnitsInfo", "_damagePrevious", "_vehicleCrew", "_vehicleDamage", "_start", "_previousEntry", "_damagingUnitUID", "_damagingUnitSide", "_hitVar", "_damageInflicted", "_waitTime"];
+
+_args = (_this select 0);
+
+_vehicle = (_args select 0);
+_damagingUnit = (_args select 3);
+_ammo = (_args select 4);
+
+_vehicleInfo = (_vehicle getVariable "SPY_VEHICLE_INFO");
+_vehicleSide = (_vehicleInfo select 0);
+_vehicleCrew = (_vehicleInfo select 1);
+
+_vehicleDamage = (_vehicle getVariable "SPY_VEHICLE_DAMAGE");
+_damagingUnitsInfo = (_vehicleDamage select 0);
+_damagePrevious = (_vehicleDamage select 1);
+
+_previousEntry = false;
+/***************************************************************************
+END
+***************************************************************************/
+
+
+
+/***************************************************************************
+Define correct damaging unit & gather info
+***************************************************************************/
+// VEHICLE
+if (!(_damagingUnit isKindOf "Man")) then {_damagingUnit = ([false, _damagingUnit, objNull] call SPY_getUnit);};
+
+// NO UNIT OR SELF INFLICTED
+if ((isNull _damagingUnit) || (_damagingUnit == _vehicle) || (_vehicleSide == CIVILIAN) || (_damagingUnit in _vehicleCrew)) exitWith {};
+
+_damagingUnitUID = (_damagingUnit getVariable "SPY_id_player" select 0);
+_damagingUnitSide = (_damagingUnit getVariable "SPY_id_player" select 2);
+/***************************************************************************
+END
+***************************************************************************/
+
+
+
+/***************************************************************************
+SEND & STORE DATA
+***************************************************************************/
+_damageInflicted = ((damage _vehicle) - _damagePrevious);
+
+// SEND AMMO INFO
+if ((_ammo != "")) then {
+	
+	_vehicleDamage set [4, _ammo];
+	
+} else {
+
+	_vehicleDamage set [4, "explosives"];
+
+};
+
+// IF DAMAGING INFLICTED < 0.01 STOP HERE.
+if ((_damageInflicted < 0.01)) exitWith {};
+
+// UPDATE VEHICLE DAMAGE
+_vehicleDamage set [1, (damage _vehicle)];
+
+// UPDATE DAMAGE INFO
+{
+	
+	// CLEAR DUMMY ENTRY
+	if ((isNull (_x select 0))) then {
+	
+		_damagingUnitsInfo set [0, -1];
+		_damagingUnitsInfo = (_damagingUnitsInfo - [-1]);
+	
+	};
+			
+	// PREVIOUS ENTRY
+	if (((_x select 0) == _damagingUnit)) then {
+		
+		_damageInflicted = ((_x select 1) + _damageInflicted);
+		_damagingUnitsInfo set [_forEachIndex, [_damagingUnit, _damageInflicted, (time + 180)]];
+		_vehicleDamage set [0, _damagingUnitsInfo];
+	
+		_previousEntry = true;
+		
+	};
+	
+	if ((_previousEntry)) exitWith {};
+
+} forEach _damagingUnitsInfo;
+
+if ((!_previousEntry)) then {
+
+	_damagingUnitsInfo = (_damagingUnitsInfo + [[_damagingUnit, _damageInflicted, (time + 180)]]);
+	_vehicleDamage set [0, _damagingUnitsInfo];
+
+};
+
+// SEND HIT SELECTION TO DAMAGING UNIT (%NOTE% UTILIZE SPY QUEUE LATER)
+if ((_damagingUnitSide != _vehicleSide)) then {
+	
+	[[_damagingUnit, 4, _ammo], "_this call SPY_storeSelection;", _damagingUnitUID] call CAS_mpCB_A;
+	
+};
+
+// Broadcast valid damaging unit if vehicle is dead
+if ((!alive _vehicle)) then {
+	
+		_vehicleDamage set [5, true];
+		
+};
+
+// DEBUG
+_null = [1, (format ["VH: %1, %2, %3, %4", _damagingUnit, _damagingUnitUID, _ammo, (alive _vehicle)]), "CLIENT", false] spawn SPY_bMessage;
+/***************************************************************************
+END
+***************************************************************************/

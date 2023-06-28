@@ -1,0 +1,66 @@
+/***************************************************************************
+On Player Connected
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+private ["_uid", "_player", "_side", "_name", "_faction", "_uplink"];
+
+_uid = (_this select 0);
+
+_player = nil;
+
+// Ghost player
+if ((_uid == "")) exitWith {};
+
+// A2U is ready
+waitUntil {(!(isNil "uplink_exec"))};
+
+// Retrieve player from uid
+while {sleep 0.1; isNil "_player"} do {
+
+	{
+
+		{
+
+			if ((getPlayerUID _x == _uid)) then {
+			
+				_player = _x;
+				
+			};
+			
+		} forEach units _x;
+		
+	} forEach allGroups;
+
+};
+
+// Retieve player information
+_side = (side _player);
+_name = (name _player);
+_faction = (faction _player);
+
+// Add player to side specific playerlist
+switch (_side) do {
+
+	case west: {
+	
+		_playerList = (SPY_container getVariable "SPY_bStats_players_blu");
+		_playerList = (_playerList + [_player]);
+		SPY_container setVariable ["SPY_bStats_players_blu", _playerList, true];
+	
+	};
+	
+	case east: {
+	
+		_playerList = (SPY_container getVariable "SPY_bStats_players_op");
+		_playerList = (_playerList + [_player]);
+		SPY_container setVariable ["SPY_bStats_players_op", _playerList, true];
+		
+	};
+	
+};
+
+// Send to uplink
+_uplink = (format ["bstats_newplayer (%1, %2, %3, %4, %5)", (str _uid), (str (str _side)), time, (str _name), (str _faction)]);
+[_uplink] call uplink_exec;

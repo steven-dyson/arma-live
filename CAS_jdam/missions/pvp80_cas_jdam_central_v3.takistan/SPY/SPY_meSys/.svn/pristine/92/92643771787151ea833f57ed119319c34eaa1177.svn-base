@@ -1,0 +1,146 @@
+/***************************************************************************
+MARKER SERVER
+Created by Spyder
+spyder@armalive.com
+
+IMPLEMENTATION:
+For local use, execute on client. 
+For global use, use BIS_fnc_MP
+
+EXAMPLE:
+_null = [object, [sides] (WEST, EAST, CIV), type ("vehicle_basic", "vehicle_adv"), text (string), icon (see cfgMarkers), direction, color, update interval] spawn SPY_marker;
+****************************************************************************/
+
+
+
+/***************************************************************************
+INIT
+****************************************************************************/
+private ["_object", "_sides", "_type", "_text", "_icon", "_dir", "_color", "_update", "_position", "_markerName", "_marker", "_driver", "_waitTime"];
+
+_object = (_this select 0);
+_sides = (_this select 1);
+_type = (_this select 2);
+_text = (_this select 3);
+_icon = (_this select 4);
+_dir = (_this select 5);
+_color = (_this select 6);
+_update = (_this select 7);
+_markerName = (_this select 8);
+
+waitUntil {sleep 0.1; (!isNull player)};
+
+if (!(playerSide in _sides)) exitWith {};
+/***************************************************************************
+INIT
+****************************************************************************/
+
+
+
+/***************************************************************************
+CRATE MARKER BASICS
+****************************************************************************/	
+// POSITION OF OBJECT
+_position = (getPos _object); 
+
+// UNIQUE MARKER NAME BASED ON POSITION
+if ((isNil "_markerName")) then {
+
+	_markerName = format ["SPY_marker_%1_%2_%3", (_position select 0), (_position select 1), (_position select 2)];
+	
+};
+
+// INITIALLY CREATE MARKER
+_marker = createMarkerLocal [_markerName, _position];
+_marker setMarkerColorLocal _color;
+_marker setMarkerShapeLocal "ICON";
+_marker setMarkerTypeLocal _icon;
+_marker setMarkerSizeLocal [1, 1];
+_marker setMarkerDirLocal _dir;
+
+if (((typeName _text) == "STRING")) then {
+
+	_marker setMarkerTextLocal _text;
+	
+} else {
+
+	_marker setMarkerTextLocal format ["%1 (%2)", (_text select 0), (CAS_JDAM_tracker getVariable (_text select 1))];
+
+};
+/***************************************************************************
+CRATE MARKER BASICS
+****************************************************************************/
+
+
+
+/***************************************************************************
+UPDATE MARKER
+****************************************************************************/
+// MARKER THREAD
+while {true} do {
+
+	// OBJECT TYPE
+	switch (_type) do {
+		
+		case "vehicle_basic": {
+			
+			if ((count (crew _object) > 0)) then {
+
+				_marker setMarkerTextLocal format ["%1 (%2)", _text, (count (crew _object))];
+
+			} else {
+
+				_marker setMarkerTextLocal _text;
+
+			};		
+					
+		};
+
+		case "vehicle_adv": {
+
+			_driver = (driver _object);
+
+			if ((count (crew _object) > 0) && (!isNull _driver)) then {
+
+				_marker setMarkerTextLocal format ["%1 (%2)", (name (driver _object)), ((count (crew _object)) - 1)];
+
+			} else {
+
+				_marker setMarkerTextLocal format ["%1 (%2)", _text, (count (crew _object))];
+
+			};
+
+		};
+
+	};
+	
+	if (((typeName _text) != "STRING")) then {
+
+		_marker setMarkerTextLocal format ["%1 (%2)", (_text select 0), (CAS_JDAM_tracker getVariable (_text select 1))];
+
+	};
+
+	// EXIT IF NOT UPDATING
+	if ((_update == 0)) exitWith {};
+	
+	// WAIT UNTIL DESTROYED OR READY TO UPDATE
+	_waitTime = (time + _update);
+	waitUntil {sleep 0.1; (!alive _object) || (time >= _waitTime)};
+	
+	// DESTROYED OBJECT
+	if ((!alive _object)) exitWith {deleteMarker _marker};
+	
+	// UPDATE POSITION
+	_marker setMarkerPosLocal (getPos _object);
+	
+	// UPDATE DIRECTION
+	if ((_dir < 0)) then {
+
+		_marker setMarkerDirLocal (getDir _object);
+
+	};
+		
+};
+/***************************************************************************
+UPDATE MARKER
+****************************************************************************/

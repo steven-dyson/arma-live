@@ -1,0 +1,10 @@
+player addGoggles "G_Diving";
+player addUniform "U_B_Wetsuit";
+player addVest "V_RebreatherIR";
+player addWeapon "arifle_SDAR_F";
+player addMagazine "20Rnd_556x45_UW_mag";
+player addMagazine "20Rnd_556x45_UW_mag";
+player addMagazine "20Rnd_556x45_UW_mag";
+player addMagazine "20Rnd_556x45_UW_mag";
+player addMagazine "20Rnd_556x45_UW_mag";
+player addMagazine "20Rnd_556x45_UW_mag";

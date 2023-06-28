@@ -1,0 +1,5 @@
+pg_dumpall -c -g > globals.sql
+echo 'CREATE DATABASE bstats_master;' >> globals.sql
+
+pg_dump -s -c bstats_master > bstats_master.sql
+

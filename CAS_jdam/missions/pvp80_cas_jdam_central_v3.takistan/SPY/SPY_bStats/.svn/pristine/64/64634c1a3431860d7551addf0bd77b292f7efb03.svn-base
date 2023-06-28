@@ -1,0 +1,226 @@
+/***************************************************************************
+SPY Initialization and Compile (Method)
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+
+
+/***************************************************************************
+Compile
+****************************************************************************/
+private ["_pUID", "_varName", "_array_playerList"];
+
+if ((!isServer)) then 
+{
+	private ["_compile"];
+
+	_compile = [] execVM "SPY\SPY_bStats\SPY_compile.sqf";
+	waitUntil {sleep 0.1; scriptDone _compile};
+};
+
+_pUID = (player getVariable "SPY_id_uid");
+
+_varName = (format ["SPY_bStats_%1", _pUID]);
+/***************************************************************************
+End
+****************************************************************************/
+
+
+
+/***************************************************************************
+Player Info: [[damaging units info], overall damage, in vehicle, driver of vehicle, vehicle, [shots, [head, torso, arm, leg, vehicle]], killed ammo]
+Player Score: [battle score, teamwork score, tk punish points, kills, deaths, suicides, team kills, vehicle kills, kill assists, aircraft crashes, objectives]
+Damage state: 0=alive 1=dead, damage updating, 2=dead, ready to process for reviewKill
+****************************************************************************/
+// New player joined game
+if ((isNil {SPY_container getVariable _varName})) then 
+{
+	// Player score variable default
+	SPY_container setVariable [_varName, [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, playerSide], true];
+		
+	// Initial join message
+	if ((time > 30) && (SPY_jip_client)) then 
+	{
+		_null = [[3, (format ["%1 joined the %2 team", (name player), ([playerSide] call SPY_displayName)]), 0, ["SPY bStats", "Event Log"], false], "SPY_bMessage", true, false, false] call BIS_fnc_MP;
+	};
+
+// Previous player joined game
+}
+else
+{
+	// Re-join side message
+	if ((time > 30) && (SPY_jip_client) && ((SPY_container getVariable _varName select 11) isEqualTo playerSide)) exitWith 
+	{
+		_null = [[3, (format ["%1 re-joined the %2 team", (name player), ([playerSide] call SPY_displayName)]), 0, ["SPY Systems", "Debug Log"], false], "SPY_bMessage", true, false, false] call BIS_fnc_MP;
+	};
+	
+	// Switch side message
+	if ((time > 30) && (SPY_jip_client) && !((SPY_container getVariable _varName select 11) isEqualTo playerSide)) exitWith 
+	{
+		_null = [[3, (format ["%1 switched to the %2 team", (name player), ([playerSide] call SPY_displayName)]), 0, ["SPY Systems", "Debug Log"], false], "SPY_bMessage", true, false, false] call BIS_fnc_MP;
+	};	
+};
+
+// Player object variables
+player setVariable ["SPY_player_info", [[[player, 0, 0, (getPlayerUID player), (name player), playerSide, false]], 0, false, false, objNull, [0, [0, 0, 0, 0, 0]], ""], false];
+player setVariable ["SPY_bStats_vehicle", (vehicle player), true];
+player setVariable ["SPY_bStats_deathState", 0, false];
+
+// Player global variables
+SPY_score_open = false;
+SPY_bStats_wpnStartTime = time;
+
+// Gather player loadout and set global variable
+_null = [player] call SPY_getLoadout;
+
+// bStats diary records
+player createDiarySubject ["SPY bStats","SPY bStats"];
+player createDiaryRecord ["SPY bStats", ["Credits", "Author: Spyder"]];
+player createDiaryRecord ["SPY bStats", ["About", "www.armalive.com Version 1.16"]];
+/***************************************************************************
+End
+****************************************************************************/
+
+
+
+/***************************************************************************
+Retrieve player id/score variables
+****************************************************************************/
+// Determine player list
+switch (playerSide) do 
+{
+	case west: 
+	{
+		_array_playerList = "SPY_bStats_players_blu";
+	};
+	case east: 
+	{
+		_array_playerList = "SPY_bStats_players_op";
+	};
+};
+
+// Add player to side specific player list
+_playerList = (SPY_container getVariable _array_playerList);
+_playerList = (_playerList + [getPlayerUID player]);
+SPY_container setVariable [_array_playerList, _playerList, true];
+/***************************************************************************
+End
+****************************************************************************/
+
+
+
+/***************************************************************************
+Add player event handlers
+****************************************************************************/
+// Executes when a player fires a handheld weapon. Shots fired are stored.
+_feh = player addEventHandler 
+[
+	"Fired", 
+	{
+		_null = [(_this select 0), (_this select 4), (_this select 5)] spawn SPY_storeShot;
+	}
+];
+
+// Executes when player is hit. Damaging unit is stored with relevant data.
+_hdeh = player addEventHandler 
+[
+	"HandleDamage", 
+	{
+		if ((!alive (_this select 0)) || isNull (_this select 3)) exitWith {};
+		if ((!alive (_this select 0))) then
+		{
+			(_this select 0) setVariable ["SPY_bStats_deathState", 1, false];	
+		}; 
+		_null = [_this, time] spawn SPY_reviewHit; 
+		(_this select 2);
+	}
+];
+
+// Monitors when a player is killed.
+player addEventHandler 
+[
+	"Killed", 
+	{
+		_null = [(_this select 0), (_this select 1)] spawn SPY_reviewKill;
+	}
+];
+
+// Monitors when a player hands over controls (pilot > co-pilot or visa versa).
+player addEventHandler 
+[
+	"ControlsShifted", 
+	{
+		_null = [[(_this select 0), true], "_this spawn SPY_addVeh", (_this select 1)] spawn CAS_mpCB;
+		_null = [[(_this select 0), true], "_this spawn SPY_removeVeh", (_this select 2)] spawn CAS_mpCB;
+	}
+];
+
+// Retrieves new player loadout when an item is put down.
+player addEventHandler 
+[
+	"Put", 
+	{
+		_null = [player] call SPY_getLoadout;
+	}	
+];
+
+// Retrieves player loadout when an iten is taken.
+player addEventHandler 
+[
+	"Take", 
+	{
+		_null = [player] call SPY_getLoadout;
+	}	
+];
+
+// This is executed when a player is detected changing vehicle position. This does run when controls are shifted.
+_null = ["SPY_ceh_changedVehPos", "SPY_bStats", [player], "_null = _this spawn SPY_onChangedVehPos", "LOCAL", 0] spawn SPY_cehAdd;
+
+// This is executed when a player is detected switching weapons.
+_null = ["SPY_ceh_switchedWpn", "SPY_bStats", [], "_null = _this spawn SPY_onSwitchedWpn", "LOCAL", 0] spawn SPY_cehAdd;
+
+// Monitors when a player receives damage and reset when criteria is meet (heal, dead, or timeout)
+_null = [] spawn SPY_resetDamagePlayer;
+/***************************************************************************
+End
+****************************************************************************/
+
+
+
+/***************************************************************************
+Add player user action event handlers
+****************************************************************************/
+if ((SPY_bStats_sbEnabled)) then 
+{
+	waitUntil { sleep 0.1; (!isNull (findDisplay 46)) };
+	
+	(findDisplay 46) displayAddEventHandler ["KeyDown", "if (([(_this select 1), 'NetworkStats'] call SPY_isKey)  && (!SPY_SCORE_OPEN)) then {_null = [] spawn SPY_checkScore;}; ([(_this select 1), 'NetworkStats'] call SPY_isKey);"];
+	(findDisplay 46) displayAddEventHandler ["KeyUp", "if (([(_this select 1), 'NetworkStats'] call SPY_isKey) && (SPY_SCORE_OPEN)) then {closeDialog 46;}; ([(_this select 1), 'NetworkStats'] call SPY_isKey);"];
+};
+/***************************************************************************
+End
+****************************************************************************/
+
+
+
+/***************************************************************************
+Locally order players by score
+****************************************************************************/
+[] spawn 
+{
+	while {sleep 5; true} do 
+	{
+		_blu = [(SPY_container getVariable "SPY_bStats_players_blu"), [], {(SPY_container getVariable ("SPY_bStats_" + _x) select 0) + (SPY_container getVariable ("SPY_bStats_" + _x) select 1)}, "DECEND"] call BIS_fnc_sortBy;
+		_op = [(SPY_container getVariable "SPY_bStats_players_op"), [], {(SPY_container getVariable ("SPY_bStats_" + _x) select 0) + (SPY_container getVariable ("SPY_bStats_" + _x) select 1)}, "DECEND"] call BIS_fnc_sortBy;
+
+		SPY_container setVariable ["SPY_bStats_players_blu", _blu, false];
+		SPY_container setVariable ["SPY_bStats_players_op", _op, false];
+	};
+};
+
+// Debug
+_null = [1, "bStats Initialized *Client*", 0, ["SPY Systems", "Debug Log"], true] spawn SPY_bMessage;
+/***************************************************************************
+End
+****************************************************************************/

@@ -1,0 +1,24 @@
+/***************************************************************************
+SPY Initialization and Compile (Method)
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+private ["_compile"];
+
+// Init player variables
+player setVariable ["SPY_ceh_changedVehPos", [], false];
+player setVariable ["SPY_ceh_switchedWpn", [], false];
+player setVariable ["SPY_ceh_isIdle", [], false];
+
+// Compile client scripts
+_compile = [] execVM "SPY\SPY_core\SPY_ceh\SPY_compile.sqf";
+waitUntil {scriptDone _compile};
+
+// Start CEH
+_null = [player] execVM "SPY\SPY_core\SPY_ceh\SPY_changedVehPos.sqf";
+_null = [player] execVM "SPY\SPY_core\SPY_ceh\SPY_switchedWpn.sqf";
+_null = [player] execVM "SPY\SPY_core\SPY_ceh\SPY_isIdle.sqf";
+
+// Debug
+_null = [1, "Core: CEH Initialized *Client*", 0, ["SPY Systems", "Debug Log"], true] spawn SPY_bMessage;

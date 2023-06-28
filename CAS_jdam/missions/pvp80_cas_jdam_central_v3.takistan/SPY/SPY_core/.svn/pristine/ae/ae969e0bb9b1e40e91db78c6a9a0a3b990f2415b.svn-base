@@ -1,0 +1,53 @@
+/***************************************************************************
+Changed Vehicle Position
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+while {sleep 0.1; true} do {
+
+	private ["_player", "_vehicle", "_position", "_reset"];
+
+	_player = (_this select 0);
+	
+	// Player is alive
+	waitUntil {sleep 0.1; (alive _player)};
+	
+	// Initial vehicle & position
+	_reset = false;
+	_vehicle = (vehicle _player);
+	_position = (str (assignedVehicleRole _player select 0));
+
+	if ((isNil "_position")) then {
+	
+		_position = "";
+		
+	};
+	
+	// Player enters vehicle
+	waitUntil {sleep 0.1; !(str (assignedVehicleRole _player select 0) isEqualTo _position) || !((vehicle _player) isEqualTo _vehicle) || !(alive _player)};
+	
+	if (!(alive _player) && (_vehicle isEqualTo (vehicle _player))) then {
+	
+		_reset = true;
+		
+	};
+	
+	if (!(_reset)) then {
+	
+		// Wait until player and role have synced
+		if (!(str (assignedVehicleRole _player select 0) isEqualTo _position) && ((vehicle _player) isEqualTo _player)) then {
+
+			waitUntil {sleep 0.1; !((vehicle _player) isEqualTo _player)};
+
+		};
+
+		// Exec CEH
+		_null = ["SPY_ceh_changedVehPos", [_player]] spawn SPY_cehExec;
+
+		// Debug
+		_null = [1, "Vehicle Position Change", 0, ["SPY Systems", "Debug Log"], false] spawn SPY_bMessage
+	
+	};
+	
+};

@@ -1,0 +1,183 @@
+/***************************************************************************
+GATHER LOADOUT
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+
+
+/***************************************************************************
+OLD LOADOUT
+***************************************************************************/
+private ["_unit", "_loadout", "_oPrimary", "_oUgl", "_oSecondaries", "_oSidearm", "_oExplosives", "_oVehicles", "_cPrimary", "_cUgl", "_cSecondaries", "_cSidearm", "_cExplosives", "_cVehicles", "_vehIsPresent"];
+
+_unit = (_this select 0);
+
+// SET WEAPONS TO DEFAULT
+if ((isNil {_unit getVariable "SPY_PLAYER_LOADOUT"})) then {_unit setVariable ["SPY_PLAYER_LOADOUT", ["", "", [], "", [], []]];};
+
+// GATHER OLD LOADOUT
+_loadout = (_unit getVariable "SPY_PLAYER_LOADOUT");
+
+_oPrimary = [_loadout, 0, "", [""]] call BIS_fnc_param;
+_oUgl = [_loadout, 1, "", [""]] call BIS_fnc_param;
+_oSecondaries = [_loadout, 2, [], [[]]] call BIS_fnc_param;
+_oSidearm = [_loadout, 3, "", [""]] call BIS_fnc_param;
+_oExplosives = [_loadout, 4, [], [[]]] call BIS_fnc_param;
+_oVehicles = [_loadout, 5, [], [[]]] call BIS_fnc_param;
+/***************************************************************************
+END
+***************************************************************************/
+
+
+
+/***************************************************************************
+CURRENT LOADOUT
+***************************************************************************/
+// GATHER CURRENT PRIMARY
+_cPrimary = (primaryWeapon _unit);
+if ((isNil "_cPrimary")) then {_cPrimary = ""};
+
+// GATHER CURRENT UGL
+private ["_cPrimaryMuzzles"];
+
+if ((_cPrimary != "")) then {_cPrimaryMuzzles = (getArray (configFile >> "cfgWeapons" >> _cPrimary >> "muzzles"));};
+if ((!isNil {_cPrimaryMuzzles select 1})) then {_cUgl = (_cPrimaryMuzzles select 1)} else {_cUgl = "";};
+
+// GATHER CURRENT SECONDARIES
+if (!((secondaryWeapon _unit) in _oSecondaries)) then {
+
+	_cSecondaries = _oSecondaries + [(secondaryWeapon _unit)];
+	
+} else {
+
+	_cSecondaries = _oSecondaries;
+	
+};
+
+// GATHER CURRENT SIDEARM
+{
+
+	private ["_muzzles", "_exceptions"];
+
+	_muzzles = (getArray (configFile >> "cfgWeapons" >> _x >> "muzzles"));
+	
+	_exceptions = [_cPrimary, _cUgl, (secondaryWeapon _unit), "Binocular"];
+	
+	if ((!([_muzzles, []] call SPY_compareArray)) && (!(_x in _exceptions))) then {_cSidearm = _x};
+
+} forEach (weapons _unit);
+
+if ((isNil "_cSidearm")) then {_cSidearm = ""};
+
+// GATHER CURRENT EXPLOSIVES
+_cExplosives = _oExplosives;
+
+{
+
+	private ["_exp", "_expAmmo"];
+	
+	_exp = ["ATMine_Range_Ammo", "APERSMine_Range_Ammo", "APERSBoundingMine_Range_Ammo", "SLAMDirectionalMine_Wire_Ammo", "APERSTripMine_Wire_Ammo", "ClaymoreDirectionalMine_Remote_Ammo", "DemoCharge_Remote_Ammo", "SatchelCharge_Remote_Ammo", "HandGrenade", "MiniGrenade", "SmokeShell", "SmokeShellRed", "SmokeShellGreen", "SmokeShellYellow", "SmokeShellPurple", "SmokeShellBlue", "SmokeShellOrange"];
+	
+	_expAmmo = (getText (configFile >> "CfgMagazines" >> _x >> "ammo"));
+	
+	if ((_expAmmo in _exp) && !(_expAmmo in _cExplosives)) then {
+		
+		_cExplosives = _cExplosives + [_expAmmo];
+		
+	};
+	
+} forEach (magazines player);
+
+// GATHER CURRENT VEHICLE
+if ((vehicle player != player)) then {
+
+	private ["_curVeh", "_newVeh"];
+
+	_curVeh = [(typeOf vehicle player)];
+	
+	if (((count (crew (vehicle player))) == 1)) then {
+	
+		{
+		
+			_curVeh set [(count _curVeh), _x];
+			
+		} forEach (weapons (vehicle player));
+		
+	} else {
+	
+		{
+		
+			_curVeh set [(count _curVeh), _x];
+			
+		} forEach ((vehicle player) weaponsTurret ((assignedVehicleRole player) select 1));
+	
+	};
+	
+	// State if vehicle is unarmed
+	if ((count (weapons (vehicle player))) == 0) then {
+			
+		_curVeh set [(count _curVeh), "Unarmed"];
+				
+	};
+	
+	if ((count _oVehicles == 0)) then {
+	
+		_cVehicles = (_oVehicles + [_curVeh]);
+		
+	} else {
+	
+		{
+		
+			_vehIsPresent = [_curVeh, _x] call BIS_fnc_areEqual;
+			
+			if ((_vehIsPresent)) exitWith {
+			
+				_cVehicles = _oVehicles;
+				
+			};
+		
+		} forEach _oVehicles;
+		
+		if ((!_vehIsPresent)) then {
+		
+			_cVehicles = (_oVehicles + [_curVeh]);
+			
+		};
+		
+	};
+
+};
+/***************************************************************************
+END
+***************************************************************************/
+
+
+
+/***************************************************************************
+UPDATE LOADOUT
+***************************************************************************/
+// IF OLD PRIMARY != NEW PRIMARY THEN CHANGE PRIMARY
+if ((_oPrimary != _cPrimary)) then {_loadout set [0, _cPrimary];};
+
+// IF OLD UGL != NEW UGL THEN CHANGE UGL
+if ((_oUgl != _cUgl)) then {_loadout set [1, _cUgl];};
+
+// IF OLD SECONDARIES != NEW SECONDARIES THEN CHANGE SECONDARIES
+if (!([_oSecondaries, _cSecondaries] call SPY_compareArray) && !(isNil {secondaryWeapon _unit})) then {_loadout set [2, _cSecondaries];};
+
+// IF OLD SIDEARM != NEW SIDEARM THEN CHANGE SIDEARM
+if ((_oSidearm != _cSidearm)) then {_loadout set [3, _cSidearm];};
+
+// IF OLD EXPLOSIVES != NEW EXPLOSIVES THEN CHANGE EXPLOSIVES
+if (!([_oExplosives, _cExplosives] call SPY_compareArray)) then {_loadout set [4, _cExplosives];};
+
+// IF OLD VEHICLES != NEW VEHICLES THEN CHANGE VEHICLES
+if ((vehicle player != player)) then {
+
+	if (!([_oVehicles, _cVehicles] call SPY_compareArray)) then {_loadout set [5, _cVehicles];};
+
+};
+/***************************************************************************
+END
+***************************************************************************/

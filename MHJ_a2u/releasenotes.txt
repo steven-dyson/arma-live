@@ -1,0 +1,41 @@
+A2uplink $Revision: 85 $
+
+A2U is a program which will communicate with an arma2 server running the appropriate scripts. 
+Its ability to do this with the linux server is unique.
+
+This particular release of a2uplink is the first one that implements writes to the game. 
+Consider the feature alpha quality - there are two known major bugs.
+
+Requires a lua runtime, luasockets for sleeping, and (for the poc) luasql for database access. 
+The PoC also uses a feature introduced in arma2 beta r90099.
+Any other lua libraries installed will be usable once you make the "user module" for it.
+
+
+Instructions for running the MSO persistence proof-of-concept:
+
+- Change tests/mso/msoconfig.lua to point to the correct paths for your machine. 
+ A better commented version is available in upconfig.lua
+- run the command (as contained in msotest.bat)
+ lua uplink.lua tests/mso/msoconfig.lua
+- Copy or move the tests/mso/a2u_mso_poc.Desert_E into your documents/arma 2/mpmissions folder
+- Start a self-hosted MP game with that mission
+ This is needed because the PoC uses netid
+- Use 0-0-1 to do the loopback test. 
+ This is used to confirm that it's correctly set up. The running a2u will print a message when it receives it, and try to send a reply back to the game.
+ If successful, you will be presented with a hintbox saying "Hello MSO world", else you'll be given an error message on chat.
+- Drive the car somewhere, get out, aim at it, use 0-0-2 to "store" it.
+ Storing it multiple times in a session (before mission restart) should overwrite previous position saves.
+- Restart the mission, use 0-0-3 and wait a few seconds. The car should appear where you placed it.
+ The car from the mission won't disappear in this case, but that's easily added if desired.
+ 
+ 
+Each time you store the car included in the mission, restart and load, you'll have one more.
+Loading twice in a mission shouldn't work.
+Moving a recorded car, and then storing it again, should have it appear only in the new position next time you load.
+Damage is currently stored only by its numerical value, but if you spend all its ammo and store it, then it should be out of ammo when you load it next session.
+
+http://www.youtube.com/watch?v=vVDy94ZxnsI
+
+
+The details of the method, how it works and its limitations, are the subject of another file, yet to be written.
+

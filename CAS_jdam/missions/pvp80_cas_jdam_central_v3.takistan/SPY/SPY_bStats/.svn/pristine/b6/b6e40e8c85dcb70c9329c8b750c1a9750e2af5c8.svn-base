@@ -1,0 +1,21 @@
+/***************************************************************************
+Ranking Change Server
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+scriptName "SPY bStats Balance Ranking Change Server";
+
+while {true} do {
+
+	waitUntil {sleep 30; (!([] call SPY_vMission))};
+	
+	_null = [3,"Waiting for more players...", "CLIENT", false, 0] spawn SPY_bMessage;
+	SPY_bStats_ranked = false;
+	
+	waitUntil {sleep 30; ([] call SPY_vMission)};
+	
+	_null = [3,"Minimum players met. Stats will be recoreded.", "CLIENT", false, 0] spawn SPY_bMessage;
+	SPY_bStats_ranked = true;
+	
+};

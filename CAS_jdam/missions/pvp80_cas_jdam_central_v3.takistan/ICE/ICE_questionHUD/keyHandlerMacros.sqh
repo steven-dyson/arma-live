@@ -1,0 +1,66 @@
+// These were made into macros since it requires a return value plus a waitUntil call inside the function otherwise, which is invalid.
+
+#define ICE_c_mainDisplay (findDisplay 46)
+
+// keyDown EH (display #46)
+#define ICE_c_addKeyDownEH(_EHID,_code) if (!isDedicated) then \
+{\
+	if (isClass(configFile >> "cfgPatches" >> "CBA_main")) then \
+	{\
+		waitUntil {!isNil "CBA_fnc_addDisplayHandler"};\
+		_EHID = ["KeyDown", _code] call CBA_fnc_addDisplayHandler;\
+	}\
+	else \
+	{\
+		waitUntil {!isNull ICE_c_mainDisplay};\
+		_EHID = ICE_c_mainDisplay displayAddEventHandler ["KeyDown", _code];\
+	};\
+}\
+else \
+{\
+	_EHID = -1;\
+}
+
+// keyUp EH (display #46)
+#define ICE_c_addKeyUpEH(_EHID,_code) if (!isDedicated) then \
+{\
+	if (isClass(configFile >> "cfgPatches" >> "CBA_main")) then \
+	{\
+		waitUntil {!isNil "CBA_fnc_addDisplayHandler"};\
+		_EHID = ["KeyUp", _code] call CBA_fnc_addDisplayHandler;\
+	}\
+	else \
+	{\
+		waitUntil {!isNull ICE_c_mainDisplay};\
+		_EHID = ICE_c_mainDisplay displayAddEventHandler ["KeyUp", _code];\
+	};\
+}\
+else \
+{\
+	_EHID = -1;\
+}
+
+// TODO: consider adding "if (!isDedicated)" checks for these too.
+#define ICE_c_removeKeyDownEH(_EHID) if (!isDedicated) then \
+{\
+	if (isClass(configFile >> "cfgPatches" >> "CBA_main")) then \
+	{\
+		["KeyDown", _EHID] call CBA_fnc_removeDisplayHandler;\
+	}\
+	else \
+	{\
+		ICE_c_mainDisplay displayRemoveEventHandler ["KeyDown", _EHID];\
+	};\
+}
+
+#define ICE_c_removeKeyUpEH(_EHID) if (!isDedicated) then \
+{\
+	if (isClass(configFile >> "cfgPatches" >> "CBA_main")) then \
+	{\
+		["KeyUp", _EHID] call CBA_fnc_removeDisplayHandler;\
+	}\
+	else \
+	{\
+		ICE_c_mainDisplay displayRemoveEventHandler ["KeyUp", _EHID];\
+	};\
+}

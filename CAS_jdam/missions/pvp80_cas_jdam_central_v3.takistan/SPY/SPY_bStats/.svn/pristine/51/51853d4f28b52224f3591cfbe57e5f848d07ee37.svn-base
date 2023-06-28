@@ -1,0 +1,46 @@
+/***************************************************************************
+Kill Assist
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+private ["_p", "_pUID", "_pIsAI", "_unitScoreVar", "_addAssist", "_score", "_addScore", "_unitScore"];
+
+_p = (_this select 0);
+_pUID = (_this select 1);
+
+_pIsAI = (SPY_container getVariable ("SPY_id_" + _pUID) select 3);
+
+// Player Message
+if ((SPY_bStats_msgsEnabled) && (SPY_bStats_msgsEnemy) && !(_pIsAI)) then {
+
+	_null = [[5, "You got a kill assist", 0, ["SPY bStats", "Event Log"], false], "SPY_bMessage", _p, false, false] call BIS_fnc_MP;
+
+};
+
+_unitScoreVar = (format ["SPY_bStats_%1", _pUID]);
+
+// All current values in the array
+_unitScore = (SPY_container getVariable _unitScoreVar);
+
+// Add score
+_score = (["killassist", objNull, 0] call SPY_scoreValue);
+_addScore = ((_unitScore select 0) + _score);
+
+// Current value increased by 1
+_addAssist = ((_unitScore select 8) + 1);
+
+// Set increased value in array
+_unitScore set [0, _addScore];
+_unitScore set [8, _addAssist];
+
+// Broadcast array
+SPY_container setVariable [_unitScoreVar, _unitScore, true];
+
+// Send to armalive
+"armalive" callExtension format
+[
+	"kill_assist;%1;%2",
+	time,
+	_pUID
+];

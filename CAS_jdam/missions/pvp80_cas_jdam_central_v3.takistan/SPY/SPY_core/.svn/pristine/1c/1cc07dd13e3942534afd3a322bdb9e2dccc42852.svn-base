@@ -1,0 +1,32 @@
+/***************************************************************************
+SPY Initialization and Compile (Method)
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+
+
+/***************************************************************************
+EXEC
+****************************************************************************/
+private ["_compile"];
+
+_compile = [] execVM "SPY\SPY_core\SPY_msg\SPY_compile.sqf";
+waitUntil {scriptDone _compile};
+
+/*SPY_msg_debugIndex = radioChannelCreate [[0.96, 0.34, 0.13, 0.8], "SPY Debug Radio", "[D]", []];
+publicVariable "SPY_msg_debugIndex";
+
+SPY_msg_errorIndex = radioChannelCreate [[0.96, 0.14, 0.03, 0.3], "SPY Error Radio", "[E]", []];
+publicVariable "SPY_msg_errorIndex";
+
+SPY_msg_infoIndex = radioChannelCreate [[0.13, 0.34, 0.96, 0.8], "SPY Info Radio", "[I]", []];
+publicVariable "SPY_msg_infoIndex";
+
+SPY_msg_warnIndex = radioChannelCreate [[1, 0.14, 0.03, 0.3], "SPY Warning Radio", "[W]", []];
+publicVariable "SPY_msg_warnIndex";*/
+
+_null = [1, "Core: Msg Initialized *Server*", "LOCAL", false] spawn SPY_bMessage;
+/***************************************************************************
+END
+****************************************************************************/

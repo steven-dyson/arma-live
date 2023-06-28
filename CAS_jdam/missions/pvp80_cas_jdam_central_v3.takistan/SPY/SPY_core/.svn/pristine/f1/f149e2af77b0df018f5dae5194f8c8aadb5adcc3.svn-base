@@ -1,0 +1,151 @@
+/***************************************************************************
+Get Weapon
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+
+
+/***************************************************************************
+INIT
+***************************************************************************/
+private ["_unit", "_victimUID", "_unitUID", "_ammoClass", "_send", "_wpnVar", "_weapon", "_loadout", "_grenades", "_grenadesNL", "_allowedMags"];
+
+_unit = (_this select 0);
+_victimUID = (_this select 1);
+_unitUID = (_this select 2);
+_ammoClass = (_this select 3);
+_send = (_this select 4);
+/***************************************************************************
+END
+***************************************************************************/
+
+
+
+/***************************************************************************
+RETURN WEAPON
+***************************************************************************/
+if ((_send == 0)) exitWith {
+
+	// ERROR
+	if ((isNil "_unitUID") || (_ammoClass == "")) exitWith {
+	
+		_null = [2, "(GET WEAPON 0) MISSING UID OR AMMO CLASS!", "CLIENT", false] spawn SPY_bMessage;
+	
+	};
+
+	_wpnVar = (format ["SPY_WPN_%1", (random 10000)]);
+
+	_null = [[_unit, _victimUID, _unitUID, _ammoClass, 1, _wpnVar], "_null = _this spawn SPY_getWeapon;", _unitUID] spawn CAS_mpCB;
+
+	waitUntil {!isNil {_unit getVariable _wpnVar}};
+
+	_weapon = (_unit getVariable _wpnVar);
+
+	_unit setVariable [_wpnVar, nil, false];
+	
+	// DEBUG
+	_null = [1, (format ["(Get Weapon 0) %1, %2, %3, %4", _victimUID, _unitUID, _ammoClass, _wpnVar]), "LOCAL", false] spawn SPY_bMessage;
+	
+	_weapon
+
+};
+/***************************************************************************
+END
+***************************************************************************/
+
+
+		
+/***************************************************************************
+SEND WEAPON
+***************************************************************************/
+if ((_send == 1)) exitWith {
+
+	_loadout = (_unit getVariable "SPY_PLAYER_LOADOUT");
+
+	if (((vehicle _unit) isKindOf "Man")) then {
+
+		{
+		
+			private ["_i"];
+		
+			_i = _x;
+		
+			_allowedMags = getArray (configFile >> "cfgWeapons" >> _x >> "magazines");
+
+			{
+
+				if ((_ammoClass == (getText (configFile >> "CfgMagazines" >> _x >> "ammo")))) exitWith {
+
+					_weapon = _i;
+
+				};
+
+			} forEach _allowedMags;
+					
+		} forEach ([(_loadout select 0), (_loadout select 3)] + (_loadout select 2));
+
+		if ((!isNil "_weapon")) exitWith {};
+
+		// EXPLOSIVES & GRENADES 
+		if ((_ammoClass in ["explosives", "ATMine_Range_Ammo", "APERSMine_Range_Ammo", "APERSBoundingMine_Range_Ammo", "SLAMDirectionalMine_Wire_Ammo", "APERSTripMine_Wire_Ammo", "ClaymoreDirectionalMine_Remote_Ammo", "DemoCharge_Remote_Ammo", "SatchelCharge_Remote_Ammo"])) then {
+
+			_weapon = _ammoClass;
+
+		} else {
+
+			_grenades = ["GrenadeHand", "mini_Grenade"];
+			_grenadesNL = ["SmokeShell", "SmokeShellGreen", "SmokeShellRed", "SmokeShellOrange", "SmokeShellYellow", "SmokeShellPurple", "SmokeShellBlue", "Chemlight_green", "Chemlight_red", "Chemlight_yellow", "Chemlight_blue", "IRStrobe"];
+
+			if ((_ammoClass in _grenades)) then {
+
+				_weapon = "HandGrenadeMuzzle";
+
+			} else {
+
+				if ((_ammoClass in _grenadesNL)) then {
+
+					_weapon = "NLGrenadeMuzzle";
+
+				};
+
+			};				
+
+		};
+				
+		if ((!isNil "_weapon")) exitWith {};
+
+		// GRENADE LAUNCHER
+		if ((isNil "_weapon")) then {
+		
+			_weapon = (_loadout select 1);
+			
+		};
+		
+	} else {
+
+		_weapon = (typeOf (vehicle _unit));
+		
+	};
+	
+	// DEBUG
+	_null = [1, (format ["(Get Weapon 1) %1, %2", _ammoClass, _weapon]), "LOCAL", false] spawn SPY_bMessage;
+	
+	if ((!isNil {_this select 5})) exitWith {
+
+		_null = [[_unit, (_this select 5), _weapon], "(_this select 0) setVariable [(_this select 1), (_this select 2), false]", _victimUID] spawn CAS_mpCB;
+
+	};
+	
+	if ((isNil "_weapon")) then {
+	
+		_weapon = "Unknown";
+		
+	};
+	
+	_weapon
+	
+};
+/***************************************************************************
+END
+***************************************************************************/

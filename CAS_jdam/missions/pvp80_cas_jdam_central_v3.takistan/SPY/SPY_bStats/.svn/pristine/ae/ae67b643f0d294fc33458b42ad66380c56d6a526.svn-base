@@ -1,0 +1,90 @@
+/***************************************************************************
+Update Player List
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+
+
+/***************************************************************************
+Build array of players
+****************************************************************************/
+SPY_bStats_playersBLUFOR = [];
+SPY_bStats_playersOPFOR = [];
+
+while {sleep 0.1; true} do {
+
+	// Build array of players
+	{
+
+		{
+		
+			private ["_uid", "_side", "_varName"];
+		
+			_uid = (_x getVariable "SPY_id_player" select 0);
+			_side = (_x getVariable "SPY_id_player" select 2);
+			_varName = (format ["SPY_bStats_%1", _uid]);
+		
+			// BLUFOR
+			if ((_uid != "") && (_side == west) && !(_x in SPY_bStats_playersBLUFOR)) then {
+			
+				SPY_bStats_playersBLUFOR set [(count SPY_bStats_playersBLUFOR), _x];
+				
+			};
+			
+			// OPFOR
+			if ((_uid != "") && (_side == east) && !(_x in SPY_bStats_playersOPFOR)) then {
+			
+				SPY_bStats_playersOPFOR set [(count SPY_bStats_playersOPFOR), _x];
+			
+			};
+			
+		} forEach units _x;
+	  
+	} forEach allGroups;
+/***************************************************************************
+End
+****************************************************************************/
+
+
+
+/***************************************************************************
+Remove empty BLUFOR players
+****************************************************************************/
+	{
+	
+		if ((_x in SPY_bStats_playersBLUFOR) && ((getPlayerUID _x) in [""])) then {
+		
+			SPY_bStats_playersBLUFOR set [_forEachIndex, -1];
+			SPY_bStats_playersBLUFOR = (SPY_bStats_playersBLUFOR - [-1]);
+		
+		};
+	
+	} forEach SPY_bStats_playersBLUFOR;
+/***************************************************************************
+End
+****************************************************************************/
+
+
+
+/***************************************************************************
+Remove empty OPFOR players
+****************************************************************************/	
+	{
+	
+		if ((_x in SPY_bStats_playersOPFOR) && ((getPlayerUID _x) in [""])) then {
+		
+			SPY_bStats_playersOPFOR set [_forEachIndex, -1];
+			SPY_bStats_playersOPFOR = (SPY_bStats_playersOPFOR - [-1]);
+		
+		};
+	
+	} forEach SPY_bStats_playersOPFOR;
+	
+	SPY_bStats_playersBLUFOR = [SPY_bStats_playersBLUFOR, SPY_container, 0, 2] call SPY_orderArrayP;
+	SPY_bStats_playersOPFOR = [SPY_bStats_playersOPFOR, SPY_container, 0, 2] call SPY_orderArrayP;
+	
+};
+/***************************************************************************
+End
+****************************************************************************/

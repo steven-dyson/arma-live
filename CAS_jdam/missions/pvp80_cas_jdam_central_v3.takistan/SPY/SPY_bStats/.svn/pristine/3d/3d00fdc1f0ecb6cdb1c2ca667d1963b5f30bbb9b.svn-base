@@ -1,0 +1,16 @@
+/***************************************************************************
+SPY Initialization and Compile (Method)
+MISSION SIDE SETTINGS
+Created by Spyder
+spyder@armalive.com
+
+SETUP:
+["SETTING", SETTING VALUE, BROADCAST BOOLEAN]
+
+USAGE: 
+ONLY MODIFY THE SECOND VALUE UNLESS YOU ARE CREATING YOUR CUSTOM SETTINGS FOR YOUR SCRIPTS
+***************************************************************************/
+
+["SPY_bStats_teamOneName", "BLUFOR", true], // SET TEAM ONE NAME
+["SPY_bStats_teamTwoName", "OPFOR", true], // SET TEAM TWO NAME
+["SPY_bStats_sbOnDeath", true, true] // SHOW SCOREBOARD ON PLAYER DEATH

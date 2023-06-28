@@ -1,0 +1,238 @@
+/***************************************************************************
+Review Kill
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+
+
+/***************************************************************************
+Define
+****************************************************************************/
+private
+[
+	"_v", "_k", "_vUID", "_vName", "_vSide", "_vInfo", "_dUnits", "_inVehicle", "_vIsDriver", 
+	"_vehicle", "_assists", "_dUnitInfo", "_d", "_dUID", "_dName", "_dSide", "_dIsAI", "_roadKill", 
+	"_vehicleCrew", "_kUID", "_kName", "_kSide", "_kIsAI", "_ammo", "_weapon"
+];
+
+_v = _this select 0;
+_k = _this select 1;
+
+// HandleDamage EH fired
+if (((_v getVariable "SPY_bStats_deathState") isEqualTo 1)) then 
+{
+	// HandleDamage EH finished
+	waitUntil {(_v getVariable "SPY_bStats_deathState") isEqualTo 2};
+};
+
+// Define victim info
+_vUID = (_v getVariable "SPY_id_uid");
+_vName = (SPY_container getVariable ("SPY_id_" + _vUID) select 0);
+_vSide = (SPY_container getVariable ("SPY_id_" + _vUID) select 1);
+
+_vInfo = (_v getVariable "SPY_player_info");
+_dUnits = (_vInfo select 0);
+_inVehicle = (_vInfo select 2);
+_vIsDriver = (_vInfo select 3);
+_vehicle = (_vInfo select 4);
+_ammo = (_vInfo select 6);
+
+_assists = [];
+_vehicleCrew = [];
+
+// Check for roadkill & explosive kill
+_roadKill = ([_v] call SPY_detectRK);
+// _expKill = ([_v] call SPY_detectEK);
+
+// Retrieve vehicle crew info if required
+if (!(isNull _vehicle)) then
+{
+	_vehicleCrew = (_vehicle getVariable "SPY_bStats_crew");
+};
+
+player sideChat format ["H: %1, %2", _vehicle, _vehicleCrew];
+
+// Explosive Kill
+//if ((_expKill select 0)) then
+//{
+	//_k = (_expKill select 1);
+	//_weapon = (_expKill select 2);
+//};
+
+// Use roadkill to retrieve killer
+if ((_roadKill select 0)) then
+{
+	_k = (_roadKill select 1);
+	_weapon = (_roadKill select 2);
+}
+else
+{
+	// Killer was not a playable unit, run detection
+	if (!(_k isKindOf "Man") || ((_inVehicle) && (_k in _vehicleCrew))) then
+	{
+		_k = ([_inVehicle, _k, _vehicle] call SPY_getUnit);
+	};
+};
+
+// Define main damaging unit
+_dUnitInfo = (_dUnits select ((count _dUnits) - 1)); 
+_d = (_dUnitInfo select 0);
+_dUID = (_dUnitInfo select 3);
+_dName = (_dUnitInfo select 4);
+_dSide = (_dUnitInfo select 5);
+_dIsAI = (_dUnitInfo select 6);
+
+// Use damaging unit as killer
+if (!(_k isKindOf "Man") || (_k isEqualTo _v)) then
+{
+	_k = _d;
+};
+
+// Retrieve killer info
+_kUID = [[_k getVariable "SPY_id_uid"], 0, "", [""]] call BIS_fnc_param;
+_kName = [[SPY_container getVariable ("SPY_id_" + _kUID) select 0], 0, "", [""]] call BIS_fnc_param;
+_kSide = [[SPY_container getVariable ("SPY_id_" + _kUID) select 1], 0, _vSide, [WEST]] call BIS_fnc_param;
+_kIsAI = (SPY_container getVariable ("SPY_id_" + _kUID) select 3);
+_kVehicle = (_k getVariable "SPY_bStats_vehicle");
+
+// Debug
+_null = [[1, (format ["PK %1, %2", _k, _v]), 0, ["SPY Systems", "Debug Log"], false], "SPY_bMessage", true, false, false] call BIS_fnc_MP;
+/***************************************************************************
+Define
+****************************************************************************/
+
+
+
+/***************************************************************************
+Reset variables
+****************************************************************************/
+// Custom radio channel. %Note% This currently can't be used as players can type on it.
+// SPY_bStats_radioIndex radioChannelAdd [player];
+
+[] spawn 
+{
+	sleep 2;
+
+	if ((!(SPY_score_open)) && (SPY_bStats_sbEnabled) &&  (SPY_bStats_sbOnDeath)) then 
+	{
+		_null = [] spawn SPY_checkScore;
+
+		waitUntil { sleep 0.1; (alive player) };
+
+		closeDialog 46;
+	};
+};
+/***************************************************************************
+Reset variables
+****************************************************************************/
+	
+	
+	
+/***************************************************************************
+Death type checks (w/o weapon checks)
+****************************************************************************/
+// Road kill (team kill)
+if ((_roadKill select 0) && (_kSide isEqualTo _vSide)) exitWith 
+{
+	[[_vUID, _vName, _vSide, (typeOf _v), (getPos _v), _kUID, _kName, _kSide, (typeOf _k), (getPos _k), _weapon, 0], "_this spawn SPY_teamKill;", "SERVER"] spawn SPY_iQueueAdd;
+	
+	// Start punish system
+	_null = [_k, _kName, _kUID, _vName] spawn SPY_punish; 
+};
+
+// Road kill (enemy)
+if ((_roadKill select 0)) exitWith 
+{
+	[[_vUID, _vName, _vSide, (getPos _v), _kUID, _kName, (getPos _k), _weapon], "_this spawn SPY_roadKill;", SPY_bStats_delayMsgTime, "SERVER"] spawn SPY_dQueueAdd;
+};
+
+// Aircraft crash
+if ((_vehicle isKindOf "Air") && (_inVehicle) && (_vIsDriver) && ((!alive _vehicle) || ((damage _vehicle) >= 0.4)) && ((_vUID == _kUID) || (isNull _k) || (_k in _vehicleCrew)) && ((_dUID isEqualTo _vUID) || (isNull _d) || (_d in _vehicleCrew)) && (!(_vehicle isKindOf "ParachuteBase"))) exitWith 
+{
+	[[_vUID, _vName, (getPos _v), _vehicle, _vSide], "SPY_acCrash", false, false] call BIS_fnc_MP;
+	
+	// Start punish system
+	_null = ["Auto", _vUID, "Server"] spawn SPY_punish; 
+};
+
+// Drowning & suicide check
+if ((_kUID isEqualTo _vUID) && (_dUID isEqualTo _vUID) && ((alive _vehicle) || (isNull _vehicle))) exitWith 
+{
+	if (((getOxygenRemaining _v) <= 0)) then 
+	{
+		// Was a drowning
+		[[_vUID, _vName, (getPos _v), _vSide, (typeOf _v)], "_this spawn SPY_drown;", "SERVER"] spawn CAS_mpCB; 
+	}
+	else 
+	{
+		[[_vUID, _vName, (getPos _v), _vSide, (typeOf _v)], "_this spawn SPY_suicide;", "SERVER"] spawn CAS_mpCB; // Was a suicide
+	};
+};
+
+// Player died with no killer or damaging unit
+if (!(_k isKindOf "Man") && (!(_d isKindOf "Man") || (_d isEqualTo _v))) exitWith 
+{
+	[[_vUID, _vName, (getPos _v), _vSide], "_this call SPY_death;", SPY_bStats_delayMsgTime, "SERVER"] spawn SPY_dQueueAdd;
+};
+/***************************************************************************
+Death type checks (w/o weapon checks)
+****************************************************************************/
+
+
+
+/***************************************************************************
+Death type checks (with weapon checks)
+****************************************************************************/
+// Retrieve weapon used
+_weapon = ([_k, _vUID, _kUID, _ammo, 0] call SPY_getWeapon);
+
+if ((isNil "_weapon")) then
+{
+	_weapon = "Unknown";
+};
+
+// Team kill
+if ((_kSide isEqualTo _vSide) && !(_k isEqualTo _v) && !(_k in _vehicleCrew)) exitWith 
+{
+	// Send data to server
+	[[_vUID, _vName, _vSide, (typeOf _v), (getPos _v), _kUID, _kName, _kSide, (typeOf _k), (getPos _k), _weapon, (_k distance _v)], "SPY_teamKill", false, false] call BIS_fnc_MP;
+	
+	// Start punish system
+	if (!(_kIsAI)) then
+	{
+		_null = [_k, _kName, _kUID, _vName] spawn SPY_punish;
+	};
+};
+
+// Enemy kill
+if (!(isNull _k) && !(_kSide isEqualTo _vSide)) exitWith 
+{
+	// Define assist (damaging units)
+	{
+		if (!((_x select 3) isEqualTo _vUID) && !((_x select 3) isEqualTo _kUID) && (!(isNull (_x select 0))) && !((_x select 5) isEqualTo _vSide)) then 
+		{
+			_assists = (_assists + [_x]);
+		};
+	} forEach _dUnits;
+	
+	// Define assists (crew)
+	{
+		if (!((assignedVehicleRole _x select 0) isEqualTo "CARGO") && !(_x isEqualTo _k) && !(_x isEqualTo _d)) then 
+		{
+			_xUID = (_x getVariable "SPY_id_uid");
+			_xName = (SPY_container getVariable ("SPY_id_" + _xUID) select 0);
+			_xSide = (SPY_container getVariable ("SPY_id_" + _xUID) select 1);
+			_assists = (_assists + [[_x, -1, _xUID, _xName, _xSide]]);
+		};
+	} forEach (_kVehicle getVariable "SPY_bStats_crew");
+	
+	// Send kill, death & kill assist data	
+	[[_vUID, _vName, _vSide, (typeOf _v), (getPos _v), _kUID, _kName, _kSide, (typeOf _k), getPos _k, _weapon, (_k distance _v), _assists], "_this spawn SPY_kill;", SPY_bStats_delayMsgTime, "SERVER"] spawn SPY_dQueueAdd;
+};
+
+// Player death (default)
+[[_vUID, _vName, (getPos _v), _vSide], "_this call SPY_death;", SPY_bStats_delayMsgTime, "SERVER"] spawn SPY_dQueueAdd;
+/***************************************************************************
+Death type checks (with weapon checks)
+****************************************************************************/

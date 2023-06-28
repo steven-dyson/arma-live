@@ -1,0 +1,83 @@
+/***************************************************************************
+Switch Weapon Event Handler
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+
+
+/***************************************************************************
+Init
+****************************************************************************/
+private ["_pUID", "_wpn", "_wpnVehicle", "_update", "_startTime", "_wpnInfo", "_wpnShots", "_wpnHits", "_endTime", "_wpnTime", "_uplink", "_playerInfo"];
+
+_wpn = (_this select 0);
+
+_pUID = (player getVariable "SPY_id_player" select 0);
+	
+// Is vehicle weapon check
+_wpnVehicle = (player getVariable "SPY_PLAYER_INFO" select 2);
+/***************************************************************************
+End
+****************************************************************************/
+
+
+
+/***************************************************************************
+Retrieve Weapon Info
+****************************************************************************/	
+_wpnInfo = (player getVariable "SPY_PLAYER_INFO" select 5);
+_wpnShots = (_wpnInfo select 0);
+_wpnHits = (_wpnInfo select 1);
+/***************************************************************************
+End
+****************************************************************************/
+
+
+
+/***************************************************************************
+Send Weapon Time
+****************************************************************************/
+if ((isNil "SPY_bStats_wpnStartTime")) then {
+
+	SPY_bStats_wpnStartTime = time
+	
+};
+
+_wpnTime = (round (time - SPY_bStats_wpnStartTime));
+
+SPY_bStats_wpnStartTime = time;
+
+// FORMAT/ SEND A2U INFO
+if ((_wpnTime >= 2)) then {
+
+	// WEAPON IS VEHICLE
+	if ((_wpnVehicle)) then {	
+		
+		_uplink = (format ["bstats_vehinfo (%1, %2, %3, %4, %5, %6, %7, %8, %9, %10)", str _pUID, (str _wpn), time, _wpnTime, _wpnShots, (_wpnHits select 0), (_wpnHits select 1), (_wpnHits select 2), (_wpnHits select 3), (_wpnHits select 4)]);
+		// _null = [[_uplink], "_this call uplink_exec", "SERVER"] spawn CAS_mpCB;
+	
+	// WEAPON IS HANDHELD
+	} else {
+			
+		_uplink = (format ["bstats_wpninfo (%1, %2, %3, %4, %5, %6, %7, %8, %9, %10)", str _pUID, (str _wpn), time, _wpnTime, _wpnShots, (_wpnHits select 0), (_wpnHits select 1), (_wpnHits select 2), (_wpnHits select 3), (_wpnHits select 4)]);
+		// _null = [[_uplink], "_this call uplink_exec", "SERVER"] spawn CAS_mpCB;
+		
+	};
+
+};
+/***************************************************************************
+End
+****************************************************************************/
+
+
+
+/***************************************************************************
+Reset Weapon Info
+****************************************************************************/
+// RESET WEAPON INFO
+_playerInfo = (player getVariable "SPY_PLAYER_INFO");
+_playerInfo set [5, [0, [0, 0, 0, 0, 0]]];
+/***************************************************************************
+End
+****************************************************************************/

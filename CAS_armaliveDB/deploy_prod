@@ -1,0 +1,2 @@
+psql -h master1.armalive.com postgres < globals.sql
+psql -h master1.armalive.com bstats_master < bstats_master.sql

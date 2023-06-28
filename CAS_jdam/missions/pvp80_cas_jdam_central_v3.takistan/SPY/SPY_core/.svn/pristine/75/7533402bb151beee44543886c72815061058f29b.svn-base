@@ -1,0 +1,40 @@
+/***************************************************************************
+SPY Initialization and Compile (Method)
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+
+
+/***************************************************************************
+EXEC
+****************************************************************************/
+private ["_compile", "_process"];
+
+if ((!isServer)) then {
+
+	_compile = [] execVM "SPY\SPY_core\SPY_connect\SPY_compile.sqf";
+	waitUntil {scriptDone _compile};
+	
+};
+
+_process = [] execVM "SPY\SPY_core\SPY_connect\SPY_processUID.sqf";
+waitUntil {sleep 0.1; scriptDone _process};
+
+[] spawn { 
+
+	waitUntil {sleep 0.1; !isNil "SPY_cehAdd"};
+
+	// IDLE CEH
+	if ((SPY_connect_idleKick)) then {
+	
+		_null = ["SPY_ceh_isIdle", "SPY_connect", [], "_null = ['SERVER', 'IDLE'] spawn SPY_clientKick;", "LOCAL", 0] spawn SPY_cehAdd;
+
+	};
+		
+};
+
+_null = [1, "Core: Connect Initialized *Client*", "LOCAL", false] spawn SPY_bMessage;
+/***************************************************************************
+END
+****************************************************************************/

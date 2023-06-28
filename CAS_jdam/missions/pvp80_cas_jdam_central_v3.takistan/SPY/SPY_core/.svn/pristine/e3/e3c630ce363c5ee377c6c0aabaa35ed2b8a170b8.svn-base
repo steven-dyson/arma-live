@@ -1,0 +1,39 @@
+/***************************************************************************
+SPY Initialization and Compile (Method)
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+
+
+/***************************************************************************
+EXEC
+****************************************************************************/
+if ((!isServer)) then { 
+    
+    private ["_compile"];
+
+	_compile = [] execVM "SPY\SPY_core\SPY_msg\SPY_compile.sqf";
+	waitUntil {scriptDone _compile};
+	
+};
+
+/*[] spawn {
+
+	while {sleep 1; true} do {
+
+		SPY_msg_debugIndex radioChannelAdd [player];
+		SPY_msg_errorIndex radioChannelAdd [player];
+		SPY_msg_infoIndex radioChannelAdd [player];
+		SPY_msg_warnIndex radioChannelAdd [player];
+		
+		waitUntil {sleep 1; !(alive player)};
+	
+	};
+
+};*/
+
+_null = [1, "Core: Msg Initialized *Client*", "LOCAL", false] spawn SPY_bMessage;
+/***************************************************************************
+END
+****************************************************************************/

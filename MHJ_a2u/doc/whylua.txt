@@ -1,0 +1,26 @@
+What became a2uplink (working name logcomms, still visible in the rpt output) predates bstats by a little bit. The prior use case was incidentally also related to bringing information from game to website (more related to weapons/equipment). However, that was resolved in a similar fashion based on my method, before a2u was ready.
+
+AFAIR of my early design goals;
+- Anyone can customize its behavior to what they need. (Lua means write it and tell uplink it exists. Jaylib requires native compilation and who-knows-what; I haven't investigated.)
+- Not losing data. (Jaylib often relies on a relatively flaky pipe mechanism.)
+- Working with linux servers.
+- Ability to work on a remote computer from the server. (Crucial for rented servers.)
+- Security: Minimal extra attack effects for hackers.
+
+Basically, if jaylib couldn't do it, uplink could. Coincidentally this also means async operation, blessing or curse depending on what you're doing. (Try running acre on uplink :P )
+
+
+I started with a c++ implementation that just integrated lua for the added functionality bit. I also thought of it as an exercise for implementing lua in a c++ program. It was a typical prototype: I learned more about what the program would be doing, what worked, what did not. Like any good prototype, the resulting code was best suited for bit-bucket filler.
+
+A few things prompted me to make the second attempt in pure lua.
+- Tail-following worked easily in lua as well. 
+- Reading a config file, lua style, is a one-liner. Using its settings is a variable reference, as opposed to the multiple calls to the lua environment I'd have to do in C++. (Would probably use a convenience function, but still...)
+- Setting up the lua environment was even easier without having to act through C++.
+- Some things were easier to write through lua than in C++. (e.g. ftp input, though a decent ftp lib would probably change that.)
+
+This second attempt lives on today, and works well. Performance differences to a C++/Lua implementation, had I made one, are at best negligible, by far most of the time is spent waiting for the rpt to get added anyway.
+
+Somewhere around this point bstats came about, and I suggested exporting the stats from within the game - I had a mechanism for doing it, even though it wasn't functional at that point. Bstats is the application that drove me to continue development. At some point the a2uplink code was stable, and most of the work since have been with the specifics of the bstats module and the surrounding infrastructure. (in-game code -> a2u module -> database <- website, and the interfaces between.)
+
+Note that uplink currently works with the in-game script emitting lua code to be run - usually single calls to pre-defined functions defined by a module. This makes for very easy implementation of both uplink ands its modules, but does have its drawbacks - when servers aren't locked down tight, signatures in particular, anyone and their dog and their lice again can submit code to be run - hence the sandbox. (State is reset when a new uplink-using mission is started.) Yet with the sandbox in place, the result isn't much worse than they can do anyway. 
+

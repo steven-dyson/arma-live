@@ -1,0 +1,40 @@
+//Language,English,German
+
+//-----------------------------------------------------------------------------
+// Squad Management Dialog strings:
+//-----------------------------------------------------------------------------
+STR_ICE_sqdMgt_01,Squad Management,Squad Management
+STR_ICE_sqdMgt_26,Pvt,Pvt
+STR_ICE_sqdMgt_27,Cpl,Cpl
+STR_ICE_sqdMgt_28,Sgt,Sgt
+STR_ICE_sqdMgt_29,Ltn,Ltn
+STR_ICE_sqdMgt_30,Cpt,Cpt
+STR_ICE_sqdMgt_31,Mjr,Mjr
+STR_ICE_sqdMgt_32,Col,Col
+STR_ICE_sqdMgt_33,A.I.,K.I.
+STR_ICE_sqdMgt_33b,AI,KI
+STR_ICE_sqdMgt_34,Dead,Tot
+// "SL" = squad leader
+STR_ICE_sqdMgt_37,SL,GF
+STR_ICE_sqdMgt_40,has left your group,hat deine Gruppe verlassen
+STR_ICE_sqdMgt_41,has joined your group,ist deiner Gruppe beigetreten
+STR_ICE_sqdMgt_42,Your new Squad Leader is,Dein neuer GF ist
+STR_ICE_sqdMgt_43,has resigned,hat aufgegeben
+STR_ICE_sqdMgt_44,Player,Spieler
+STR_ICE_sqdMgt_45,was kicked from the group,wurde aus der Gruppe entfernt
+STR_ICE_sqdMgt_46,soldier was removed from group,Soldat wurde aus der Gruppe entfernt
+STR_ICE_sqdMgt_48,You are the new Squad Leader,Du bist jetzt GF
+STR_ICE_sqdMgt_49,has been replaced,wurde abgesetzt
+STR_ICE_sqdMgt_50,The Squad Leader is no longer an AI player,Der GF ist keine KI mehr
+STR_ICE_sqdMgt_55,Remove,Entfernen
+STR_ICE_sqdMgt_56,Kick,Kicken
+STR_ICE_sqdMgt_57,Recruit,Holen
+STR_ICE_sqdMgt_58,Invite,Einladen
+STR_ICE_sqdMgt_61,was invited into group,wurde eingeladen
+STR_ICE_sqdMgt_62,soldier was recruited into group,Soldat wurde aufgenommen
+STR_ICE_sqdMgt_63,you have been invited to join group,du wurdest eingeladen 
+STR_ICE_sqdMgt_66,Unassigned,Unassigned
+STR_ICE_sqdMgt_67,You are already the Squad Leader,You are already the Squad Leader
+STR_ICE_sqdMgt_68,%1 was sent request to become the new squad leader.,%1 was sent request to become the new squad leader.
+STR_ICE_sqdMgt_69,Do you accept the request to become the new squad leader of your group?,Do you accept the request to become the new squad leader of your group?
+//-----------------------------------------------------------------------------

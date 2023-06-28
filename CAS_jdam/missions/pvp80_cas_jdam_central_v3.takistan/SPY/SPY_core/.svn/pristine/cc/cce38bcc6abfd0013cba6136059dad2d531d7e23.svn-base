@@ -1,0 +1,21 @@
+/***************************************************************************
+Get variable value
+Created by Spyder
+spyder@armalive.com
+****************************************************************************/
+
+private ["_unit", "_variable", "_index", "_result"];
+
+_unit = (_this select 0);
+_variable = (_this select 1);
+_index = (_this select 2);
+
+while {true} do {
+
+	if (!((_unit getVariable _variable select _index) in [""])) exitWith {};
+
+};
+
+_result = (_unit getVariable _variable select _index);
+
+_result

@@ -1,0 +1,68 @@
+/***************************************************************************
+Roadkill
+Created by Spyder
+spyder@armalive.com
+***************************************************************************/
+
+private ["_vUID", "_vName", "_vSide", "_vClass", "_vPos", "_kUID", "_kName", "_kSide", "_kClass", "_kPos", "_vehicle", "_kScoreVar", "_kScore", "_vScoreVar", "_vScore", "_score", "_addScore", "_addKill", "_addDeath"];
+
+_vUID = _this select 0;
+_vName = _this select 1;
+_vSide = _this select 2;
+// _vClass = _this select 3;
+_vPos = _this select 3;
+_kUID = _this select 4;
+_kName = _this select 5;
+// _kSide = _this select 7;
+// _kClass = _this select 8;
+_kPos = _this select 6;
+_vehicle = _this select 7;
+
+// Player Message
+if ((SPY_bStats_msgsEnabled) && (SPY_bStats_msgsEnemy)) then {
+
+	_null = [[5, (format ["%1 ran over %2 (%3)", _kName, _vName, ([_vehicle] call SPY_displayName)]), 0, ["SPY bStats", "Event Log"], false], "SPY_bMessage", true, false, false] call BIS_fnc_MP;
+
+};
+
+// All current values in the arrays
+_kScoreVar = (format ["SPY_bStats_%1", _kUID]);
+_kScore = (SPY_container getVariable _kScoreVar);
+_vScoreVar = (format ["SPY_bStats_%1", _vUID]);
+_vScore = (SPY_container getVariable _vScoreVar);
+
+// Add score
+_score = (["kill", 1, 0] call SPY_scoreValue);
+_addScore = ((_kScore select 0) + _score);
+
+// Current value increased by 1
+_addKill = ((_kScore select 3) + 1);
+_addDeath = ((_vScore select 4) + 1);
+
+// Set increased value in array
+_kScore set [0, _addScore];
+_kScore set [3, _addKill];
+_vScore set [4, _addDeath];
+
+switch (_vSide) do {
+
+	case WEST: {[[0, 1, 1, 0]] call SPY_addSideScore;};
+	case EAST: {[[1, 0, 0, 1]] call SPY_addSideScore;};
+	
+};
+
+// Broadcast arrays
+SPY_container setVariable [_kScoreVar, _kScore, true];
+SPY_container setVariable [_vScoreVar, _vScore, true];
+
+// Send to armalive
+"armalive" callExtension format 
+[
+	"roadkill1;%1;%2;%3;%4;%5;%6",
+	time,
+	"",
+	_kUID,
+	_vehicle,
+	_score,
+	_vPos
+];

@@ -1,0 +1,27 @@
+/***************************************************************************
+SPY Initialization and Compile (Method)
+Created by Spyder
+spyder@armalive.com
+
+Setup:
+["setting", setting value, broadcast boolean]
+
+Usage: 
+Server administrators can modify settings which will affect all missions
+running this script suite. Deleting settings or modifying the boardcast
+boolean is not recommended and will likly cause the script suite to 
+malfunction.
+***************************************************************************/
+
+// Auto
+["SPY_roe_autoPunish", 					false, 							true], 	// Punish all players by default
+["SPY_roe_defaultPunish", 				false, 							true], 	// Default punish for timeout and non-player entity
+
+// Timeouts
+["SPY_roe_voteTimeout", 				60, 							true],	// Time a player has to punish a violation
+["SPY_roe_punishResetTimeout", 			300,							true],	// Time after event when punish points will be forgiven
+
+// Limits
+["SPY_roe_punishLimit",					6,								true],	// Amount of punish points allowed before player is locked
+["SPY_roe_locksLimit",					3,								true],	// Amount of times a player can be locked before additional punishments are added
+["SPY_roe_banOnExcessiveLocks", 		true,							true]	// Attempt to ban a player on excessive locks (admin must be logged in)
